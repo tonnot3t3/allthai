@@ -302,6 +302,35 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .my-subs .st-approved { background: var(--rice-soft); color: var(--rice-deep); }
 .my-subs .st-rejected { background: #F6DED8; color: var(--bad); }
 
+/* V2 district map */
+.map-svg .nbr path { fill: #EFEADF; stroke: #D8D0C1; stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.map-svg .dist path { fill: #fff; stroke: #CFDBD1; stroke-width: .6px; vector-effect: non-scaling-stroke; cursor: pointer; }
+.map-svg.deep .dist path { stroke: #AFC2B3; stroke-width: 1px; }
+@media (hover: hover) { .map-svg .dist path:hover { fill: #EEF5EE; } }
+.map-svg .dist path.sel { fill: var(--amber); }
+.map-svg .provline path { fill: none; stroke: #6F8C77; stroke-width: 1.3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.map-svg.deep .provline path { stroke-width: 2px; }
+.map-svg .selline path { fill: none; stroke: var(--amber-ink); stroke-width: 2.4px; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.map-svg .dlabels text, .map-svg .plabels text { font-family: var(--font-body); text-anchor: middle; dominant-baseline: middle; paint-order: stroke; stroke: rgba(255,255,255,.92); stroke-linejoin: round; pointer-events: none; }
+.map-svg .plabels text { font-weight: 600; fill: #2C382F; }
+.map-svg.deep .plabels text { fill: #5F7F67; fill-opacity: .55; stroke: rgba(255,255,255,.5); letter-spacing: .02em; }
+.map-svg .dlabels text { fill: #4A584D; }
+.choice-r { display: flex; flex-direction: column; align-items: flex-end; text-align: right; line-height: 1.25; }
+.choice-r small { color: var(--muted); font-size: 14px; }
+.rv-prov { font-size: 17px; color: var(--muted); margin-top: -2px; }
+.curve-note { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.mini-map { height: 210px; }
+.mini-map .dist path { fill: #fff; stroke: #D6E0D8; stroke-width: .5px; vector-effect: non-scaling-stroke; }
+.mini-map .dist path.is-answer { fill: var(--rice); stroke: var(--rice-deep); stroke-width: 1.2px; }
+.mini-map .dist path.is-guess { fill: var(--amber); stroke: var(--amber-ink); stroke-width: 1.2px; }
+.mini-map .provline path { fill: none; stroke: #8FA595; stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
+.mini-map .nbr path { stroke: none; }
+.mini-map .gap { stroke: var(--ink); stroke-width: 1.6px; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
+.mini-map .pt-answer { fill: #fff; stroke: var(--rice-deep); stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.mini-map .pt-guess { fill: #fff; stroke: var(--amber-ink); stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.legend i.dash { width: 16px; height: 0; border-top: 2px dashed var(--ink); border-radius: 0; vertical-align: 3px; }
+.cat-list .ln b { white-space: nowrap; }
+
 @keyframes pop { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .rv-answer h1, .big-score { animation: pop .35s ease-out both; }
 @media (prefers-reduced-motion: reduce) {

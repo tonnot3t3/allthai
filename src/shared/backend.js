@@ -28,7 +28,7 @@ const AllThaiBackend = (() => {
   const byId = (a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
   const clone = o => JSON.parse(JSON.stringify(o));
 
-  const CATEGORIES = ['อาหาร', 'กีฬา', 'เทศกาลและวัฒนธรรม', 'สถานที่ท่องเที่ยว'];
+  const CATEGORIES = ['สถานที่ท่องเที่ยว'];   // V2: travel only, answers are districts
   // Bundled starting data. The game on Supabase only needs the province file (the draft questions stay out of it).
   let provP = null, qP = null;
   function seedProvinces() {
@@ -151,6 +151,7 @@ const AllThaiBackend = (() => {
     const row = {
       id: uuid(), status: 'pending',
       province_id: meta.province_id, category: meta.category || null,
+      district_id: /^TH\d{4}$/.test(meta.district_id || '') ? meta.district_id : null,
       title: String(meta.title || '').slice(0, 120), description: String(meta.description || '').slice(0, 600) || null,
       taken_at: String(meta.taken_at || '').slice(0, 60) || null,
       credit_name: String(meta.credit_name || '').slice(0, 60) || null,

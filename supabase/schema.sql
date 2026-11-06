@@ -83,6 +83,7 @@ create table if not exists public.submissions (
   image_path      text not null,
   province_id     text not null check (province_id ~ '^[a-z-]+$'),
   category        text check (category is null or category in ('อาหาร', 'กีฬา', 'เทศกาลและวัฒนธรรม', 'สถานที่ท่องเที่ยว')),
+  district_id     text check (district_id is null or district_id ~ '^TH[0-9]{4}$'),   -- V2: อำเภอ/เขต (รหัส pcode)
   title           text not null check (char_length(title) between 1 and 120),
   description     text check (char_length(description) <= 600),
   taken_at        text check (char_length(taken_at) <= 60),
@@ -100,6 +101,8 @@ create table if not exists public.submissions (
   constraint submissions_image_path check (image_path = 'pending/' || id::text || '.jpg')
 );
 create index if not exists submissions_status_created on public.submissions (status, created_at desc);
+-- V2 สำหรับฐานที่สร้างก่อนมีคอลัมน์นี้
+alter table public.submissions add column if not exists district_id text check (district_id is null or district_id ~ '^TH[0-9]{4}$');
 
 -- กันสแปม: รับภาพใหม่ได้ไม่เกิน 300 ภาพต่อ 24 ชั่วโมง (รวมทุกคน) ปรับตัวเลขได้ใน policy ด้านล่าง
 -- ตัวนับอยู่ใน schema "private" ซึ่งไม่เปิดผ่าน API ใช้ได้เฉพาะใน policy

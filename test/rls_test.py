@@ -66,7 +66,7 @@ def fails(conn, sql, args=None):
 
 def sub_row(**over):
     sid = str(uuid.uuid4())
-    row = dict(id=sid, image_path='pending/' + sid + '.jpg', province_id='nan', category='สถานที่ท่องเที่ยว', title='ดอยเสมอดาว',
+    row = dict(id=sid, image_path='pending/' + sid + '.jpg', province_id='kanchanaburi', district_id='TH7108', category='สถานที่ท่องเที่ยว', title='สะพานไม้ยามเช้า',
                description='ทดสอบ', taken_at=None, credit_name='น้องทดสอบ', contact=None, license='allthai-nonexclusive-v1',
                consent_owner=True, consent_license=True, consent_people=True, status='pending')
     row.update(over)
@@ -89,10 +89,10 @@ def main():
     cur.execute(schema); cur.execute(schema)
     cur.execute(seed); cur.execute(seed)
     cur.execute('select count(*), count(*) filter (where status = $$draft$$) from public.questions'); n, d = cur.fetchone()
-    ok(n == 12 and d == 12, 'seed: 12 questions, all draft')
+    ok(n == 10 and d == 10, 'seed: 10 questions (V2 travel), all draft')
     cur.execute('select count(*) from public.provinces'); ok(cur.fetchone()[0] == 77, 'seed: 77 provinces')
     cur.execute("select id, public, file_size_limit from storage.buckets order by id"); ok(cur.fetchall() == [('question-images', True, 5242880), ('submissions', False, 3145728)], 'buckets created (private queue, public question images)')
-    cur.execute("select data->>'published_at', data->>'status' from public.questions where id = 'q-food-0001'"); ok(cur.fetchone() == (None, 'draft'), 'trigger keeps data.status / published_at in step')
+    cur.execute("select data->>'published_at', data->>'status' from public.questions where id = 'q-travel-0001'"); ok(cur.fetchone() == (None, 'draft'), 'trigger keeps data.status / published_at in step')
 
     conn.autocommit = False
     print('anon (เว็บเล่นเกม)')
@@ -102,15 +102,17 @@ def main():
     f, info = fails(conn, 'select public.is_admin()'); ok(f, 'anon cannot call is_admin() at all')
     f, info = fails(conn, 'select private.recent_upload_count()'); ok(not f, 'anon can use the private counters (policies need them)')
     good = sub_row()
-    f, info = insert_sub(conn, good); ok(not f, 'anon sends a pending photo row')
+    f, info = insert_sub(conn, good); ok(not f, 'anon sends a pending photo row (with district TH7108)')
+    f, info = insert_sub(conn, sub_row(district_id=None)); ok(not f, 'district is optional (older clients)')
     for label, over in [('status approved', dict(status='approved')), ('missing consent', dict(consent_people=False)),
                         ('foreign image path', dict(image_path='pending/other.jpg')), ('pre-filled review', dict(review_note='ok')),
-                        ('other license', dict(license='CC BY 4.0')), ('title too long', dict(title='ก' * 121)), ('bad province id', dict(province_id='Nan; drop'))]:
+                        ('other license', dict(license='CC BY 4.0')), ('title too long', dict(title='ก' * 121)), ('bad province id', dict(province_id='Nan; drop')),
+                        ('bad district id', dict(district_id='TH71; drop')), ('district id not a pcode', dict(district_id='sangkhla'))]:
         f, info = insert_sub(conn, sub_row(**over)); ok(f, 'anon blocked: ' + label + ' (' + info[:60] + ')')
     f, info = fails(conn, "insert into public.submissions (id, image_path, province_id, title, consent_owner, consent_license, consent_people, created_at) values (%s, %s, 'nan', 'x', true, true, true, now() - interval '3 days')", (str(uuid.UUID(int=1)), 'pending/' + str(uuid.UUID(int=1)) + '.jpg'))
     ok(f, 'anon cannot backdate created_at to dodge the daily cap')
     cur.execute('select count(*) from public.submissions'); ok(cur.fetchone()[0] == 0, 'anon cannot read the queue (not even its own row)')
-    f, n = fails(conn, "update public.questions set status = 'published', verified_by = 'x' where id = 'q-food-0001'"); ok(not f and n == 0, 'anon cannot publish (0 rows)')
+    f, n = fails(conn, "update public.questions set status = 'published', verified_by = 'x' where id = 'q-travel-0001'"); ok(not f and n == 0, 'anon cannot publish (0 rows)')
     f, n = fails(conn, "update public.provinces set verified = true where id = 'nan'"); ok(not f and n == 0, 'anon cannot edit provinces (0 rows)')
     f, info = fails(conn, "insert into public.questions (id, category, data) values ('q-food-9999', 'อาหาร', '{\"id\":\"q-food-9999\"}')"); ok(f, 'anon cannot add questions')
     cur.execute('select count(*) from public.admins'); ok(cur.fetchone()[0] == 0, 'anon cannot list admins')
@@ -132,26 +134,27 @@ def main():
     cur.execute('reset role'); cur.execute("insert into public.admins (email) values ('team@example.com')"); conn.commit()
     as_role(cur, 'authenticated', 'Team@Example.com')
     cur.execute('select public.is_admin()'); ok(cur.fetchone()[0] is True, 'admin recognised (email case-insensitive)')
-    cur.execute('select count(*) from public.questions'); ok(cur.fetchone()[0] == 12, 'admin sees drafts')
-    cur.execute('select id, status from public.submissions'); rows = cur.fetchall(); ok(rows == [(uuid.UUID(good['id']) if False else good['id'], 'pending')] or len(rows) == 1, 'admin reads the queue')
+    cur.execute('select count(*) from public.questions'); ok(cur.fetchone()[0] == 10, 'admin sees drafts')
+    cur.execute('select id, status from public.submissions'); rows = cur.fetchall(); ok(len(rows) == 2 and all(r[1] == 'pending' for r in rows), 'admin reads the queue (2 pending rows)')
+    cur.execute('select district_id from public.submissions where id = %s', (good['id'],)); ok(cur.fetchone()[0] == 'TH7108', 'admin sees the district the player picked')
     cur.execute("select count(*) from storage.objects where bucket_id = 'submissions'"); ok(cur.fetchone()[0] == 1, 'admin can read queued files (signed URLs)')
     f, n = fails(conn, "update public.submissions set status = 'approved', reviewed_by = 'team', reviewed_at = now(), public_url = 'https://x/player/a.jpg' where id = %s", (good['id'],)); ok(not f and n == 1, 'admin approves a photo')
     f, info = fails(conn, "insert into storage.objects (bucket_id, name) values ('question-images', 'player/a.jpg')"); ok(not f, 'admin copies into question-images')
-    f, info = fails(conn, "update public.questions set status = 'published' where id = 'q-food-0001'"); ok(f and 'questions_published_verified' in info, 'unverified question cannot be published (' + info[:70] + ')')
-    q = "update public.questions set status = 'published', verified_by = 'team@example.com', verified_at = now(), data = jsonb_set(data, '{verified_by}', '\"team@example.com\"') where id = 'q-food-0001'"
+    f, info = fails(conn, "update public.questions set status = 'published' where id = 'q-travel-0001'"); ok(f and 'questions_published_verified' in info, 'unverified question cannot be published (' + info[:70] + ')')
+    q = "update public.questions set status = 'published', verified_by = 'team@example.com', verified_at = now(), data = jsonb_set(data, '{verified_by}', '\"team@example.com\"') where id = 'q-travel-0001'"
     f, n = fails(conn, q); ok(not f and n == 1, 'verified question published')
-    cur.execute("select data->>'published_at', data->>'status' from public.questions where id = 'q-food-0001'"); pa, st = cur.fetchone()
+    cur.execute("select data->>'published_at', data->>'status' from public.questions where id = 'q-travel-0001'"); pa, st = cur.fetchone()
     ok(pa is not None and st == 'published', 'server stamps published_at (' + str(pa) + ')')
     conn.commit()
-    cur.execute("update public.questions set data = jsonb_set(data, '{topic}', '\"ขนมหม้อแกงเมืองเพชร\"') where id = 'q-food-0001'")
-    cur.execute("select data->>'published_at' from public.questions where id = 'q-food-0001'"); ok(cur.fetchone()[0] == pa, 'editing a live question keeps its published_at')
+    cur.execute("update public.questions set data = jsonb_set(data, '{topic}', '\"ขนมหม้อแกงเมืองเพชร\"') where id = 'q-travel-0001'")
+    cur.execute("select data->>'published_at' from public.questions where id = 'q-travel-0001'"); ok(cur.fetchone()[0] == pa, 'editing a live question keeps its published_at')
     conn.commit()
     as_role(cur, 'anon')
-    cur.execute('select id from public.questions'); ok(cur.fetchall() == [('q-food-0001',)], 'anon now sees exactly the published question')
+    cur.execute('select id from public.questions'); ok(cur.fetchall() == [('q-travel-0001',)], 'anon now sees exactly the published question')
     conn.commit()
     as_role(cur, 'authenticated', 'team@example.com')
-    cur.execute("update public.questions set status = 'archived' where id = 'q-food-0001'")
-    cur.execute("select data->>'published_at', data->>'status' from public.questions where id = 'q-food-0001'"); ok(cur.fetchone() == (None, 'archived'), 'archiving clears published_at')
+    cur.execute("update public.questions set status = 'archived' where id = 'q-travel-0001'")
+    cur.execute("select data->>'published_at', data->>'status' from public.questions where id = 'q-travel-0001'"); ok(cur.fetchone() == (None, 'archived'), 'archiving clears published_at')
     f, n = fails(conn, "update public.provinces set verified = true, data = jsonb_set(data, '{verified}', 'true') where id = 'nan'"); ok(not f and n == 1, 'admin edits a province')
     f, info = fails(conn, "update public.provinces set data = jsonb_set(data, '{id}', '\"xx\"') where id = 'nan'"); ok(f, 'province data id must match row id')
     f, n = fails(conn, "delete from public.submissions where id = %s", (good['id'],)); ok(not f and n == 1, 'admin deletes a submission')

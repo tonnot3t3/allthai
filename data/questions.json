@@ -1,802 +1,15 @@
 {
- "version": "2026-11-05",
- "status": "ต้นแบบ 12 ข้อ (หมวดละ 3) — ข้อมูลทุกข้อมีลิงก์ที่มา แต่ยังไม่มีผู้ตรวจ (verified_by = null)",
+ "version": "2026-11-06 V2 (10 ข้อ)",
+ "status": "V2 หมวดสถานที่ท่องเที่ยว ตอบระดับอำเภอ/เขต 10 ข้อ · ทุกข้อมีลิงก์ที่มา แต่ยังไม่มีผู้ตรวจ (verified_by = null)",
  "categories": [
-  "อาหาร",
-  "กีฬา",
-  "เทศกาลและวัฒนธรรม",
   "สถานที่ท่องเที่ยว"
  ],
  "questions": [
   {
-   "id": "q-food-0001",
-   "category": "อาหาร",
-   "topic": "ขนมหม้อแกง",
-   "answer": "phetchaburi",
-   "cards": [
-    {
-     "type": "image",
-     "role": "main",
-     "tag_hint": null,
-     "src": "img/q-food-0001.webp",
-     "credit": "Takeaway",
-     "license": "CC BY-SA 3.0",
-     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Mo_kaeng.jpg",
-     "focus": "50% 30%",
-     "source": "commons"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "จังหวัดนี้อยู่ภาคตะวันตก และมีชายฝั่งอ่าวไทย",
-     "tag_hint": "region"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "ที่นี่มีต้นตาลโตนดมาก น้ำตาลโตนดเป็นวัตถุดิบขึ้นชื่อของจังหวัด",
-     "tag_hint": "main_occupation"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "ขนมจากไข่ กะทิ น้ำตาล และแป้ง จังหวัดนี้ขึ้นชื่อว่าเป็นเมืองขนมหวาน และขนมนี้ได้ขึ้นทะเบียนสิ่งบ่งชี้ทางภูมิศาสตร์ (GI) แล้ว",
-     "tag_hint": null
-    }
-   ],
-   "similar": {},
-   "similar_reasons": {},
-   "reveal": {
-    "image": {
-     "src": "img/q-food-0001.webp",
-     "file": "Mo kaeng.jpg",
-     "credit": "Takeaway",
-     "license": "CC BY-SA 3.0",
-     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Mo_kaeng.jpg",
-     "focus": "50% 30%",
-     "modified": "ย่อขนาดและแปลงเป็น WebP",
-     "note": "ภาพนี้ถ่ายที่งานออกร้าน จ.อุตรดิตถ์ ตามคำอธิบายของไฟล์ต้นฉบับ",
-     "source": "commons"
-    },
-    "facts": {
-     "ชื่อ": "ขนมหม้อแกง",
-     "จังหวัดและพื้นที่ต้นกำเนิด": "จังหวัดเพชรบุรี — ขึ้นทะเบียนสิ่งบ่งชี้ทางภูมิศาสตร์ (GI) ในชื่อ “ขนมหม้อแกงเมืองเพชร”",
-     "วัตถุดิบหลัก": "ไข่ กะทิ น้ำตาล และแป้ง ขนมหม้อแกงเมืองเพชรนิยมใช้น้ำตาลโตนด",
-     "เกร็ดน่ารู้": "เพชรบุรีขึ้นชื่อว่าเป็นเมืองขนมหวาน ขนมหม้อแกงเป็นของฝากยอดนิยม"
-    },
-    "reasoning": "ขนมไข่-กะทิ อบเป็นถาด → ขนมไทยของฝาก · น้ำตาลโตนด + ภาคตะวันตกติดอ่าวไทย → เพชรบุรี",
-    "sources": [
-     {
-      "title": "เดลินิวส์: ผู้ประกอบการได้รับอนุญาตใช้ตรา GI ขนมหม้อแกงเมืองเพชร",
-      "url": "https://www.dailynews.co.th/news/6231218/"
-     },
-     {
-      "title": "mybest: ของฝากเพชรบุรี (ขนมหม้อแกงใช้น้ำตาลโตนด)",
-      "url": "https://th.my-best.com/51576"
-     },
-     {
-      "title": "วิทยานิพนธ์ ม.ธุรกิจบัณฑิตย์: ส่วนผสมขนมหม้อแกง จ.เพชรบุรี",
-      "url": "https://libdoc.dpu.ac.th/thesis/Patchamon.Supi.pdf"
-     }
-    ]
-   },
-   "schedule_date": null,
-   "verified_by": null,
-   "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
-   "status": "published",
-   "published_at": null
-  },
-  {
-   "id": "q-food-0002",
-   "category": "อาหาร",
-   "topic": "ข้าวซอย",
-   "answer": "chiang-mai",
-   "cards": [
-    {
-     "type": "image",
-     "role": "main",
-     "tag_hint": null,
-     "src": "img/q-food-0002.webp",
-     "credit": "Iudexvivorum",
-     "license": "CC0",
-     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Beef_khao_soi_-_Chiang_Mai_-_2017-07-09_(002).jpg",
-     "focus": "50% 45%",
-     "source": "commons"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "อาหารเส้นจากภาคเหนือ",
-     "tag_hint": "region"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "คนท้องถิ่นพูดภาษาถิ่นเหนือ (คำเมือง)",
-     "tag_hint": "dialect"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "สูตรน้ำแกงกะทินี้นิยมกันมากในแอ่งที่มีชุมชนชาวฮ่อ (เชื้อสายยูนนาน) ไปจนถึงอำเภอฝาง",
-     "tag_hint": null
-    }
-   ],
-   "similar": {
-    "chiang-rai": 250
-   },
-   "similar_reasons": {
-    "chiang-rai": "มีข้าวซอยแบบของตัวเอง เช่น ข้าวซอยน้ำคั่ว"
-   },
-   "reveal": {
-    "image": {
-     "src": "img/q-food-0002.webp",
-     "file": "Beef khao soi - Chiang Mai - 2017-07-09 (002).jpg",
-     "credit": "Iudexvivorum",
-     "license": "CC0",
-     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Beef_khao_soi_-_Chiang_Mai_-_2017-07-09_(002).jpg",
-     "focus": "50% 45%",
-     "modified": "ย่อขนาดและแปลงเป็น WebP",
-     "source": "commons"
-    },
-    "facts": {
-     "ชื่อ": "ข้าวซอย",
-     "จังหวัดและพื้นที่ต้นกำเนิด": "ภาคเหนือ — แบบน้ำแกงกะทิที่คุ้นเคยนิยมกันในแอ่งเชียงใหม่–ฝาง ซึ่งมีชุมชนชาวฮ่อ (เชื้อสายยูนนาน)",
-     "วัตถุดิบหลัก": "เส้นบะหมี่ในน้ำแกงกะทิใส่เครื่องเทศ กินกับผักกาดดอง หอมแดง และมะนาว",
-     "เกร็ดน่ารู้": "ชื่อ “ข้าวซอย” มาจากวิธีทำเส้นแบบดั้งเดิม คือรีดแป้งเป็นแผ่นแล้วใช้มีด “ซอย” เป็นเส้น · อาหารเหนือส่วนใหญ่ไม่ใส่กะทิ ข้าวซอยจึงโดดเด่น"
-    },
-    "reasoning": "บะหมี่ในน้ำแกงกะทิ + ผักกาดดอง → อาหารเหนือ · ชุมชนชาวฮ่อแถบฝาง → เชียงใหม่",
-    "sources": [
-     {
-      "title": "กรุงเทพธุรกิจ: ข้าวซอยในแอ่งเชียงใหม่–ฝาง และข้าวซอยน้ำคั่ว",
-      "url": "https://www.bangkokbiznews.com/lifestyle/1019738"
-     },
-     {
-      "title": "ฐานเศรษฐกิจ: ที่มาของคำว่า “ข้าวซอย”",
-      "url": "https://www.thansettakij.com/blogs/columnist/cooking/670569"
-     },
-     {
-      "title": "ศิลปวัฒนธรรม: ข้าวซอยเชียงใหม่ข้นด้วยกะทิและเครื่องเทศ",
-      "url": "https://www.silpa-mag.com/?p=91242"
-     },
-     {
-      "title": "The Thaiger: อาหารเหนือส่วนใหญ่ไม่ใส่กะทิ",
-      "url": "https://thethaiger.com/th/news/632401/"
-     }
-    ]
-   },
-   "schedule_date": null,
-   "verified_by": null,
-   "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
-   "status": "published",
-   "published_at": null
-  },
-  {
-   "id": "q-food-0003",
-   "category": "อาหาร",
-   "topic": "ปลาทูแม่กลอง",
-   "answer": "samut-songkhram",
-   "cards": [
-    {
-     "type": "image",
-     "role": "main",
-     "tag_hint": null,
-     "src": "img/q-food-0003.webp",
-     "credit": "Takeaway",
-     "license": "CC BY-SA 3.0",
-     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Thanin_market_platu.jpg",
-     "focus": "50% 50%",
-     "source": "commons"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "จังหวัดภาคกลาง ติดอ่าวไทยตอนบน",
-     "tag_hint": "region"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "ของดีของจังหวัดมีทั้งมะพร้าว ส้มโอ และหอยหลอด",
-     "tag_hint": "main_occupation"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "ปลาชนิดนี้ได้ฉายา “หน้างอ คอหัก” และจังหวัดจัดเทศกาลกินปลาชนิดนี้เป็นประจำ",
-     "tag_hint": null
-    }
-   ],
-   "similar": {
-    "samut-sakhon": 250
-   },
-   "similar_reasons": {
-    "samut-sakhon": "ติดอ่าวไทยตอนบนและเป็นแหล่งประมงเช่นกัน"
-   },
-   "reveal": {
-    "image": {
-     "src": "img/q-food-0003.webp",
-     "file": "Thanin market platu.jpg",
-     "credit": "Takeaway",
-     "license": "CC BY-SA 3.0",
-     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Thanin_market_platu.jpg",
-     "focus": "50% 50%",
-     "modified": "ย่อขนาดและแปลงเป็น WebP",
-     "note": "ภาพนี้ถ่ายที่ตลาดธานินทร์ จ.เชียงใหม่ ตามคำอธิบายของไฟล์ต้นฉบับ",
-     "source": "commons"
-    },
-    "facts": {
-     "ชื่อ": "ปลาทูแม่กลอง",
-     "จังหวัดและพื้นที่ต้นกำเนิด": "จังหวัดสมุทรสงคราม — ขึ้นทะเบียน GI เป็นสินค้า GI ลำดับที่ 4 ของจังหวัด",
-     "วัตถุดิบหลัก": "ปลาทูสด นำมานึ่งเป็นปลาทูนึ่ง",
-     "เกร็ดน่ารู้": "ได้ฉายา “หน้างอ คอหัก” · จังหวัดจัด “เทศกาลกินปลาทู” เป็นประจำ (ครั้งที่ 25 ในปี 2566)"
-    },
-    "reasoning": "ปลาทูนึ่งในเข่ง → ของทะเลอ่าวไทย · ฉายาหน้างอคอหัก + เทศกาลกินปลาทู → สมุทรสงคราม",
-    "sources": [
-     {
-      "title": "ฐานเศรษฐกิจ: ปลาทูแม่กลอง สินค้า GI “หน้างอ คอหัก”",
-      "url": "https://www.thansettakij.com/business/economy/573941"
-     },
-     {
-      "title": "กรมทรัพย์สินทางปัญญา: ประกาศขึ้นทะเบียน GI ปลาทูแม่กลอง",
-      "url": "https://www.ipthailand.go.th/images/26669/GI/GIpublish/publis213.pdf"
-     },
-     {
-      "title": "แนวหน้า: เทศกาลกินปลาทูฯ ครั้งที่ 25 ปี 2566",
-      "url": "https://www.naewna.com/lady/773203"
-     }
-    ]
-   },
-   "schedule_date": null,
-   "verified_by": null,
-   "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
-   "status": "published",
-   "published_at": null
-  },
-  {
-   "id": "q-sport-0001",
-   "category": "กีฬา",
-   "topic": "ช้าง อารีนา สนามบุรีรัมย์ ยูไนเต็ด",
-   "answer": "buriram",
-   "cards": [
-    {
-     "type": "image",
-     "role": "main",
-     "tag_hint": null,
-     "src": "img/q-sport-0001.webp",
-     "credit": "กสิณธร ราชโอรส",
-     "license": "CC BY-SA 4.0",
-     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "source_url": "https://commons.wikimedia.org/wiki/File:%E0%B8%8A%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%AD%E0%B8%B2%E0%B8%A3%E0%B8%B5%E0%B8%99%E0%B9%88%E0%B8%B2_%E0%B8%AD.%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87_%E0%B8%88.%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5%E0%B8%A3%E0%B8%B1%E0%B8%A1%E0%B8%A2%E0%B9%8C_Chang_Arena,Buriram,Thailand_(2).jpg",
-     "focus": "50% 50%",
-     "source": "commons"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "สนามนี้อยู่ในภาคอีสาน",
-     "tag_hint": "region"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "จังหวัดนี้มีปราสาทหินสมัยขอมหลายแห่ง",
-     "tag_hint": "religion_culture"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "สนามจุ 32,600 ที่นั่ง ได้ฉายา “ปราสาทสายฟ้า” จนจังหวัดถูกเรียกว่า “เมืองปราสาท 2 ยุค”",
-     "tag_hint": null
-    }
-   ],
-   "similar": {},
-   "similar_reasons": {},
-   "reveal": {
-    "image": {
-     "src": "img/q-sport-0001.webp",
-     "file": "ช้างอารีน่า อ.เมือง จ.บุรีรัมย์ Chang Arena,Buriram,Thailand (2).jpg",
-     "credit": "กสิณธร ราชโอรส",
-     "license": "CC BY-SA 4.0",
-     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "source_url": "https://commons.wikimedia.org/wiki/File:%E0%B8%8A%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%AD%E0%B8%B2%E0%B8%A3%E0%B8%B5%E0%B8%99%E0%B9%88%E0%B8%B2_%E0%B8%AD.%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87_%E0%B8%88.%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5%E0%B8%A3%E0%B8%B1%E0%B8%A1%E0%B8%A2%E0%B9%8C_Chang_Arena,Buriram,Thailand_(2).jpg",
-     "focus": "50% 50%",
-     "modified": "ย่อขนาดและแปลงเป็น WebP",
-     "source": "commons"
-    },
-    "facts": {
-     "ชื่อ": "ฟุตบอลไทยลีกที่ช้าง อารีนา สนามเหย้าของสโมสรบุรีรัมย์ ยูไนเต็ด",
-     "สถานที่จัด": "อำเภอเมืองบุรีรัมย์ จังหวัดบุรีรัมย์",
-     "ช่วงเวลาที่จัด": "ตามโปรแกรมแต่ละฤดูกาล และใช้จัดรายการระดับชาติ เช่น ฟุตบอลชิงถ้วยพระราชทานคิงส์คัพ",
-     "กติกาโดยย่อ": "ฟุตบอล 2 ทีม ทีมละ 11 คน ทำประตูได้มากกว่าเป็นฝ่ายชนะ",
-     "ความเป็นมา": "ความจุ 32,600 ที่นั่ง ผ่านการรับรองมาตรฐานฟีฟ่า · ออกแบบโดยได้แรงบันดาลใจจากปราสาทพนมรุ้ง ได้ฉายา “ปราสาทสายฟ้า” บุรีรัมย์จึงเป็น “เมืองปราสาท 2 ยุค”"
-    },
-    "reasoning": "อัฒจันทร์สีน้ำเงินขนาดใหญ่ → สโมสรฟุตบอลอีสาน · ปราสาทขอม + ปราสาทสายฟ้า → บุรีรัมย์",
-    "sources": [
-     {
-      "title": "ไทยโพสต์: ช้างอารีน่า สนามมาตรฐานฟีฟ่า ความจุ 32,600 ที่นั่ง",
-      "url": "https://www.thaipost.net/news-update/284549/"
-     },
-     {
-      "title": "มติชน: สนามช้างอารีน่า ความจุ 32,600 ที่นั่ง",
-      "url": "https://www.matichon.co.th/economy/news_1032203"
-     },
-     {
-      "title": "วารสารวิชาการ (TCI): ช้างอารีน่ารูปทรงปราสาทพนมรุ้ง เมืองปราสาท 2 ยุค",
-      "url": "https://so06.tci-thaijo.org/index.php/JSC/article/download/262086/176613"
-     },
-     {
-      "title": "ข่าวสด: คิงส์คัพจัดที่ช้าง อารีนา",
-      "url": "https://www.khaosod.co.th/sports/news_2385794"
-     }
-    ]
-   },
-   "schedule_date": null,
-   "verified_by": null,
-   "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
-   "status": "published",
-   "published_at": null
-  },
-  {
-   "id": "q-sport-0002",
-   "category": "กีฬา",
-   "topic": "ปีนผาหินปูน ไร่เลย์",
-   "answer": "krabi",
-   "cards": [
-    {
-     "type": "image",
-     "role": "main",
-     "tag_hint": null,
-     "src": "img/q-sport-0002.webp",
-     "credit": "kallerna",
-     "license": "CC BY-SA 3.0",
-     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Rock_climber_Phra_Nang_2.jpg",
-     "focus": "50% 35%",
-     "source": "commons"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "อยู่ภาคใต้ ฝั่งทะเลอันดามัน",
-     "tag_hint": "region"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "หน้าผาหินปูนสูงตั้งตระหง่านริมทะเล",
-     "tag_hint": "terrain"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "ที่นี่ไม่มีถนนเข้าถึง ต้องนั่งเรือหางยาว มีเส้นทางปีนกว่า 700 เส้น และปีนเหนือน้ำได้ที่หาดถ้ำพระนาง",
-     "tag_hint": null
-    }
-   ],
-   "similar": {
-    "phang-nga": 250
-   },
-   "similar_reasons": {
-    "phang-nga": "มีภูเขาหินปูนริมทะเลอันดามันคล้ายกัน"
-   },
-   "reveal": {
-    "image": {
-     "src": "img/q-sport-0002.webp",
-     "file": "Rock climber Phra Nang 2.jpg",
-     "credit": "kallerna",
-     "license": "CC BY-SA 3.0",
-     "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Rock_climber_Phra_Nang_2.jpg",
-     "focus": "50% 35%",
-     "modified": "ย่อขนาดและแปลงเป็น WebP",
-     "source": "commons"
-    },
-    "facts": {
-     "ชื่อ": "ปีนผาหินปูน ไร่เลย์–หาดถ้ำพระนาง",
-     "สถานที่จัด": "คาบสมุทรไร่เลย์ จังหวัดกระบี่ — ไม่มีถนนเข้าถึง ต้องนั่งเรือหางยาวจากอ่าวนาง",
-     "ช่วงเวลาที่จัด": "ปีนได้หลายช่วงของปี นิยมช่วงฤดูท่องเที่ยวฝั่งอันดามันราวปลายปีถึงต้นปี",
-     "กติกาโดยย่อ": "ปีนด้วยเชือกตามเส้นทางที่เจาะหมุดไว้ มีผู้คุมเชือก (belay) ด้านล่าง ระดับตั้งแต่ 5a ถึง 8c+ · บางจุดปีนเหนือน้ำแล้วตกลงทะเล (deep water solo)",
-     "ความเป็นมา": "ได้ชื่อว่าเป็นสวรรค์ของนักปีนผา มีหน้าผา 3 โซน คือ ไร่เลย์ตะวันตก ไร่เลย์ตะวันออก และต้นไทร"
-    },
-    "reasoning": "คนปีนหน้าผาหินปูนบนหาดทราย → ทะเลอันดามัน · ไร่เลย์ / หาดถ้ำพระนาง → กระบี่",
-    "sources": [
-     {
-      "title": "Byklo: คู่มือปีนผาไร่เลย์ (เส้นทาง 700+ ระดับ 5a–8c+)",
-      "url": "https://www.byklo.rent/th/blog/railay-rock-climbing-ultimate-guide/"
-     },
-     {
-      "title": "Byklo: จุดปีนผากระบี่ และปีนเหนือน้ำที่หาดถ้ำพระนาง",
-      "url": "https://www.byklo.rent/th/blog/top-10-climbing-spots-in-krabi/"
-     },
-     {
-      "title": "TrueID: หาดไร่เลย์ สวรรค์ของนักปีนผา",
-      "url": "https://travel.trueid.net/detail/B3bpm0pmOKGZ"
-     },
-     {
-      "title": "Cosmenet: ฤดูกาลอันดามันเปิดช่วงพฤศจิกายน",
-      "url": "https://www.cosmenet.in.th/cosme-intrend/24856"
-     }
-    ]
-   },
-   "schedule_date": null,
-   "verified_by": null,
-   "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
-   "status": "published",
-   "published_at": null
-  },
-  {
-   "id": "q-sport-0003",
-   "category": "กีฬา",
-   "topic": "มวยไทย เวทีราชดำเนิน",
-   "answer": "bangkok",
-   "cards": [
-    {
-     "type": "image",
-     "role": "main",
-     "tag_hint": null,
-     "src": "img/q-sport-0003.webp",
-     "credit": "BrokenSphere",
-     "license": "CC BY 3.0",
-     "license_url": "https://creativecommons.org/licenses/by/3.0",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Muay_Thai_match_at_Rajadamnern_Stadium_2007-05-20_4.JPG",
-     "focus": "50% 60%",
-     "source": "commons"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "จังหวัดภาคกลาง บนที่ราบลุ่มแม่น้ำเจ้าพระยา",
-     "tag_hint": "region"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "ศูนย์กลางธุรกิจและการบริการ มีเวทีมวยมาตรฐานหลายแห่ง",
-     "tag_hint": "main_occupation"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "เวทีมวยมาตรฐานแห่งแรกของไทย เปิดใช้ 23 ธันวาคม 2488",
-     "tag_hint": null
-    }
-   ],
-   "similar": {
-    "surat-thani": 250,
-    "nakhon-ratchasima": 250,
-    "lopburi": 250,
-    "uttaradit": 250
-   },
-   "similar_reasons": {
-    "surat-thani": "ถิ่นแม่ไม้มวยไชยา",
-    "nakhon-ratchasima": "ถิ่นแม่ไม้มวยโคราช",
-    "lopburi": "ถิ่นแม่ไม้มวยลพบุรี",
-    "uttaradit": "ถิ่นแม่ไม้มวยท่าเสา"
-   },
-   "reveal": {
-    "image": {
-     "src": "img/q-sport-0003.webp",
-     "file": "Muay Thai match at Rajadamnern Stadium 2007-05-20 4.JPG",
-     "credit": "BrokenSphere",
-     "license": "CC BY 3.0",
-     "license_url": "https://creativecommons.org/licenses/by/3.0",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Muay_Thai_match_at_Rajadamnern_Stadium_2007-05-20_4.JPG",
-     "focus": "50% 60%",
-     "modified": "ย่อขนาดและแปลงเป็น WebP",
-     "source": "commons"
-    },
-    "facts": {
-     "ชื่อ": "มวยไทย ณ เวทีราชดำเนิน",
-     "สถานที่จัด": "ถนนราชดำเนินนอก กรุงเทพมหานคร",
-     "ช่วงเวลาที่จัด": "มีรายการชกเป็นประจำ · เปิดใช้อย่างเป็นทางการ 23 ธันวาคม 2488",
-     "กติกาโดยย่อ": "ศิลปะการต่อสู้ที่ใช้ หมัด เท้า เข่า และศอก",
-     "ความเป็นมา": "เวทีมวยมาตรฐานแห่งแรกของไทย เริ่มสร้างปี 2484 แต่ล่าช้าเพราะสงครามโลกครั้งที่ 2 · นักมวยระดับตำนาน เช่น เขาทราย แกแล็คซี่ และสามารถ พยัคฆ์อรุณ เคยขึ้นชกที่นี่"
-    },
-    "reasoning": "มวยไทยบนเวทีมาตรฐาน → เวทีใหญ่ในเมืองหลวง · เวทีแห่งแรก ปี 2488 → กรุงเทพมหานคร",
-    "sources": [
-     {
-      "title": "ประชาชาติธุรกิจ: ประวัติเวทีราชดำเนิน ก้าวสู่ปีที่ 80",
-      "url": "https://www.prachachat.net/sport/news-1715841"
-     },
-     {
-      "title": "THE STANDARD: เวทีราชดำเนิน เปิดชกครั้งแรก 23 ธ.ค. 2488",
-      "url": "https://thestandard.co/?p=648302"
-     },
-     {
-      "title": "ข่าวสด: ที่ตั้งเวทีมวยราชดำเนิน ถนนราชดำเนินนอก",
-      "url": "https://www.khaosod.co.th/sports/news_3001489"
-     },
-     {
-      "title": "ข่าวสด: แม่ไม้มวยไทย 4 จังหวัด (ไชยา โคราช ท่าเสา ลพบุรี)",
-      "url": "https://www.khaosod.co.th/lifestyle/travel/news_7743809"
-     },
-     {
-      "title": "GotoKnow: มวยไทยใช้หมัด เท้า เข่า ศอก",
-      "url": "https://www.gotoknow.org/posts/356168"
-     }
-    ]
-   },
-   "schedule_date": null,
-   "verified_by": null,
-   "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
-   "status": "published",
-   "published_at": null
-  },
-  {
-   "id": "q-culture-0001",
-   "category": "เทศกาลและวัฒนธรรม",
-   "topic": "ผีตาโขน",
-   "answer": "loei",
-   "cards": [
-    {
-     "type": "image",
-     "role": "main",
-     "tag_hint": null,
-     "src": "img/q-culture-0001.webp",
-     "credit": "E.D.W.",
-     "license": "Public domain",
-     "license_url": null,
-     "source_url": "https://commons.wikimedia.org/wiki/File:Phitakon_masks.JPG",
-     "focus": "50% 40%",
-     "source": "commons"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "งานบุญประจำปีของภาคอีสาน",
-     "tag_hint": "region"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "จัดในอำเภอที่อยู่ท่ามกลางหุบเขา",
-     "tag_hint": "terrain"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "“งานบุญหลวง” ที่รวมบุญผะเหวด (ฮีตเดือนสี่) กับบุญบั้งไฟ (ฮีตเดือนหก) ไว้ในงานเดียว มีขบวนผู้สวมหน้ากากสีสด",
-     "tag_hint": null
-    }
-   ],
-   "similar": {},
-   "similar_reasons": {},
-   "reveal": {
-    "image": {
-     "src": "img/q-culture-0001.webp",
-     "file": "Phitakon masks.JPG",
-     "credit": "E.D.W.",
-     "license": "Public domain",
-     "license_url": null,
-     "source_url": "https://commons.wikimedia.org/wiki/File:Phitakon_masks.JPG",
-     "focus": "50% 40%",
-     "modified": "ย่อขนาดและแปลงเป็น WebP",
-     "source": "commons"
-    },
-    "facts": {
-     "ชื่อ": "ประเพณีบุญหลวงและการละเล่นผีตาโขน",
-     "สถานที่จัด": "อำเภอด่านซ้าย จังหวัดเลย (พิธีหลักที่วัดโพนชัย)",
-     "ช่วงเวลาที่จัด": "ราวปลายมิถุนายน–ต้นกรกฎาคม กำหนดวันเป็นปี ๆ (ปี 2568 จัด 28–30 มิ.ย.)",
-     "ความเป็นมาและความเชื่อ": "งานบุญหลวงรวม “บุญผะเหวด” (ฟังเทศน์มหาชาติ 13 กัณฑ์) กับ “บุญบั้งไฟ” (บูชาอารักษ์หลักเมืองและขอฝน) ไว้ในงานเดียว · มีพิธีของเจ้าพ่อกวนและเจ้าแม่นางเทียม"
-    },
-    "reasoning": "หน้ากากผีสีสด + งานบุญอีสาน → บุญหลวง · ผีตาโขน อำเภอด่านซ้าย → เลย",
-    "sources": [
-     {
-      "title": "ไทยรัฐ: งานบุญหลวงรวมบุญผะเหวดกับบุญบั้งไฟ",
-      "url": "https://www.thairath.co.th/news/local/2867432"
-     },
-     {
-      "title": "ไทยรัฐ: แถลงข่าวงานบุญหลวงและผีตาโขน 28–30 มิ.ย. 2568",
-      "url": "https://www.thairath.co.th/news/local/northeast/2865544"
-     },
-     {
-      "title": "ไทยโพสต์: พิธีบายศรีเจ้าพ่อกวน เจ้าแม่นางเทียม",
-      "url": "https://www.thaipost.net/tac/172126/"
-     }
-    ]
-   },
-   "schedule_date": null,
-   "verified_by": null,
-   "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
-   "status": "published",
-   "published_at": null
-  },
-  {
-   "id": "q-culture-0002",
-   "category": "เทศกาลและวัฒนธรรม",
-   "topic": "แห่เทียนพรรษา",
-   "answer": "ubon-ratchathani",
-   "cards": [
-    {
-     "type": "image",
-     "role": "main",
-     "tag_hint": null,
-     "src": "img/q-culture-0002.webp",
-     "credit": "PhiPhiUbon",
-     "license": "CC0",
-     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Wat_Phra_That_Nong_Bua_in_Ubon_Ratchathani_Candle_Festival_-_July_2026.jpg",
-     "focus": "50% 50%",
-     "source": "commons"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "ประเพณีใหญ่ของภาคอีสาน",
-     "tag_hint": "region"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "เมืองริมแม่น้ำมูล ทางตะวันออกสุดของประเทศ",
-     "tag_hint": "terrain"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "จัดช่วงวันเข้าพรรษา ต้นเทียนแกะสลักขนาดใหญ่มารวมกันที่ทุ่งศรีเมือง",
-     "tag_hint": null
-    }
-   ],
-   "similar": {
-    "buriram": 250
-   },
-   "similar_reasons": {
-    "buriram": "อำเภอประโคนชัยมีงานแห่เทียนพรรษาเช่นกัน"
-   },
-   "reveal": {
-    "image": {
-     "src": "img/q-culture-0002.webp",
-     "file": "Wat Phra That Nong Bua in Ubon Ratchathani Candle Festival - July 2026.jpg",
-     "credit": "PhiPhiUbon",
-     "license": "CC0",
-     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Wat_Phra_That_Nong_Bua_in_Ubon_Ratchathani_Candle_Festival_-_July_2026.jpg",
-     "focus": "50% 50%",
-     "modified": "ย่อขนาดและแปลงเป็น WebP",
-     "note": "ต้นเทียนของวัดพระธาตุหนองบัว ในงานปี 2569",
-     "source": "commons"
-    },
-    "facts": {
-     "ชื่อ": "ประเพณีแห่เทียนพรรษา อุบลราชธานี",
-     "สถานที่จัด": "ทุ่งศรีเมืองและย่านเมืองเก่า อำเภอเมืองอุบลราชธานี",
-     "ช่วงเวลาที่จัด": "ช่วงวันเข้าพรรษา ราวเดือนกรกฎาคม (ปี 2569 ขบวนแห่ 29–30 ก.ค.)",
-     "ความเป็นมาและความเชื่อ": "ต้นเทียนพรรษามีทั้งประเภทแกะสลัก ติดพิมพ์ และโบราณ ตกแต่งเป็นเรื่องราวพุทธประวัติ แห่พร้อมขบวนฟ้อนรำ · หลังงานยังชมต้นเทียนได้ที่วัดพระธาตุหนองบัว"
-    },
-    "reasoning": "ต้นเทียนแกะสลักพุทธศิลป์ → ประเพณีเข้าพรรษา · ทุ่งศรีเมือง ริมน้ำมูล → อุบลราชธานี",
-    "sources": [
-     {
-      "title": "ฐานเศรษฐกิจ: กำหนดการงานแห่เทียนพรรษาอุบลฯ 2569",
-      "url": "https://www.thansettakij.com/lifestyle/664209"
-     },
-     {
-      "title": "ไทยรัฐ (ข้อมูล ททท.): ต้นเทียนประเภทแกะสลัก ติดพิมพ์ โบราณ",
-      "url": "https://www.thairath.co.th/lifestyle/travel/2947403"
-     },
-     {
-      "title": "TrueID: ต้นเทียนตกแต่งเป็นเรื่องราวพุทธประวัติ",
-      "url": "https://travel.trueid.net/detail/6BDWqAnNQ3j8"
-     },
-     {
-      "title": "เดลินิวส์: งานแห่เทียนพรรษา อ.ประโคนชัย จ.บุรีรัมย์",
-      "url": "https://www.dailynews.co.th/articles/3642428/"
-     }
-    ]
-   },
-   "schedule_date": null,
-   "verified_by": null,
-   "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
-   "status": "published",
-   "published_at": null
-  },
-  {
-   "id": "q-culture-0003",
-   "category": "เทศกาลและวัฒนธรรม",
-   "topic": "งานช้างสุรินทร์",
-   "answer": "surin",
-   "cards": [
-    {
-     "type": "image",
-     "role": "main",
-     "tag_hint": null,
-     "src": "img/q-culture-0003.webp",
-     "credit": "Dr.A.Hugentobler",
-     "license": "CC BY-SA 2.5",
-     "license_url": "https://creativecommons.org/licenses/by-sa/2.5",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Thailand_Surin_Elephant_200611184402.jpg",
-     "focus": "50% 55%",
-     "source": "commons"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "งานประจำปีของภาคอีสานตอนล่าง",
-     "tag_hint": "region"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "ชาวบ้านจำนวนมากพูดภาษาเขมรถิ่นไทยและภาษากูย (กวย)",
-     "tag_hint": "dialect"
-    },
-    {
-     "type": "text",
-     "role": "hint",
-     "text": "จัดครั้งแรก พ.ศ. 2503 ที่อำเภอท่าตูม และจังหวัดนี้มีช้างเลี้ยงมากที่สุดในประเทศ",
-     "tag_hint": null
-    }
-   ],
-   "similar": {},
-   "similar_reasons": {},
-   "reveal": {
-    "image": {
-     "src": "img/q-culture-0003.webp",
-     "file": "Thailand Surin Elephant 200611184402.jpg",
-     "credit": "Dr.A.Hugentobler",
-     "license": "CC BY-SA 2.5",
-     "license_url": "https://creativecommons.org/licenses/by-sa/2.5",
-     "source_url": "https://commons.wikimedia.org/wiki/File:Thailand_Surin_Elephant_200611184402.jpg",
-     "focus": "50% 55%",
-     "modified": "ย่อขนาดและแปลงเป็น WebP",
-     "source": "commons"
-    },
-    "facts": {
-     "ชื่อ": "งานมหัศจรรย์งานช้างสุรินทร์",
-     "สถานที่จัด": "สนามช้างสุรินทร์ และงานเลี้ยงอาหารช้างที่อนุสาวรีย์พระยาสุรินทร์ภักดีศรีณรงค์จางวาง อำเภอเมืองสุรินทร์",
-     "ช่วงเวลาที่จัด": "เดือนพฤศจิกายนของทุกปี (การแสดงปี 2565 จัด 19–20 พ.ย.)",
-     "ความเป็นมาและความเชื่อ": "จัดครั้งแรก 19 พ.ย. 2503 ที่อำเภอท่าตูม มีขบวนแห่ช้าง การคล้องช้าง และช้างวิ่งเร็ว · ครม. ให้เป็นงานประจำปีของชาติเมื่อ 15 พ.ค. 2505 · ชาวกูย (กวย) เลี้ยงช้างมาแต่โบราณ และสุรินทร์มีช้างเลี้ยงมากที่สุดในประเทศ"
-    },
-    "reasoning": "ช้างจำนวนมาก + การแสดงจำลองศึก → งานช้าง · อีสานใต้ ชาวกูยเลี้ยงช้าง → สุรินทร์",
-    "sources": [
-     {
-      "title": "ผู้จัดการออนไลน์: งานช้างครั้งแรก 19 พ.ย. 2503 อ.ท่าตูม",
-      "url": "https://mgronline.com/travel/detail/9550000138307"
-     },
-     {
-      "title": "ผู้จัดการออนไลน์: ครม. ให้เป็นงานประจำปีของชาติ 15 พ.ค. 2505",
-      "url": "https://mgronline.com/local/detail/9650000106622"
-     },
-     {
-      "title": "ผู้จัดการออนไลน์: สุรินทร์มีช้างเลี้ยงมากที่สุดของประเทศ",
-      "url": "https://mgronline.com/local/detail/9650000107345"
-     },
-     {
-      "title": "มติชน: ชาวสุรินทร์ทั้งเขมร ลาว กวย",
-      "url": "https://www.matichon.co.th/region/news_555406"
-     },
-     {
-      "title": "GotoKnow: ชาวกวย (ส่วย) เลี้ยงช้างมาแต่โบราณ",
-      "url": "https://www.gotoknow.org/posts/140694"
-     }
-    ]
-   },
-   "schedule_date": null,
-   "verified_by": null,
-   "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
-   "status": "published",
-   "published_at": null
-  },
-  {
    "id": "q-travel-0001",
    "category": "สถานที่ท่องเที่ยว",
    "topic": "ภูทับเบิก",
-   "answer": "phetchabun",
+   "answer": "TH6704",
    "cards": [
     {
      "type": "image",
@@ -813,30 +26,22 @@
     {
      "type": "text",
      "role": "hint",
-     "text": "อยู่ภาคกลาง (ตามการแบ่ง 6 ภาค) ตอนบนสุด",
+     "text": "อยู่ภาคกลางตอนบนสุด (ตามการแบ่ง 6 ภาค) ในจังหวัดที่ติดกับเลยและพิษณุโลก",
      "tag_hint": "region"
     },
     {
      "type": "text",
      "role": "hint",
-     "text": "ยอดเขาสูงราว 1,768 เมตร สูงที่สุดของจังหวัด",
+     "text": "ยอดเขาสูงราว 1,768 เมตร สูงที่สุดของจังหวัด มีไร่กะหล่ำปลีขั้นบันไดของชุมชนชาวม้ง",
      "tag_hint": "terrain"
     },
     {
      "type": "text",
      "role": "hint",
-     "text": "ไร่กะหล่ำปลีขั้นบันไดของชุมชนชาวม้ง ได้ฉายา “ดาวบนดิน”",
-     "tag_hint": "main_occupation"
+     "text": "ได้ฉายา “ดาวบนดิน” อยู่ในอำเภอทางเหนือของจังหวัด ที่ชื่ออำเภอบอกว่าเป็นเมืองหล่มเดิม",
+     "tag_hint": "district"
     }
    ],
-   "similar": {
-    "loei": 250,
-    "phitsanulok": 250
-   },
-   "similar_reasons": {
-    "loei": "อยู่ติดกัน มีภูเขาสูงและทะเลหมอกคล้ายกัน",
-    "phitsanulok": "อยู่ติดกัน มีภูเขาสูงและทะเลหมอกคล้ายกัน"
-   },
    "reveal": {
     "image": {
      "src": "img/q-travel-0001.webp",
@@ -856,7 +61,7 @@
      "ช่วงที่เหมาะไป": "ปลายฝนต้นหนาวถึงฤดูหนาว ช่วงเช้ามีโอกาสเห็นทะเลหมอก (ธันวาคมอากาศหนาวมาก)",
      "ความเป็นมา": "พื้นที่เกษตรบนที่สูงของชุมชนชาวม้ง ที่ปลูกผักและเปิดรับนักท่องเที่ยว"
     },
-    "reasoning": "ทะเลหมอก + ไร่ผักบนภูเขา → ที่สูง · ภาคกลางตอนบน ยอดเขาสูงสุดของจังหวัด → ภูทับเบิก เพชรบูรณ์",
+    "reasoning": "ทะเลหมอก + ไร่ผักขั้นบันได → ภูเขาสูง · ภาคกลางตอนบนสุด → เพชรบูรณ์ · ยอดเขาของชาวม้งทางเหนือของจังหวัด → อ.หล่มเก่า",
     "sources": [
      {
       "title": "ไทยรัฐ: ภูทับเบิก ต.วังบาล อ.หล่มเก่า สูง 1,768 ม.",
@@ -879,7 +84,7 @@
    "schedule_date": null,
    "verified_by": null,
    "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
+   "note": "ร่าง V2 — เปลี่ยนคำตอบเป็นระดับอำเภอ ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทาน",
    "status": "published",
    "published_at": null
   },
@@ -887,7 +92,7 @@
    "id": "q-travel-0002",
    "category": "สถานที่ท่องเที่ยว",
    "topic": "ปางอุ๋ง",
-   "answer": "mae-hong-son",
+   "answer": "TH5801",
    "cards": [
     {
      "type": "image",
@@ -904,28 +109,22 @@
     {
      "type": "text",
      "role": "hint",
-     "text": "อยู่ภาคเหนือ ติดชายแดนเมียนมา",
+     "text": "อยู่ภาคเหนือ ในจังหวัดที่ติดชายแดนเมียนมาและถูกเรียกว่าเมืองสามหมอก",
      "tag_hint": "region"
     },
     {
      "type": "text",
      "role": "hint",
-     "text": "อ่างเก็บน้ำบนที่สูง ล้อมด้วยทิวสน",
+     "text": "อ่างเก็บน้ำบนที่สูง ล้อมด้วยทิวสน ได้สมญาว่า “สวิตเซอร์แลนด์แดนสามหมอก”",
      "tag_hint": "terrain"
     },
     {
      "type": "text",
      "role": "hint",
-     "text": "ได้สมญาว่า “สวิตเซอร์แลนด์แดนสามหมอก” (จังหวัดนี้ถูกเรียกว่าเมืองสามหมอก)",
-     "tag_hint": null
+     "text": "อยู่ที่บ้านรวมไทย ตำบลหมอกจำแป่ ในอำเภอเมืองของจังหวัด",
+     "tag_hint": "district"
     }
    ],
-   "similar": {
-    "chiang-mai": 250
-   },
-   "similar_reasons": {
-    "chiang-mai": "มีที่สูง ป่าสน และหมอกคล้ายกัน"
-   },
    "reveal": {
     "image": {
      "src": "img/q-travel-0002.webp",
@@ -946,7 +145,7 @@
      "ช่วงที่เหมาะไป": "ปลายฝนถึงฤดูหนาว ช่วงเช้าเพื่อชมหมอก (หมอกไม่ได้เกิดทุกวัน)",
      "ความเป็นมา": "“ปาง” หมายถึงที่พักของคนทำงานในป่า “อุ๋ง” เป็นภาษาเหนือ หมายถึงที่ลุ่มต่ำคล้ายกระทะใบใหญ่มีน้ำขัง"
     },
-    "reasoning": "อ่างเก็บน้ำ + ป่าสน + หมอก → ที่สูงภาคเหนือ · เมืองสามหมอก → แม่ฮ่องสอน",
+    "reasoning": "อ่างเก็บน้ำ + ป่าสน + หมอก → ที่สูงภาคเหนือ · เมืองสามหมอก → แม่ฮ่องสอน · ต.หมอกจำแป่ → อ.เมืองแม่ฮ่องสอน",
     "sources": [
      {
       "title": "ไทยโพสต์: ปางอุ๋ง บ้านรวมไทย “สวิตเซอร์แลนด์แดนสามหมอก”",
@@ -969,7 +168,7 @@
    "schedule_date": null,
    "verified_by": null,
    "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
+   "note": "ร่าง V2 — เปลี่ยนคำตอบเป็นระดับอำเภอ ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทาน",
    "status": "published",
    "published_at": null
   },
@@ -977,7 +176,7 @@
    "id": "q-travel-0003",
    "category": "สถานที่ท่องเที่ยว",
    "topic": "ถ้ำพระยานคร",
-   "answer": "prachuap-khiri-khan",
+   "answer": "TH7708",
    "cards": [
     {
      "type": "image",
@@ -994,28 +193,22 @@
     {
      "type": "text",
      "role": "hint",
-     "text": "อยู่ภาคตะวันตก ใกล้ทะเลอ่าวไทย",
+     "text": "อยู่ภาคตะวันตก ริมทะเลฝั่งอ่าวไทย",
      "tag_hint": "region"
     },
     {
      "type": "text",
      "role": "hint",
-     "text": "ภูเขาหินปูนริมทะเลในอุทยานแห่งชาติ ต้องเดินขึ้นเขาราว 430 เมตร",
+     "text": "ถ้ำในภูเขาหินปูนริมทะเลของอุทยานแห่งชาติ ต้องเดินขึ้นเขาจากหาดแหลมศาลาราว 430 เมตร",
      "tag_hint": "terrain"
     },
     {
      "type": "text",
      "role": "hint",
-     "text": "พลับพลาจตุรมุขที่สร้างรับเสด็จรัชกาลที่ 5 ปัจจุบันเป็นตราประจำจังหวัด",
-     "tag_hint": null
+     "text": "พลับพลาจตุรมุขที่สร้างรับเสด็จรัชกาลที่ 5 อยู่ในอำเภอที่ชื่อเดียวกับอุทยานแห่งชาติ",
+     "tag_hint": "district"
     }
    ],
-   "similar": {
-    "phetchaburi": 250
-   },
-   "similar_reasons": {
-    "phetchaburi": "อยู่ติดกัน ภาคตะวันตกติดอ่าวไทยเหมือนกัน"
-   },
    "reveal": {
     "image": {
      "src": "img/q-travel-0003.webp",
@@ -1035,7 +228,7 @@
      "ช่วงที่เหมาะไป": "ช่วงสายของวันที่ฟ้าโปร่ง · ต้องเดินขึ้นเขาจากหาดแหลมศาลาราว 430 เมตร",
      "ความเป็นมา": "รัชกาลที่ 5 เสด็จประพาสเมื่อ 20 มิ.ย. 2433 โปรดเกล้าฯ ให้สร้างพระที่นั่ง และเสด็จยกช่อฟ้าด้วยพระองค์เอง ผนังถ้ำมีพระปรมาภิไธยย่อ ร.5 และ ร.7"
     },
-    "reasoning": "พลับพลาในถ้ำ + แสงลอดปล่อง → ถ้ำเขาหินปูนริมทะเล · ตราประจำจังหวัด → ประจวบคีรีขันธ์",
+    "reasoning": "พลับพลาในถ้ำ + แสงลอดปล่อง → ถ้ำเขาหินปูนริมทะเล · ตราประจำจังหวัด → ประจวบคีรีขันธ์ · อุทยานแห่งชาติเขาสามร้อยยอด → อ.สามร้อยยอด",
     "sources": [
      {
       "title": "เดลินิวส์: แสงลอดปล่องถ้ำ 10.30–11.30 น. และประวัติพระที่นั่ง",
@@ -1054,36 +247,584 @@
    "schedule_date": null,
    "verified_by": null,
    "verified_at": null,
-   "note": "ร่าง — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทานก่อนเผยแพร่จริง",
+   "note": "ร่าง V2 — เปลี่ยนคำตอบเป็นระดับอำเภอ ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทาน",
+   "status": "published",
+   "published_at": null
+  },
+  {
+   "id": "q-travel-0004",
+   "category": "สถานที่ท่องเที่ยว",
+   "topic": "วัดร่องขุ่น",
+   "answer": "TH5701",
+   "cards": [
+    {
+     "type": "image",
+     "role": "main",
+     "tag_hint": null,
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/White_Temple_XXI.jpg/1280px-White_Temple_XXI.jpg",
+     "credit": "Hans-Jürgen Neubert",
+     "license": "CC BY 4.0",
+     "license_url": "https://creativecommons.org/licenses/by/4.0",
+     "source_url": "https://commons.wikimedia.org/wiki/File:White_Temple_XXI.jpg",
+     "focus": "38% 45%",
+     "source": "commons"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อยู่ภาคเหนือ ในจังหวัดเหนือสุดของประเทศ ที่มีชายแดนติดทั้งเมียนมาและลาว",
+     "tag_hint": "region"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "วัดสีขาวทั้งหลังประดับกระจก สร้างใหม่โดยศิลปินแห่งชาติที่เป็นคนจังหวัดนี้",
+     "tag_hint": "religion_culture"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อยู่ริมถนนพหลโยธิน ห่างตัวเมืองลงมาทางใต้ราว 13 กม. แต่ยังอยู่ในอำเภอเมืองของจังหวัด",
+     "tag_hint": "district"
+    }
+   ],
+   "reveal": {
+    "image": {
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/White_Temple_XXI.jpg/1280px-White_Temple_XXI.jpg",
+     "file": "White Temple XXI.jpg",
+     "credit": "Hans-Jürgen Neubert",
+     "license": "CC BY 4.0",
+     "license_url": "https://creativecommons.org/licenses/by/4.0",
+     "source_url": "https://commons.wikimedia.org/wiki/File:White_Temple_XXI.jpg",
+     "focus": "38% 45%",
+     "source": "commons"
+    },
+    "facts": {
+     "ชื่อ": "วัดร่องขุ่น (วัดขาว)",
+     "ที่ตั้ง": "บ้านร่องขุ่น ตำบลป่าอ้อดอนชัย อำเภอเมืองเชียงราย จังหวัดเชียงราย",
+     "จุดเด่น": "อุโบสถสีขาวประดับกระจก สื่อถึงความบริสุทธิ์ของพระพุทธคุณ · สะพานทางเข้ามีมือนับร้อยยื่นขึ้นมา หมายถึงกิเลสที่ต้องข้ามให้พ้น",
+     "ช่วงที่เหมาะไป": "ช่วงเช้า คนยังไม่มากและถ่ายรูปง่าย (สายถึงบ่ายและวันหยุดคนแน่น) · ตรวจเวลาเปิด-ปิดจากเพจของวัดก่อนไป",
+     "ความเป็นมา": "เดิมเป็นวัดประจำหมู่บ้าน สร้าง พ.ศ. 2468 · พ.ศ. 2540 อาจารย์เฉลิมชัย โฆษิตพิพัฒน์ ศิลปินแห่งชาติชาวเชียงราย เริ่มสร้างใหม่เป็นแบบปัจจุบัน · เสียหายจากแผ่นดินไหว 5 พ.ค. 2557 แล้วบูรณะต่อ"
+    },
+    "reasoning": "วัดสีขาวประดับกระจก → วัดร่องขุ่น · จังหวัดเหนือสุด ติดเมียนมาและลาว → เชียงราย · ห่างตัวเมืองไปทางใต้ราว 13 กม. → อ.เมืองเชียงราย",
+    "sources": [
+     {
+      "title": "Chiang Rai Times: วัดร่องขุ่น ต.ป่าอ้อดอนชัย ประวัติ ความหมาย เวลาเปิด",
+      "url": "https://www.chiangraitimes.com/th/news/47898/"
+     },
+     {
+      "title": "Wongnai: ห่างตัวเมือง 13 กม. ริมถนนพหลโยธิน",
+      "url": "https://www.wongnai.com/attractions/324899On"
+     },
+     {
+      "title": "TrueID: สร้างใหม่ตั้งแต่ พ.ศ. 2540 ถวายเป็นพุทธบูชา",
+      "url": "https://travel.trueid.net/detail/x0Lnpy3ADax"
+     }
+    ]
+   },
+   "schedule_date": null,
+   "verified_by": null,
+   "verified_at": null,
+   "note": "ร่าง V2 — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทาน · ภาพลิงก์ตรงจาก Wikimedia Commons (ชื่อไฟล์ในลิงก์ภาพมีชื่อสถานที่ ถ้าอัปโหลดภาพเข้าระบบหลังบ้านจะได้ชื่อไฟล์กลาง)",
+   "status": "published",
+   "published_at": null
+  },
+  {
+   "id": "q-travel-0005",
+   "category": "สถานที่ท่องเที่ยว",
+   "topic": "ปราสาทหินพนมรุ้ง",
+   "answer": "TH3123",
+   "cards": [
+    {
+     "type": "image",
+     "role": "main",
+     "tag_hint": null,
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Phanom_Rung_Buriram_Thailand_05.jpg/1280px-Phanom_Rung_Buriram_Thailand_05.jpg",
+     "credit": "Philip Nalangan",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Phanom_Rung_Buriram_Thailand_05.jpg",
+     "focus": "50% 45%",
+     "source": "commons"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อยู่ภาคตะวันออกเฉียงเหนือตอนล่าง ในจังหวัดติดกัมพูชาที่มีสนามแข่งรถระดับนานาชาติ",
+     "tag_hint": "region"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "ปราสาทหินศิลปะเขมรบนยอดภูเขาไฟที่ดับแล้ว ปีละ 4 ครั้งแสงอาทิตย์ส่องลอดผ่าน 15 ช่องประตู",
+     "tag_hint": "terrain"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "ชื่ออำเภอมีความหมายว่า “ยกย่องพระเกียรติ” ซึ่งเป็นชื่อเดียวกับอำเภอในอีกหลายจังหวัด",
+     "tag_hint": "district"
+    }
+   ],
+   "reveal": {
+    "image": {
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Phanom_Rung_Buriram_Thailand_05.jpg/1280px-Phanom_Rung_Buriram_Thailand_05.jpg",
+     "file": "Phanom Rung Buriram Thailand 05.jpg",
+     "credit": "Philip Nalangan",
+     "license": "CC BY-SA 4.0",
+     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Phanom_Rung_Buriram_Thailand_05.jpg",
+     "focus": "50% 45%",
+     "source": "commons"
+    },
+    "facts": {
+     "ชื่อ": "ปราสาทหินพนมรุ้ง (อุทยานประวัติศาสตร์พนมรุ้ง)",
+     "ที่ตั้ง": "ตำบลตาเป๊ก อำเภอเฉลิมพระเกียรติ จังหวัดบุรีรัมย์",
+     "จุดเด่น": "เทวาลัยบนยอดภูเขาไฟที่ดับสนิทแล้ว · หน้าบันศิวนาฏราช · ปรากฏการณ์แสงอาทิตย์ส่องตรง 15 ช่องประตู ปีละ 4 ครั้ง",
+     "ช่วงที่เหมาะไป": "วันพระอาทิตย์ขึ้นตรง 15 ช่องประตู (ราวต้นเมษายนและต้นกันยายน) หรือวันพระอาทิตย์ตกตรงประตู · วันแน่นอนดูจากประกาศของอุทยานฯ แต่ละปี",
+     "ความเป็นมา": "เทวสถานศาสนาฮินดู ไศวนิกาย สร้างราวพุทธศตวรรษที่ 15 และต่อเติมถึงพุทธศตวรรษที่ 18 · ขึ้นทะเบียนโบราณสถาน 8 มี.ค. 2478 · บูรณะครั้งใหญ่ด้วยวิธีอนัสติโลซิส เริ่ม พ.ศ. 2514"
+    },
+    "reasoning": "ปราสาทหินศิลปะเขมรบนยอดเขา → อีสานตอนล่าง · ภูเขาไฟที่ดับแล้ว + แสงลอด 15 ช่องประตู → พนมรุ้ง จ.บุรีรัมย์ · ชื่ออำเภอ “ยกย่องพระเกียรติ” → อ.เฉลิมพระเกียรติ",
+    "sources": [
+     {
+      "title": "ศิลปวัฒนธรรม: ปราสาทพนมรุ้ง ต.ตาเป๊ก อ.เฉลิมพระเกียรติ ประวัติและการบูรณะ",
+      "url": "https://www.silpa-mag.com/?p=30352"
+     },
+     {
+      "title": "แนวหน้า: พระอาทิตย์ขึ้นตรง 15 ช่องประตู 3–5 เม.ย. 2568",
+      "url": "https://www.naewna.com/likesara/873534"
+     },
+     {
+      "title": "TrueID: แสงอาทิตย์ลอด 15 ช่องประตู ปีละ 4 ครั้ง",
+      "url": "https://travel.trueid.net/detail/VEJgNPrglQZp"
+     },
+     {
+      "title": "LINE TODAY: มหาเทวาลัยบนยอดภูเขาไฟที่ดับสนิท",
+      "url": "https://today.line.me/th/v3/article/ry1k78"
+     }
+    ]
+   },
+   "schedule_date": null,
+   "verified_by": null,
+   "verified_at": null,
+   "note": "ร่าง V2 — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทาน · ภาพลิงก์ตรงจาก Wikimedia Commons (ชื่อไฟล์ในลิงก์ภาพมีชื่อสถานที่ ถ้าอัปโหลดภาพเข้าระบบหลังบ้านจะได้ชื่อไฟล์กลาง)",
+   "status": "published",
+   "published_at": null
+  },
+  {
+   "id": "q-travel-0006",
+   "category": "สถานที่ท่องเที่ยว",
+   "topic": "วัดอรุณราชวราราม",
+   "answer": "TH1016",
+   "cards": [
+    {
+     "type": "image",
+     "role": "main",
+     "tag_hint": null,
+     "src": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Wat_Arun_from_Chao_Phraya_River.jpg",
+     "credit": "Diliff",
+     "license": "CC BY 2.5",
+     "license_url": "https://creativecommons.org/licenses/by/2.5",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Wat_Arun_from_Chao_Phraya_River.jpg",
+     "focus": "52% 45%",
+     "source": "commons"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อยู่ภาคกลาง ในเมืองหลวง ฝั่งตะวันตกของแม่น้ำเจ้าพระยา (ฝั่งธนบุรี)",
+     "tag_hint": "region"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "พระปรางค์สูงราว 82 เมตร ประดับกระเบื้องเคลือบ เป็นภาพบนเหรียญ 10 บาท",
+     "tag_hint": "religion_culture"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "วัดอยู่ตรงปากคลองที่ชื่อเดียวกับเขต (อีกเขตชื่อคล้ายกันแต่ลงท้ายว่า “น้อย”)",
+     "tag_hint": "district"
+    }
+   ],
+   "reveal": {
+    "image": {
+     "src": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Wat_Arun_from_Chao_Phraya_River.jpg",
+     "file": "Wat Arun from Chao Phraya River.jpg",
+     "credit": "Diliff",
+     "license": "CC BY 2.5",
+     "license_url": "https://creativecommons.org/licenses/by/2.5",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Wat_Arun_from_Chao_Phraya_River.jpg",
+     "focus": "52% 45%",
+     "source": "commons"
+    },
+    "facts": {
+     "ชื่อ": "วัดอรุณราชวราราม (วัดแจ้ง)",
+     "ที่ตั้ง": "ริมแม่น้ำเจ้าพระยาฝั่งตะวันตก แขวงวัดอรุณ เขตบางกอกใหญ่ กรุงเทพมหานคร",
+     "จุดเด่น": "พระปรางค์ประธานสูง 81.85 เมตร สัณฐานดุจเขาพระสุเมรุ ประดับกระเบื้องเคลือบ · เป็นภาพบนเหรียญ 10 บาท",
+     "ช่วงที่เหมาะไป": "ไปได้ทั้งเช้า กลางวัน และเย็น กระเบื้องสะท้อนแสงต่างกันตามช่วงเวลา · นั่งเรือข้ามฟากจากท่าเตียนราว 5 นาที",
+     "ความเป็นมา": "วัดโบราณตั้งแต่สมัยอยุธยา เดิมชื่อวัดมะกอก แล้วเรียกวัดมะกอกนอก · สมเด็จพระเจ้าตากสินเสด็จถึงหน้าวัดตอนรุ่งอรุณ จึงเปลี่ยนชื่อเป็นวัดแจ้ง · พระปรางค์องค์ปัจจุบันเริ่มสร้างในรัชกาลที่ 2 และแล้วเสร็จในรัชกาลที่ 3"
+    },
+    "reasoning": "พระปรางค์ริมแม่น้ำบนเหรียญ 10 บาท → วัดอรุณ กรุงเทพฯ · ฝั่งธนบุรี ปากคลองบางกอกใหญ่ → เขตบางกอกใหญ่",
+    "sources": [
+     {
+      "title": "ผู้จัดการ: วัดอรุณฯ แขวงวัดอรุณ เขตบางกอกใหญ่ และที่มาของชื่อวัด",
+      "url": "https://mgronline.com/dhamma/detail/9570000073849"
+     },
+     {
+      "title": "ผู้จัดการ: พระปรางค์สูง 81.85 เมตร",
+      "url": "https://mgronline.com/travel/detail/9660000012697"
+     },
+     {
+      "title": "ผู้จัดการ: เหรียญ 10 บาท และการสร้างพระปรางค์สมัย ร.2–ร.3",
+      "url": "https://mgronline.com/travel/detail/9560000036913"
+     },
+     {
+      "title": "THE STANDARD: วัดริมเจ้าพระยา ณ ปากคลองบางกอกใหญ่",
+      "url": "https://thestandard.co/?p=30244"
+     }
+    ]
+   },
+   "schedule_date": null,
+   "verified_by": null,
+   "verified_at": null,
+   "note": "ร่าง V2 — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทาน · ภาพลิงก์ตรงจาก Wikimedia Commons (ชื่อไฟล์ในลิงก์ภาพมีชื่อสถานที่ ถ้าอัปโหลดภาพเข้าระบบหลังบ้านจะได้ชื่อไฟล์กลาง)",
+   "status": "published",
+   "published_at": null
+  },
+  {
+   "id": "q-travel-0007",
+   "category": "สถานที่ท่องเที่ยว",
+   "topic": "สะพานมอญ",
+   "answer": "TH7108",
+   "cards": [
+    {
+     "type": "image",
+     "role": "main",
+     "tag_hint": null,
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/%E0%B8%AA%E0%B8%B0%E0%B8%9E%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B8%AD%E0%B8%8D_-_panoramio.jpg/1280px-%E0%B8%AA%E0%B8%B0%E0%B8%9E%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B8%AD%E0%B8%8D_-_panoramio.jpg",
+     "credit": "Bundit Sincharoen",
+     "license": "CC BY 3.0",
+     "license_url": "https://creativecommons.org/licenses/by/3.0",
+     "source_url": "https://commons.wikimedia.org/wiki/File:%E0%B8%AA%E0%B8%B0%E0%B8%9E%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B8%AD%E0%B8%8D_-_panoramio.jpg",
+     "focus": "40% 50%",
+     "source": "commons"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อยู่ภาคตะวันตก ในจังหวัดที่ใหญ่ที่สุดของภาค ติดชายแดนเมียนมา",
+     "tag_hint": "region"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "สะพานไม้ยาวหลายร้อยเมตร ยาวที่สุดในไทย ข้ามลำน้ำเหนือเขื่อนไปยังชุมชนชาวมอญ",
+     "tag_hint": "religion_culture"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อยู่ในอำเภอชายแดนเดียวกับด่านเจดีย์สามองค์",
+     "tag_hint": "district"
+    }
+   ],
+   "reveal": {
+    "image": {
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/%E0%B8%AA%E0%B8%B0%E0%B8%9E%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B8%AD%E0%B8%8D_-_panoramio.jpg/1280px-%E0%B8%AA%E0%B8%B0%E0%B8%9E%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B8%AD%E0%B8%8D_-_panoramio.jpg",
+     "file": "สะพานมอญ - panoramio.jpg",
+     "credit": "Bundit Sincharoen",
+     "license": "CC BY 3.0",
+     "license_url": "https://creativecommons.org/licenses/by/3.0",
+     "source_url": "https://commons.wikimedia.org/wiki/File:%E0%B8%AA%E0%B8%B0%E0%B8%9E%E0%B8%B2%E0%B8%99%E0%B8%A1%E0%B8%AD%E0%B8%8D_-_panoramio.jpg",
+     "focus": "40% 50%",
+     "source": "commons"
+    },
+    "facts": {
+     "ชื่อ": "สะพานอุตตมานุสรณ์ (สะพานมอญ)",
+     "ที่ตั้ง": "ข้ามแม่น้ำซองกาเลีย ตำบลหนองลู อำเภอสังขละบุรี จังหวัดกาญจนบุรี",
+     "จุดเด่น": "สะพานไม้ที่ยาวที่สุดในไทย และระบุกันว่ายาวเป็นอันดับ 2 ของโลกรองจากสะพานอูเบ็งในเมียนมา · เชื่อมฝั่งชุมชนชาวมอญกับฝั่งตัวอำเภอ",
+     "ช่วงที่เหมาะไป": "เช้าตรู่ราว 06.00–07.00 น. ชมวิถีชาวมอญใส่บาตร และแสงเช้าบนทะเลสาบเหนือเขื่อนวชิราลงกรณ์",
+     "ความเป็นมา": "สร้างตามดำริของหลวงพ่ออุตตมะ เจ้าอาวาสวัดวังก์วิเวการาม ช่วง พ.ศ. 2529–2530 ด้วยแรงงานชาวมอญ · ช่วงกลางสะพานพังลงเมื่อ 28 ก.ค. 2556 ระหว่างฝนตกหนัก ทหารช่างกองพลทหารราบที่ 9 ร่วมกับชาวบ้านซ่อม จนเปิดใช้อีกครั้ง 18 ต.ค. 2557"
+    },
+    "reasoning": "สะพานไม้ยาวข้ามทะเลสาบ + ชุมชนมอญ → สะพานมอญ · ภาคตะวันตกติดเมียนมา → กาญจนบุรี · อำเภอเดียวกับด่านเจดีย์สามองค์ → อ.สังขละบุรี",
+    "sources": [
+     {
+      "title": "แนวหน้า: สะพานอุตตมานุสรณ์ ต.หนองลู ประวัติการสร้างและการซ่อม",
+      "url": "https://www.naewna.com/likesara/326077"
+     },
+     {
+      "title": "Wikipedia (EN): Uttamanusorn Bridge ความยาวและเหตุสะพานพัง 2556",
+      "url": "https://en.wikipedia.org/wiki/Uttamanusorn_Bridge"
+     },
+     {
+      "title": "TrueID: ช่วง 06.00–07.00 น. ชาวมอญใส่บาตร",
+      "url": "https://travel.trueid.net/detail/x0NenX6vOv91"
+     },
+     {
+      "title": "ไทยพีบีเอส: นักท่องเที่ยวใส่บาตรริมแม่น้ำซองกาเลีย",
+      "url": "https://www.thaipbs.or.th/news/content/325443"
+     }
+    ]
+   },
+   "schedule_date": null,
+   "verified_by": null,
+   "verified_at": null,
+   "note": "ร่าง V2 — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทาน · ภาพลิงก์ตรงจาก Wikimedia Commons (ชื่อไฟล์ในลิงก์ภาพมีชื่อสถานที่ ถ้าอัปโหลดภาพเข้าระบบหลังบ้านจะได้ชื่อไฟล์กลาง) · ความยาวสะพานไม่ตรงกัน: ข่าวไทยหลายแห่งระบุ 850 ม. แต่ Wikipedia/TrueID ระบุราว 445 ม. (จึงไม่ใส่ตัวเลข) · ส.ค. 2569 มีข่าวพบจุดชำรุดบนสะพาน (แนวหน้า) ตรวจสถานะก่อนเผยแพร่",
+   "status": "published",
+   "published_at": null
+  },
+  {
+   "id": "q-travel-0008",
+   "category": "สถานที่ท่องเที่ยว",
+   "topic": "เขาตะปู (เกาะเจมส์บอนด์)",
+   "answer": "TH8204",
+   "cards": [
+    {
+     "type": "image",
+     "role": "main",
+     "tag_hint": null,
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Phang_Nga_Bay%2C_Koh_Tapu%2C_Thailand.jpg/1280px-Phang_Nga_Bay%2C_Koh_Tapu%2C_Thailand.jpg",
+     "credit": "Vyacheslav Argenberg",
+     "license": "CC BY 4.0",
+     "license_url": "https://creativecommons.org/licenses/by/4.0",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Phang_Nga_Bay,_Koh_Tapu,_Thailand.jpg",
+     "focus": "30% 50%",
+     "source": "commons"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อยู่ภาคใต้ฝั่งทะเลอันดามัน ในจังหวัดที่อยู่ติดเกาะภูเก็ตทางทิศเหนือ",
+     "tag_hint": "region"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "เกาะหินปูนรูปแท่งคล้ายตะปูปักลงทะเล ในอ่าวที่เป็นอุทยานแห่งชาติ เคยเป็นฉากภาพยนตร์สายลับปี 2517",
+     "tag_hint": "terrain"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "ไม่ได้อยู่อำเภอเมือง แต่อยู่ในอำเภอที่ชื่อขึ้นต้นว่า “ตะกั่ว” (และไม่ใช่ตะกั่วป่า)",
+     "tag_hint": "district"
+    }
+   ],
+   "reveal": {
+    "image": {
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Phang_Nga_Bay%2C_Koh_Tapu%2C_Thailand.jpg/1280px-Phang_Nga_Bay%2C_Koh_Tapu%2C_Thailand.jpg",
+     "file": "Phang Nga Bay, Koh Tapu, Thailand.jpg",
+     "credit": "Vyacheslav Argenberg",
+     "license": "CC BY 4.0",
+     "license_url": "https://creativecommons.org/licenses/by/4.0",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Phang_Nga_Bay,_Koh_Tapu,_Thailand.jpg",
+     "focus": "30% 50%",
+     "source": "commons"
+    },
+    "facts": {
+     "ชื่อ": "เขาตะปู (เกาะเจมส์บอนด์) และเขาพิงกัน",
+     "ที่ตั้ง": "อุทยานแห่งชาติอ่าวพังงา ท้องที่ตำบลกะไหล อำเภอตะกั่วทุ่ง จังหวัดพังงา",
+     "จุดเด่น": "เกาะหินปูนขนาดเล็กทรงแท่งคล้ายตะปูยักษ์ อยู่ในเวิ้งอ่าวด้านเหนือของเขาพิงกัน ชมได้จากเรือหรือจากหาดของเขาพิงกัน · เขาพิงกันเป็นภูเขาที่แยกเป็นสองซีกพิงกัน",
+     "ช่วงที่เหมาะไป": "ราว พ.ย.–เม.ย. อากาศแจ่มและทะเลสงบ · พ.ค.–ต.ค. ฝนชุกและคลื่นลมแรง",
+     "ความเป็นมา": "ใช้ถ่ายทำภาพยนตร์เจมส์ บอนด์ ตอน “เพชฌฆาตปืนทอง” (The Man with the Golden Gun) ปี 2517 จึงได้ชื่อเกาะเจมส์บอนด์ · อุทยานแห่งชาติอ่าวพังงาประกาศเมื่อ 29 เม.ย. 2524"
+    },
+    "reasoning": "เกาะหินปูนรูปตะปูกลางอ่าว → เขาตะปู อ่าวพังงา · อันดามันเหนือภูเก็ต → พังงา · อำเภอขึ้นต้น “ตะกั่ว” ที่ไม่ใช่ตะกั่วป่า → อ.ตะกั่วทุ่ง",
+    "sources": [
+     {
+      "title": "ไทยพีบีเอส: รู้จัก “เขาเจมส์บอนด์” ต.กะไหล อ.ตะกั่วทุ่ง",
+      "url": "https://www.thaipbs.or.th/news/content/302973"
+     },
+     {
+      "title": "ผู้จัดการ: ฉากเจมส์ บอนด์ ปี 2517 และเขาพิงกัน",
+      "url": "https://mgronline.com/travel/detail/9660000117046"
+     },
+     {
+      "title": "KTC: ทะเลอันดามันเที่ยวช่วง พ.ย.–เม.ย.",
+      "url": "https://www.ktc.co.th/article/travel-guide/thailand/beach-travel-off-hurricane-season"
+     },
+     {
+      "title": "Phang Nga Guide Book: ประกาศอุทยานฯ 29 เม.ย. 2524 และช่วงฝนชุก",
+      "url": "https://issuu.com/phuketemagazine/docs/phang-nga_guide_book_2013_-_issuu/17"
+     }
+    ]
+   },
+   "schedule_date": null,
+   "verified_by": null,
+   "verified_at": null,
+   "note": "ร่าง V2 — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทาน · ภาพลิงก์ตรงจาก Wikimedia Commons (ชื่อไฟล์ในลิงก์ภาพมีชื่อสถานที่ ถ้าอัปโหลดภาพเข้าระบบหลังบ้านจะได้ชื่อไฟล์กลาง) · คำตอบคือ อ.ตะกั่วทุ่ง ไม่ใช่ อ.เมืองพังงา (ไทยพีบีเอสระบุ ต.กะไหล อ.ตะกั่วทุ่ง · บางเว็บระบุ ต.กระโสม แต่ก็อยู่ อ.ตะกั่วทุ่ง เช่นกัน)",
+   "status": "published",
+   "published_at": null
+  },
+  {
+   "id": "q-travel-0009",
+   "category": "สถานที่ท่องเที่ยว",
+   "topic": "วัดมหาธาตุ สุโขทัย",
+   "answer": "TH6401",
+   "cards": [
+    {
+     "type": "image",
+     "role": "main",
+     "tag_hint": null,
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Wat_Mahathat%2C_Sukhothai_Historical_Park.jpg/1280px-Wat_Mahathat%2C_Sukhothai_Historical_Park.jpg",
+     "credit": "Gary Todd",
+     "license": "Public domain",
+     "license_url": "",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Wat_Mahathat,_Sukhothai_Historical_Park.jpg",
+     "focus": "52% 55%",
+     "source": "commons"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อยู่ภาคกลางตอนบน (ตามการแบ่ง 6 ภาค) ในจังหวัดที่มีอุทยานประวัติศาสตร์มรดกโลกอยู่ถึงสองแห่ง",
+     "tag_hint": "region"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "เจดีย์ประธานทรงดอกบัวตูม (ทรงพุ่มข้าวบิณฑ์) อยู่กลางเมืองเก่าที่มีกำแพงและคูน้ำล้อมรอบ",
+     "tag_hint": "religion_culture"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อยู่ในตำบลที่ชื่อบอกตรง ๆ ว่าเป็น “เมืองเก่า” ในอำเภอเมืองของจังหวัด",
+     "tag_hint": "district"
+    }
+   ],
+   "reveal": {
+    "image": {
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Wat_Mahathat%2C_Sukhothai_Historical_Park.jpg/1280px-Wat_Mahathat%2C_Sukhothai_Historical_Park.jpg",
+     "file": "Wat Mahathat, Sukhothai Historical Park.jpg",
+     "credit": "Gary Todd",
+     "license": "Public domain",
+     "license_url": "",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Wat_Mahathat,_Sukhothai_Historical_Park.jpg",
+     "focus": "52% 55%",
+     "source": "commons"
+    },
+    "facts": {
+     "ชื่อ": "วัดมหาธาตุ อุทยานประวัติศาสตร์สุโขทัย",
+     "ที่ตั้ง": "ตำบลเมืองเก่า อำเภอเมืองสุโขทัย จังหวัดสุโขทัย",
+     "จุดเด่น": "เจดีย์ประธานทรงพุ่มข้าวบิณฑ์ (ดอกบัวตูม) เอกลักษณ์ศิลปะสุโขทัย ล้อมด้วยเจดีย์อีก 8 องค์ · ขนาบด้วยพระอัฏฐารส พระพุทธรูปยืนสูง 18 ศอก · ในวัดมีเจดีย์กว่า 200 องค์",
+     "ช่วงที่เหมาะไป": "ช่วงงานประเพณีลอยกระทง เผาเทียน เล่นไฟ ที่อุทยานประวัติศาสตร์สุโขทัย (ราว ต.ค.–พ.ย. ตามวันลอยกระทงของแต่ละปี)",
+     "ความเป็นมา": "วัดสำคัญที่สุดกลางเมืองเก่าสุโขทัย · พ.ศ. 2496 เริ่มขุดแต่งที่วัดมหาธาตุเป็นแห่งแรก · พ.ศ. 2534 ขึ้นทะเบียนมรดกโลก “เมืองประวัติศาสตร์สุโขทัยและเมืองบริวาร” ร่วมกับศรีสัชนาลัยและกำแพงเพชร"
+    },
+    "reasoning": "เจดีย์ทรงดอกบัวตูม + เสาศิลาแลง → ศิลปะสุโขทัย · มรดกโลกสองแห่งในจังหวัด → สุโขทัย · ตำบลเมืองเก่า → อ.เมืองสุโขทัย",
+    "sources": [
+     {
+      "title": "ไทยรัฐ: หน้าวัดมหาธาตุ อุทยานประวัติศาสตร์สุโขทัย ต.เมืองเก่า อ.เมืองสุโขทัย (งานลอยกระทง 2568)",
+      "url": "https://www.thairath.co.th/news/local/localbusiness/2888230"
+     },
+     {
+      "title": "TrueID: เจดีย์ทรงพุ่มข้าวบิณฑ์ เจดีย์ราย 8 องค์ พระอัฏฐารส",
+      "url": "https://travel.trueid.net/detail/aykXModZnkv6"
+     },
+     {
+      "title": "ศิลปวัฒนธรรม: พ.ศ. 2496 ขุดแต่งวัดมหาธาตุเป็นแห่งแรก",
+      "url": "https://www.silpa-mag.com/history/article_15707"
+     },
+     {
+      "title": "วารสารวิชาการ (ThaiJO): ขึ้นทะเบียนมรดกโลก พ.ศ. 2534",
+      "url": "https://so01.tci-thaijo.org/index.php/artsjournal_ssru/article/download/282092/180321/1153776"
+     }
+    ]
+   },
+   "schedule_date": null,
+   "verified_by": null,
+   "verified_at": null,
+   "note": "ร่าง V2 — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทาน · ภาพลิงก์ตรงจาก Wikimedia Commons (ชื่อไฟล์ในลิงก์ภาพมีชื่อสถานที่ ถ้าอัปโหลดภาพเข้าระบบหลังบ้านจะได้ชื่อไฟล์กลาง)",
+   "status": "published",
+   "published_at": null
+  },
+  {
+   "id": "q-travel-0010",
+   "category": "สถานที่ท่องเที่ยว",
+   "topic": "หาดคลองพร้าว เกาะช้าง",
+   "answer": "TH2307",
+   "cards": [
+    {
+     "type": "image",
+     "role": "main",
+     "tag_hint": null,
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Klong_Prao_Beach%2C_west_coast_of_Ko_Chang_Island%2C_Thailand.jpg/1280px-Klong_Prao_Beach%2C_west_coast_of_Ko_Chang_Island%2C_Thailand.jpg",
+     "credit": "Vyacheslav Argenberg",
+     "license": "CC BY 4.0",
+     "license_url": "https://creativecommons.org/licenses/by/4.0",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Klong_Prao_Beach,_west_coast_of_Ko_Chang_Island,_Thailand.jpg",
+     "focus": "50% 45%",
+     "source": "commons"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อยู่ภาคตะวันออก ในจังหวัดชายแดนติดกัมพูชาที่อยู่ปลายสุดของภาค",
+     "tag_hint": "region"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "หาดทรายบนเกาะที่ใหญ่เป็นอันดับ 2 ของไทย เกาะมีภูเขาสูงและป่าทึบ หาดฝั่งนี้หันไปทางพระอาทิตย์ตก",
+     "tag_hint": "terrain"
+    },
+    {
+     "type": "text",
+     "role": "hint",
+     "text": "อำเภอนี้เป็นเกาะทั้งอำเภอ และชื่ออำเภอเดียวกับชื่อเกาะ (ไม่ใช่เกาะกูด)",
+     "tag_hint": "district"
+    }
+   ],
+   "reveal": {
+    "image": {
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Klong_Prao_Beach%2C_west_coast_of_Ko_Chang_Island%2C_Thailand.jpg/1280px-Klong_Prao_Beach%2C_west_coast_of_Ko_Chang_Island%2C_Thailand.jpg",
+     "file": "Klong Prao Beach, west coast of Ko Chang Island, Thailand.jpg",
+     "credit": "Vyacheslav Argenberg",
+     "license": "CC BY 4.0",
+     "license_url": "https://creativecommons.org/licenses/by/4.0",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Klong_Prao_Beach,_west_coast_of_Ko_Chang_Island,_Thailand.jpg",
+     "focus": "50% 45%",
+     "source": "commons"
+    },
+    "facts": {
+     "ชื่อ": "หาดคลองพร้าว เกาะช้าง",
+     "ที่ตั้ง": "ชายฝั่งตะวันตกของเกาะช้าง อำเภอเกาะช้าง จังหวัดตราด",
+     "จุดเด่น": "หาดทรายยาวริมทะเลเปิดฝั่งตะวันตก ชมพระอาทิตย์ตก มีคลองพร้าวไหลออกทะเล · น้ำตกคลองพลูอยู่ห่างไปราว 2–3 กม.",
+     "ช่วงที่เหมาะไป": "ราว พ.ย.–เม.ย. นอกช่วงมรสุม ทะเลสงบกว่า",
+     "ความเป็นมา": "เกาะช้างเป็นเกาะใหญ่อันดับ 2 ของไทยรองจากภูเก็ต จุดสูงสุดคือยอดเขาสลักเพชร 743 เมตร · อยู่ในอุทยานแห่งชาติหมู่เกาะช้าง ประกาศเมื่อ พ.ศ. 2525 เป็นอุทยานแห่งชาติลำดับที่ 45"
+    },
+    "reasoning": "หาดทรายยาว + ภูเขาป่าทึบบนเกาะ → เกาะใหญ่ทะเลตะวันออก · ตราด ติดกัมพูชา → เกาะช้าง · อำเภอชื่อเดียวกับเกาะ → อ.เกาะช้าง",
+    "sources": [
+     {
+      "title": "ไทยโพสต์: เกาะช้าง เกาะใหญ่อันดับ 2 รองจากภูเก็ต ยอดเขาสลักเพชร 743 ม.",
+      "url": "https://www.thaipost.net/news-update/760083/"
+     },
+     {
+      "title": "Grab: หาดฝั่งตะวันตกของเกาะช้างหันออกทะเลเปิด ได้พระอาทิตย์ตก",
+      "url": "https://www.grab.com/th/blog/%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B9%80%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A7%E0%B9%80%E0%B8%81%E0%B8%B2%E0%B8%B0%E0%B8%8A%E0%B9%89%E0%B8%B2%E0%B8%87/"
+     },
+     {
+      "title": "KTC: ทะเลตะวันออกเที่ยวช่วง พ.ย.–เม.ย.",
+      "url": "https://www.ktc.co.th/article/travel-guide/thailand/beach-travel-off-hurricane-season"
+     },
+     {
+      "title": "Wikipedia (EN): Mu Ko Chang National Park ประกาศ พ.ศ. 2525 ลำดับที่ 45",
+      "url": "https://en.wikipedia.org/wiki/Mu_Ko_Chang_National_Park"
+     },
+     {
+      "title": "Wongnai: หาดคลองพร้าว ใกล้น้ำตกคลองพลู",
+      "url": "https://www.wongnai.com/attractions/336483gh-%E0%B8%AB%E0%B8%B2%E0%B8%94%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%A7"
+     }
+    ]
+   },
+   "schedule_date": null,
+   "verified_by": null,
+   "verified_at": null,
+   "note": "ร่าง V2 — ข้อมูลค้นจากแหล่งที่ระบุ รอทีมตรวจทาน · ภาพลิงก์ตรงจาก Wikimedia Commons (ชื่อไฟล์ในลิงก์ภาพมีชื่อสถานที่ ถ้าอัปโหลดภาพเข้าระบบหลังบ้านจะได้ชื่อไฟล์กลาง)",
    "status": "published",
    "published_at": null
   }
  ],
- "backlog": [
-  {
-   "topic": "ประเพณีวิ่งควาย",
-   "category": "กีฬา",
-   "answer": "chonburi",
-   "similar": {
-    "phetchaburi": 500
-   },
-   "similar_reasons": {
-    "phetchaburi": "มีประเพณีวัวลานคล้ายวิ่งควาย"
-   },
-   "status": "รอภาพ — ยังไม่พบภาพใน Wikimedia Commons ที่มีสัญญาอนุญาตใช้ได้",
-   "hint_from_handoff": "ประเพณีที่จัดช่วงก่อนออกพรรษา 1 วัน เพื่อให้ชาวนาและควายได้พักผ่อน"
-  },
-  {
-   "topic": "ประเพณีวัวลาน",
-   "category": "กีฬา",
-   "answer": "phetchaburi",
-   "similar": {
-    "chonburi": 500
-   },
-   "similar_reasons": {
-    "chonburi": "มีประเพณีวิ่งควายคล้ายวัวลาน"
-   },
-   "status": "รอภาพ — ยังไม่พบภาพใน Wikimedia Commons ที่มีสัญญาอนุญาตใช้ได้"
-  }
- ]
+ "backlog": []
 }

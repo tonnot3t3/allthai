@@ -114,7 +114,7 @@ def config(site, play='', share=''):
                         'play': json.dumps(play), 'share': json.dumps(share)}
 
 
-DESCRIPTION = 'เกมทายจังหวัดจากภาพและเบาะแส ของดี 77 จังหวัดทั่วไทย ทั้งอาหาร กีฬา เทศกาลและวัฒนธรรม และสถานที่ท่องเที่ยว เล่นฟรีวันละ 4 ข้อ หรือเล่นต่อแบบไม่จำกัด'
+DESCRIPTION = 'เกมทายสถานที่ท่องเที่ยวทั่วไทยจากภาพและเบาะแส ตอบถึงระดับอำเภอบนแผนที่ 928 อำเภอและเขต ยิ่งใกล้ยิ่งได้คะแนน เล่นฟรีวันละ 5 ข้อ หรือเล่นต่อแบบไม่จำกัด'
 ICONS = ['favicon.svg', 'favicon-48.png', 'apple-touch-icon.png', 'icon-512.png', 'og-image.png']
 
 
@@ -126,7 +126,7 @@ def seo_head(site_url='', google_verify=''):
             '<link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">',
             '<link rel="apple-touch-icon" href="apple-touch-icon.png">']
     if site_url:
-        title = 'ออลไทย — เกมทายของดี 77 จังหวัด'
+        title = 'ออลไทย — เกมทายที่เที่ยวทั่วไทย ระดับอำเภอ'
         tags += ['<link rel="canonical" href="%s">' % e(site_url),
                  '<meta property="og:type" content="website">',
                  '<meta property="og:site_name" content="ออลไทย">',
@@ -137,7 +137,7 @@ def seo_head(site_url='', google_verify=''):
                  '<meta property="og:image" content="%s">' % e(site_url + 'og-image.png'),
                  '<meta property="og:image:width" content="1200">',
                  '<meta property="og:image:height" content="630">',
-                 '<meta property="og:image:alt" content="ออลไทย ทายของดี 77 จังหวัดจากเบาะแส">',
+                 '<meta property="og:image:alt" content="ออลไทย ทายที่เที่ยวทั่วไทย ระดับอำเภอ">',
                  '<meta name="twitter:card" content="summary_large_image">',
                  '<script type="application/ld+json">%s</script>' % json.dumps({
                      '@context': 'https://schema.org', '@type': 'WebSite', 'name': 'ออลไทย', 'alternateName': 'All Thai',
@@ -145,6 +145,11 @@ def seo_head(site_url='', google_verify=''):
     if google_verify:
         tags.append('<meta name="google-site-verification" content="%s">' % e(google_verify))
     return '\n'.join(tags)
+
+
+def districts_json():
+    m = json.loads(read('data/map.json'))
+    return json.dumps({'districts': [{k: d[k] for k in ('id', 'p', 'n', 'en', 'll')} for d in m['districts']]}, ensure_ascii=False, separators=(',', ':'))
 
 
 def copy_icons(out, names=ICONS):
@@ -215,6 +220,7 @@ def main():
     write(os.path.join(out, 'config.js'), config('admin', play='../play/'))
     write(os.path.join(out, 'vercel.json'), json.dumps(VERCEL_ADMIN, indent=2) + '\n')
     copy_assets(out, ['questions.json', 'provinces.json'], with_vendor=True)
+    write(os.path.join(out, 'data', 'districts.json'), districts_json())
     copy_icons(out, ['favicon.svg'])
 
     # GitHub Pages: game at the root, team site at /admin/ (same Supabase project)
@@ -233,6 +239,7 @@ def main():
         write(os.path.join(adm, 'index.html'), admin_html)
         write(os.path.join(adm, 'config.js'), config('admin', play='../'))
         copy_assets(adm, ['questions.json', 'provinces.json'], with_vendor=live)
+        write(os.path.join(adm, 'data', 'districts.json'), districts_json())
         copy_icons(adm, ['favicon.svg'])
 
     # ตัวอย่างรวม 2 เว็บ (โหมดสาธิต)
@@ -245,6 +252,7 @@ def main():
     write(os.path.join(out, 'index.html'), pv)
     write(os.path.join(out, 'config.js'), config('preview', play='#', share=args.share_url))
     copy_assets(out, ['questions.json', 'provinces.json', 'map.json'], with_vendor=False)
+    write(os.path.join(out, 'data', 'districts.json'), districts_json())
 
     sql, n_prov, n_q = seed_sql()
     write(os.path.join(ROOT, 'supabase', 'seed.sql'), sql)

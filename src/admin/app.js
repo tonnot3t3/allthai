@@ -5,7 +5,7 @@ const AllThaiAdmin = (() => {
 'use strict';
 const BE = window.AllThaiBackend;
 const CFG = window.ALLTHAI_CONFIG || {};
-const CATS = ['อาหาร', 'กีฬา', 'เทศกาลและวัฒนธรรม', 'สถานที่ท่องเที่ยว'];
+const CATS = ['สถานที่ท่องเที่ยว'];   // V2: one category, answers are districts
 const CAT_KEY = { 'อาหาร': 'food', 'กีฬา': 'sport', 'เทศกาลและวัฒนธรรม': 'culture', 'สถานที่ท่องเที่ยว': 'travel' };
 const FACT_KEYS = {
   'อาหาร': ['ชื่อ', 'จังหวัดและพื้นที่ต้นกำเนิด', 'วัตถุดิบหลัก', 'เกร็ดน่ารู้'],
@@ -13,24 +13,21 @@ const FACT_KEYS = {
   'เทศกาลและวัฒนธรรม': ['ชื่อ', 'สถานที่จัด', 'ช่วงเวลาที่จัด', 'ความเป็นมาและความเชื่อ'],
   'สถานที่ท่องเที่ยว': ['ชื่อ', 'ที่ตั้ง', 'จุดเด่น', 'ช่วงที่เหมาะไป', 'ความเป็นมา']
 };
-const TAGS = [['', 'ไม่ระบุ'], ['region', 'ภาค'], ['dialect', 'ภาษาถิ่น'], ['religion_culture', 'ศาสนา/วัฒนธรรม'], ['terrain', 'ภูมิประเทศ'], ['main_occupation', 'อาชีพหลัก']];
+const TAGS = [['', 'ไม่ระบุ'], ['region', 'ภาค'], ['terrain', 'ภูมิประเทศ'], ['district', 'อำเภอ'], ['dialect', 'ภาษาถิ่น'], ['religion_culture', 'ศาสนา/วัฒนธรรม'], ['main_occupation', 'อาชีพหลัก']];
 const LICENSE_URL = {
   'CC0': 'https://creativecommons.org/publicdomain/zero/1.0/', 'Public domain': '',
   'CC BY 4.0': 'https://creativecommons.org/licenses/by/4.0/', 'CC BY-SA 4.0': 'https://creativecommons.org/licenses/by-sa/4.0/',
   'CC BY 3.0': 'https://creativecommons.org/licenses/by/3.0/', 'CC BY-SA 3.0': 'https://creativecommons.org/licenses/by-sa/3.0/',
-  'CC BY-SA 2.5': 'https://creativecommons.org/licenses/by-sa/2.5/', 'CC BY 2.0': 'https://creativecommons.org/licenses/by/2.0/',
+  'CC BY 2.5': 'https://creativecommons.org/licenses/by/2.5/', 'CC BY-SA 2.5': 'https://creativecommons.org/licenses/by-sa/2.5/',
+  'CC BY 2.0': 'https://creativecommons.org/licenses/by/2.0/',
   'CC BY-SA 2.0': 'https://creativecommons.org/licenses/by-sa/2.0/'
 };
 const LICENSE_TH = { [BE.LICENSE_ID]: 'ผู้เล่นอนุญาตให้ออลไทยใช้ (ไม่ผูกขาด)' };
 const SOURCES = [['commons', 'Wikimedia Commons'], ['player', 'ภาพจากผู้เล่น'], ['other', 'แหล่งอื่น / ทีมถ่ายเอง']];
 const STATUS_TH = { draft: 'ร่าง', published: 'เผยแพร่', archived: 'เก็บเข้าคลัง' };
 const SUB_TH = { pending: 'รอตรวจ', approved: 'ผ่าน', rejected: 'ไม่ผ่าน' };
-const REGIONS = ['เหนือ', 'อีสาน', 'กลาง', 'ตะวันออก', 'ตะวันตก', 'ใต้'];
-const DIALECTS = ['กลาง', 'เหนือ', 'อีสาน', 'ใต้', 'มลายูถิ่น'];
-const RELIGIONS = ['พุทธ', 'อิสลาม', 'คริสต์'];
-const TERRAINS = ['ติดทะเล', 'ที่ราบ', 'ภูเขา'];
-const OCCUPATIONS = ['เกษตร', 'อุตสาหกรรม', 'ท่องเที่ยว', 'ประมง', 'บริการ'];
-const TARGET_WEEK = 7, TARGET_MONTH = 30;
+const DAILY_N = DAILY_COUNT;                       // from scoring.js
+const TARGET_WEEK = DAILY_N * 7, TARGET_MONTH = DAILY_N * 30;
 
 /* ---------------- tiny DOM helpers ---------------- */
 const $ = id => document.getElementById(id);
@@ -114,15 +111,21 @@ async function guard(fn, okMsg) {
 
 /* ---------------- state ---------------- */
 const A = { mounted: false, session: null, view: 'subs', subs: [], subFilter: 'pending', questions: [], provinces: [], prov: {}, meta: null,
-  qf: { text: '', cat: '', status: '', unverified: false }, pf: { text: '', region: '', unverified: false }, E: null, dirty: false, provDirty: {} };
+  qf: { text: '', cat: '', status: '', unverified: false }, E: null, dirty: false, districts: [], dist: {} };
 const provName = id => (A.prov[id] || {}).name_th || id || '–';
+const distName = d => (d.p === 'bangkok' ? 'เขต' : 'อ.') + d.n;
+const placeName = id => { const d = A.dist[id]; return d ? distName(d) + ' ' + (d.p === 'bangkok' ? 'กรุงเทพฯ' : 'จ.' + provName(d.p)) : (id ? id + ' (ไม่พบในแผนที่)' : '–'); };
+const distOptions = p => [['', p ? 'เลือกอำเภอ/เขต' : 'เลือกจังหวัดก่อน']].concat(A.districts.filter(d => d.p === p).sort((a, b) => a.n.localeCompare(b.n, 'th')).map(d => [d.id, distName(d)]));
 const provOptions = () => [['', 'เลือกจังหวัด']].concat(A.provinces.slice().sort((a, b) => a.name_th.localeCompare(b.name_th, 'th')).map(p => [p.id, p.name_th]));
 const reviewerName = () => A.session && !A.session.demo ? A.session.email : 'ทีมงาน (โหมดสาธิต)';
 
+let distP = null;
+const loadDistricts = () => distP || (distP = fetch((BE.CFG.dataBase || 'data/') + 'districts.json').then(r => { if (!r.ok) throw new Error('districts.json ' + r.status); return r.json(); }));
 async function loadAll() {
-  const [subs, qs, ps, sd] = await Promise.all([BE.listSubmissions(), BE.listQuestions(), BE.listProvinces(), BE.seedProvinces()]);
+  const [subs, qs, ps, sd, ds] = await Promise.all([BE.listSubmissions(), BE.listQuestions(), BE.listProvinces(), BE.seedProvinces(), loadDistricts()]);
   A.subs = subs; A.questions = qs; A.provinces = ps; A.meta = sd.provinceMeta;
   A.prov = {}; ps.forEach(p => { A.prov[p.id] = p; });
+  A.districts = ds.districts; A.dist = {}; ds.districts.forEach(d => { A.dist[d.id] = d; });
   updateCount();
 }
 function updateCount() {
@@ -138,7 +141,7 @@ function setView(v) {
   A.view = v;
   document.querySelectorAll('#ad-tabs button').forEach(b => b.classList.toggle('on', b.dataset.view === v || (v === 'editor' && b.dataset.view === 'questions')));
   const main = $('ad-main'); main.innerHTML = '';
-  ({ subs: viewSubs, questions: viewQuestions, editor: viewEditor, provinces: viewProvinces, system: viewSystem })[v](main);
+  ({ subs: viewSubs, questions: viewQuestions, editor: viewEditor, system: viewSystem })[v](main);
   $('admin-app').scrollTop = 0;
 }
 function shell() {
@@ -213,7 +216,7 @@ function subCard(s) {
   const used = usedIn(s);
   const bd = h('div', { class: 'bd' },
     h('h3', { text: s.title || '(ไม่มีชื่อ)' }),
-    h('div', { class: 'ad-kv' }, h('b', { text: provName(s.province_id) }), ' · ' + (s.category || 'ไม่ระบุหมวด')),
+    h('div', { class: 'ad-kv' }, h('b', { text: s.district_id && A.dist[s.district_id] ? placeName(s.district_id) : 'จ.' + provName(s.province_id) + ' · ไม่ระบุอำเภอ' })),
     s.description ? h('p', { class: 'ad-desc', text: s.description }) : null,
     kv('ถ่ายเมื่อ', s.taken_at), kv('เครดิต', s.credit_name), kv('ติดต่อ', s.contact),
     kv('ส่งเมื่อ', thTime(s.created_at)),
@@ -230,7 +233,7 @@ function subCard(s) {
   return h('article', { class: 'ad-card ad-sub' }, ph, bd, acts);
 }
 async function review(s, status) {
-  const note = area(s.review_note || '', () => {}, { rows: 3, placeholder: status === 'approved' ? 'ไม่บังคับ' : 'เหตุผล เช่น ภาพไม่ตรงจังหวัด / มีใบหน้าคน' });
+  const note = area(s.review_note || '', () => {}, { rows: 3, placeholder: status === 'approved' ? 'ไม่บังคับ' : 'เหตุผล เช่น ภาพไม่ตรงอำเภอ / มีใบหน้าคน' });
   const text = status === 'approved'
     ? 'ภาพจะถูกคัดลอกไปที่คลังภาพที่ใช้ทำคำถามได้ แต่ยังไม่ขึ้นในเกมจนกว่าจะใช้ในคำถามที่เผยแพร่'
     : 'ภาพจะไม่ถูกใช้ ผู้ดูแลเปลี่ยนใจภายหลังได้';
@@ -250,33 +253,28 @@ function publishedQs() { return A.questions.filter(q => q.status === 'published'
 function viewQuestions(main) {
   const pub = publishedQs();
   const today = bangkokDate();
-  const todays = new Set(pub.length ? dailySet(pub, CATS, today).map(q => q.id) : []);
+  const todays = new Set(pub.length ? dailySet(pub, today, DAILY_N).map(q => q.id) : []);
   main.append(h('div', { class: 'ad-head' },
     h('div', {}, h('h2', { text: 'คำถาม' }), h('p', { text: 'เกมใช้เฉพาะคำถามสถานะ “เผยแพร่” ซึ่งต้องผ่านการตรวจก่อน ข้อที่เผยแพร่วันนี้จะเริ่มเข้ารอบรายวันพรุ่งนี้' })),
-    h('div', { class: 'ad-bar' }, ...CATS.map(c => btn('+ ' + c, () => openEditor(newQuestion(c), true), 'sm')))));
-  // coverage per category
-  const cov = h('div', { class: 'ad-cov' });
-  let minPub = Infinity;
-  CATS.forEach(c => {
-    const all = A.questions.filter(q => q.category === c);
-    const p = all.filter(q => q.status === 'published').length;
-    const v = all.filter(q => q.verified_by).length;
-    minPub = Math.min(minPub, p);
-    const meter = h('div', { class: 'ad-meter', title: 'เป้า ' + TARGET_WEEK + ' ข้อ (1 สัปดาห์) และ ' + TARGET_MONTH + ' ข้อ (1 เดือน)' },
-      h('i', { style: 'width:' + Math.min(100, p / TARGET_MONTH * 100).toFixed(1) + '%' }), h('s', { style: 'left:' + (TARGET_WEEK / TARGET_MONTH * 100).toFixed(1) + '%' }));
-    cov.append(h('div', { class: 'ad-card' }, h('span', { class: 'ad-muted ad-small', text: c }), h('b', { text: String(p) }),
-      h('span', { class: 'ad-small ad-muted', text: 'เผยแพร่ · ทั้งหมด ' + all.length + ' · ตรวจแล้ว ' + v }), meter,
-      h('span', { class: 'ad-help', text: p >= TARGET_MONTH ? 'ครบเป้า 1 เดือน' : p >= TARGET_WEEK ? 'ครบ 1 สัปดาห์ · อีก ' + (TARGET_MONTH - p) + ' ข้อถึง 1 เดือน' : 'อีก ' + (TARGET_WEEK - p) + ' ข้อถึง 1 สัปดาห์' })));
-  });
-  main.append(cov);
-  main.append(h('p', { class: 'ad-muted ad-small', text: minPub === Infinity || !minPub ? 'ยังมีหมวดที่ไม่มีคำถามเผยแพร่ โหมดรายวันจะมีไม่ครบ 4 ข้อ' : 'โหมดรายวันวนได้ ' + minPub + ' วันก่อนเริ่มมีข้อซ้ำ (นับจากหมวดที่มีน้อยที่สุด)' }));
+    h('div', { class: 'ad-bar' }, btn('+ คำถามใหม่', () => openEditor(newQuestion(CATS[0]), true), 'primary sm'))));
+  // coverage: one category, DAILY_N questions a day
+  const all = A.questions.filter(q => q.category === CATS[0]);
+  const p = all.filter(q => q.status === 'published').length, v = all.filter(q => q.verified_by).length;
+  const meter = h('div', { class: 'ad-meter', title: 'เป้า ' + TARGET_WEEK + ' ข้อ (1 สัปดาห์) และ ' + TARGET_MONTH + ' ข้อ (1 เดือน)' },
+    h('i', { style: 'width:' + Math.min(100, p / TARGET_MONTH * 100).toFixed(1) + '%' }), h('s', { style: 'left:' + (TARGET_WEEK / TARGET_MONTH * 100).toFixed(1) + '%' }));
+  const days = Math.floor(p / DAILY_N);
+  main.append(h('div', { class: 'ad-cov one' }, h('div', { class: 'ad-card' },
+    h('span', { class: 'ad-muted ad-small', text: CATS[0] + ' · รายวันวันละ ' + DAILY_N + ' ข้อ' }), h('b', { text: String(p) }),
+    h('span', { class: 'ad-small ad-muted', text: 'เผยแพร่ · ทั้งหมด ' + all.length + ' · ตรวจแล้ว ' + v }), meter,
+    h('span', { class: 'ad-help', text: (p < DAILY_N ? 'ยังไม่ถึง ' + DAILY_N + ' ข้อ โหมดรายวันจะมี ' + p + ' ข้อ' : 'วนรายวันได้ ' + days + ' วันก่อนเริ่มซ้ำ') +
+      ' · เป้า ' + TARGET_WEEK + ' ข้อ = 1 สัปดาห์ · ' + TARGET_MONTH + ' ข้อ = 1 เดือน' }))));
   // next 7 days
   if (pub.length) {
-    const t = h('table', { class: 'ad-table ad-days' }, h('tr', {}, h('th', { text: 'วัน' }), ...CATS.map(c => h('th', { text: c }))));
+    const t = h('table', { class: 'ad-table ad-days' }, h('tr', {}, h('th', { text: 'วัน' }), h('th', { text: 'ชุดรายวัน' })));
     for (let i = 0; i < 7; i++) {
       const ds = addDays(today, i);
-      const set = dailySet(pub, CATS, ds);
-      t.append(h('tr', {}, h('td', { text: (i === 0 ? 'วันนี้ · ' : '') + thDay(ds) }), ...CATS.map(c => { const q = set.find(x => x.category === c); return h('td', { text: q ? q.topic + (q.schedule_date === ds ? ' 📌' : '') : '–' }); })));
+      const set = dailySet(pub, ds, DAILY_N);
+      t.append(h('tr', {}, h('td', { text: (i === 0 ? 'วันนี้ · ' : '') + thDay(ds) }), h('td', { text: set.map(q => q.topic + (q.schedule_date === ds ? ' 📌' : '')).join(' · ') || '–' })));
     }
     main.append(h('details', { class: 'ad-card' }, h('summary', { text: 'ชุดรายวัน 7 วันข้างหน้า (จากคำถามที่เผยแพร่ตอนนี้)' }), h('div', { class: 'ad-scroll' }, t),
       h('p', { class: 'ad-help', text: '📌 = ล็อกวันที่ไว้ในช่อง “วันที่กำหนด” · ข้อที่เพิ่งเผยแพร่วันนี้จะเริ่มโผล่ตั้งแต่พรุ่งนี้' })));
@@ -289,20 +287,19 @@ function viewQuestions(main) {
     table.append(h('tr', {}, ...['รหัส', 'หมวด', 'หัวข้อ', 'คำตอบ', 'สถานะ', 'ตรวจ', 'แก้ล่าสุด'].map(x => h('th', { text: x }))));
     const txt = f.text.trim().toLowerCase();
     const rows = A.questions.filter(q => (!f.cat || q.category === f.cat) && (!f.status || q.status === f.status) && (!f.unverified || !q.verified_by)
-      && (!txt || [q.id, q.topic, provName(q.answer)].join(' ').toLowerCase().includes(txt)));
+      && (!txt || [q.id, q.topic, placeName(q.answer)].join(' ').toLowerCase().includes(txt)));
     rows.forEach(q => {
       const st = q.status === 'published' && !q.verified_by ? chip('เผยแพร่ · ยังไม่ตรวจ', 'warn') : chip(STATUS_TH[q.status] || q.status, q.status === 'published' ? 'pub' : '');
       table.append(h('tr', { class: 'click', tabindex: 0, onclick: () => openEditor(clone(q), false), onkeydown: e => { if (e.key === 'Enter') openEditor(clone(q), false); } },
         h('td', {}, h('code', { text: q.id })), h('td', { text: q.category }), h('td', {}, q.topic || '(ยังไม่ตั้งหัวข้อ)', todays.has(q.id) ? [' ', chip('วันนี้', 'today')] : null),
-        h('td', { text: provName(q.answer) }), h('td', {}, st), h('td', { text: q.verified_by ? '✓' : '–', title: q.verified_by ? q.verified_by + ' · ' + thTime(q.verified_at) : '' }),
+        h('td', { text: placeName(q.answer) }), h('td', {}, st), h('td', { text: q.verified_by ? '✓' : '–', title: q.verified_by ? q.verified_by + ' · ' + thTime(q.verified_at) : '' }),
         h('td', { class: 'ad-small ad-muted', text: thTime(q.updated_at) })));
     });
     if (!rows.length) table.append(h('tr', {}, h('td', { colspan: 7, class: 'ad-empty', text: 'ไม่มีคำถามตามตัวกรองนี้' })));
   };
   main.append(h('div', { class: 'ad-card ad-stack' },
     h('div', { class: 'ad-bar' },
-      h('div', { class: 'grow' }, inp(f.text, v => { f.text = v; draw(); }, { placeholder: 'ค้นหา รหัส หัวข้อ หรือจังหวัด', 'aria-label': 'ค้นหาคำถาม' })),
-      sel([['', 'ทุกหมวด']].concat(CATS), f.cat, v => { f.cat = v; draw(); }),
+      h('div', { class: 'grow' }, inp(f.text, v => { f.text = v; draw(); }, { placeholder: 'ค้นหา รหัส หัวข้อ อำเภอ หรือจังหวัด', 'aria-label': 'ค้นหาคำถาม' })),
       sel([['', 'ทุกสถานะ'], ['draft', 'ร่าง'], ['published', 'เผยแพร่'], ['archived', 'เก็บเข้าคลัง']], f.status, v => { f.status = v; draw(); }),
       h('label', { class: 'ad-check' }, h('input', { type: 'checkbox', checked: f.unverified, onchange: e => { f.unverified = e.target.checked; draw(); } }), 'เฉพาะที่ยังไม่ตรวจ')),
     h('div', { class: 'ad-scroll' }, table)));
@@ -319,8 +316,7 @@ function newQuestion(cat) {
   return {
     id: nextId(cat), category: cat, topic: '', answer: '',
     cards: [Object.assign({ type: 'image', role: 'main', tag_hint: null }, blankImage()),
-      { type: 'text', role: 'hint', text: '', tag_hint: 'region' }, { type: 'text', role: 'hint', text: '', tag_hint: null }, { type: 'text', role: 'hint', text: '', tag_hint: null }],
-    similar: {}, similar_reasons: {},
+      { type: 'text', role: 'hint', text: '', tag_hint: 'region' }, { type: 'text', role: 'hint', text: '', tag_hint: 'terrain' }, { type: 'text', role: 'hint', text: '', tag_hint: 'district' }],
     reveal: { image: Object.assign(blankImage(), { file: '', modified: '', note: '' }), facts: Object.fromEntries((FACT_KEYS[cat] || ['ชื่อ']).map(k => [k, ''])), reasoning: '', sources: [] },
     schedule_date: null, verified_by: null, verified_at: null, note: '', status: 'draft', published_at: null
   };
@@ -330,8 +326,9 @@ function playerImage(s) {
 }
 function newFromSubmission(s) {
   if (!s.public_url) { toast('ภาพนี้ยังไม่ได้คัดลอกไปคลังภาพ ลองกดผ่านอีกครั้ง'); return; }
-  const q = newQuestion(s.category && CATS.includes(s.category) ? s.category : 'อาหาร');
-  q.topic = s.title || ''; q.answer = s.province_id || '';
+  const q = newQuestion(CATS[0]);
+  q.topic = s.title || ''; q.answer = s.district_id && A.dist[s.district_id] ? s.district_id : '';
+  q._prov = s.province_id || '';
   Object.assign(q.cards[0], playerImage(s));
   Object.assign(q.reveal.image, playerImage(s), { modified: 'ย่อขนาดอัตโนมัติตอนส่ง' });
   if (q.reveal.facts['ชื่อ'] !== undefined) q.reveal.facts['ชื่อ'] = s.title || '';
@@ -347,7 +344,7 @@ function openEditor(q, isNew) {
   A.E = {
     q, isNew,
     sameImage: !q.reveal.image.src || q.reveal.image.src === q.cards[0].src,
-    similar: Object.entries(q.similar || {}).map(([id, pts]) => ({ id, pts, reason: (q.similar_reasons || {})[id] || '' })),
+    prov: (A.dist[q.answer] || {}).p || q._prov || '',
     facts: Object.entries(q.reveal.facts || {}),
     sources: (q.reveal.sources || []).map(s => Object.assign({}, s)),
     stale: false
@@ -364,8 +361,7 @@ function touch(content) {
 }
 function buildQuestion() {
   const E = A.E, q = clone(E.q);
-  q.similar = {}; q.similar_reasons = {};
-  E.similar.forEach(r => { if (r.id && r.id !== q.answer) { q.similar[r.id] = +r.pts || 250; if (r.reason.trim()) q.similar_reasons[r.id] = r.reason.trim(); } });
+  delete q.similar; delete q.similar_reasons; delete q._prov;
   q.reveal.facts = {};
   E.facts.forEach(([k, v]) => { if (String(k).trim()) q.reveal.facts[String(k).trim()] = String(v || '').trim(); });
   q.reveal.sources = E.sources.filter(s => (s.url || '').trim() || (s.title || '').trim()).map(s => ({ title: (s.title || '').trim() || s.url.trim(), url: (s.url || '').trim() }));
@@ -385,7 +381,7 @@ function requirements(q) {
   const imgOk = im => !!(im.src && String(im.credit || '').trim() && !licenseProblem(im.license));
   return [
     ['ตั้งหัวข้อ', !!q.topic],
-    ['เลือกจังหวัดคำตอบ', !!A.prov[q.answer]],
+    ['เลือกอำเภอ/เขตคำตอบ', !!A.dist[q.answer]],
     ['ภาพหลักมีเครดิตและสัญญาอนุญาตที่ใช้ได้', imgOk(c0)],
     ['ภาพเฉลยมีเครดิตและสัญญาอนุญาตที่ใช้ได้', imgOk(ri)],
     ['เบาะแสข้อความครบ 3 การ์ด', q.cards.slice(1, 4).every(c => c.text)],
@@ -403,7 +399,7 @@ function viewEditor(main) {
     h('div', { class: 'ad-bar' }, btn('คัดลอก JSON', () => copyJSON(buildQuestion()), 'sm'),
       E.isNew ? null : btn('ลบคำถาม', () => removeQuestion(q), 'danger sm')));
   const col = h('div', { class: 'ad-ed-main' });
-  col.append(secBasics(), secMainImage(), secHints(), secSimilar(), secReveal());
+  col.append(secBasics(), secMainImage(), secHints(), secReveal());
   const aside = h('aside', { class: 'ad-aside', id: 'ad-aside' });
   main.append(head, h('div', { class: 'ad-ed' }, col, aside));
   renderAside();
@@ -412,21 +408,23 @@ function secBasics() {
   const q = A.E.q, E = A.E;
   const prof = h('div', { class: 'ad-profile' });
   const drawProf = () => {
-    const p = A.prov[q.answer];
-    prof.textContent = p ? 'ป้ายของ ' + p.name_th + ': ภาค' + p.region + ' · ภาษาถิ่น' + p.dialect + ' · ' + p.religion_culture + ' · ' + (p.terrain || []).join('/') + ' · อาชีพหลัก ' + (p.main_occupation || []).join(', ') + (p.verified ? '' : ' (ป้ายยังไม่ตรวจ)') : 'เลือกจังหวัดเพื่อดูป้ายที่ใช้คิดคะแนนส่วน A';
+    const d = A.dist[q.answer];
+    prof.textContent = d ? 'คำตอบ: ' + placeName(q.answer) + ' · จุดวัดระยะ ' + d.ll[0].toFixed(3) + ', ' + d.ll[1].toFixed(3) + ' (ผู้เล่นได้คะแนนตามระยะจากอำเภอที่ตอบถึงจุดนี้)' : 'เลือกจังหวัดแล้วเลือกอำเภอ/เขตที่สถานที่ตั้งอยู่';
   };
   drawProf();
-  const catSel = sel(CATS, q.category, v => {
-    q.category = v;
-    if (E.isNew) { q.id = nextId(v); const t = document.querySelector('.ad-head h2'); if (t) t.textContent = 'คำถามใหม่ ' + q.id; }
-    touch(true);
+  const pickDist = v => { q.answer = v; drawProf(); touch(true); };
+  let distSel = sel(distOptions(E.prov), q.answer, pickDist);
+  const provSel = sel(provOptions(), E.prov, v => {
+    E.prov = v; q.answer = '';
+    const fresh = sel(distOptions(v), '', pickDist);
+    distSel.replaceWith(fresh); distSel = fresh; drawProf(); touch(true);
   });
   const ref = q.cards[0].submission_id ? A.subs.find(s => s.id === q.cards[0].submission_id) : null;
   return h('section', { class: 'ad-card ad-sec' }, h('header', {}, h('h3', { text: 'ข้อมูลหลัก' })),
     h('div', { class: 'ad-grid3' },
-      field('หมวด', catSel),
-      field('หัวข้อ (ชื่อสิ่งที่ถาม)', inp(q.topic, v => { q.topic = v; touch(true); }, { maxlength: 80, placeholder: 'เช่น ขนมหม้อแกง' })),
-      field('คำตอบ (จังหวัด)', sel(provOptions(), q.answer, v => { q.answer = v; drawProf(); touch(true); }))),
+      field('หัวข้อ (ชื่อสถานที่)', inp(q.topic, v => { q.topic = v; touch(true); }, { maxlength: 80, placeholder: 'เช่น ภูทับเบิก' })),
+      field('คำตอบ: จังหวัด', provSel),
+      h('div', { class: 'ad-field' }, h('label', { text: 'คำตอบ: อำเภอ/เขต' }), distSel)),
     prof,
     ref ? h('div', { class: 'ad-ref' }, 'จากภาพผู้เล่น “' + (ref.title || '') + '”' + (ref.description ? '\nผู้ส่งเล่าว่า: ' + ref.description : '') + (ref.taken_at ? '\nถ่ายเมื่อ: ' + ref.taken_at : '') + '\nใช้เป็นข้อมูลตั้งต้นเท่านั้น ข้อเท็จจริงในเฉลยต้องมีแหล่งที่มาที่ตรวจได้') : null);
 }
@@ -478,7 +476,7 @@ function imageEditor(im, reveal) {
       reveal ? h('div', { class: 'ad-grid2' },
         field('ชื่อไฟล์ต้นฉบับ', inp(im.file, v => { im.file = v; A.dirty = true; })),
         field('การแก้ไขภาพ', inp(im.modified, v => { im.modified = v; A.dirty = true; }, { placeholder: 'เช่น ครอปและย่อขนาด' }))) : null,
-      reveal ? field('หมายเหตุภาพ', inp(im.note, v => { im.note = v; A.dirty = true; }, { placeholder: 'เช่น ภาพนี้ถ่ายที่งานออกร้านต่างจังหวัด' })) : null);
+      reveal ? field('หมายเหตุภาพ', inp(im.note, v => { im.note = v; A.dirty = true; }, { placeholder: 'เช่น เบลอป้ายชื่อสถานที่ในภาพเพื่อไม่ให้เฉลย' })) : null);
     box.append(left, right);
   };
   draw();
@@ -504,22 +502,6 @@ function secHints() {
       area(c.text, v => { c.text = v; touch(true); }, { rows: 2, maxlength: 240 }),
       sel(TAGS, c.tag_hint || '', v => { c.tag_hint = v || null; touch(true); }, 'sm'))));
   return h('section', { class: 'ad-card ad-sec' }, h('header', {}, h('h3', { text: 'การ์ด 2–4 · เบาะแสข้อความ' }), h('span', { class: 'ad-help', text: 'เปิดทีละใบ ตัวคูณลดเหลือ 0.8 / 0.6 / 0.4 · ป้ายบอกว่าเบาะแสนี้ช่วยเรื่องไหน' })), rows);
-}
-function secSimilar() {
-  const E = A.E;
-  const list = h('div', { class: 'ad-stack' });
-  const draw = () => {
-    list.innerHTML = '';
-    E.similar.forEach((r, i) => list.append(h('div', { class: 'ad-row sim' },
-      sel(provOptions(), r.id, v => { r.id = v; touch(true); }, 'sm'),
-      sel([['500', '500 คะแนน'], ['250', '250 คะแนน']], String(r.pts || 250), v => { r.pts = +v; touch(true); }, 'sm'),
-      inp(r.reason, v => { r.reason = v; touch(true); }, { class: 'ad-in sm', placeholder: 'เหตุผล เช่น มีของคล้ายกัน' }),
-      h('button', { type: 'button', class: 'ad-x', 'aria-label': 'ลบแถว', onclick: () => { E.similar.splice(i, 1); touch(true); draw(); } }, '×'))));
-    if (!E.similar.length) list.append(h('p', { class: 'ad-help', text: 'ยังไม่มี · ตอบจังหวัดอื่นได้แค่คะแนนส่วน A จากป้ายที่ตรงกัน' }));
-  };
-  draw();
-  return h('section', { class: 'ad-card ad-sec' }, h('header', {}, h('h3', { text: 'จังหวัดที่มีของคล้ายกัน (คะแนนส่วน B)' }),
-    btn('+ เพิ่มจังหวัด', () => { E.similar.push({ id: '', pts: 250, reason: '' }); touch(true); draw(); }, 'sm')), list);
 }
 function secReveal() {
   const E = A.E, q = E.q;
@@ -562,7 +544,7 @@ function secReveal() {
     } }), 'ใช้ภาพเดียวกับการ์ด 1'),
     imgBox,
     h('header', {}, h('h4', { text: 'ข้อมูลจริง' }), btn('+ เพิ่มหัวข้อ', () => { E.facts.push(['', '']); touch(true); drawFacts(); }, 'sm')), facts,
-    field('วิธีคิด (โชว์ใต้ข้อมูล)', area(q.reveal.reasoning, v => { q.reveal.reasoning = v; touch(true); }, { rows: 2, placeholder: 'เช่น ขนมไข่-กะทิ → ขนมไทยของฝาก · น้ำตาลโตนด → เพชรบุรี' })),
+    field('วิธีคิด (โชว์ใต้ข้อมูล)', area(q.reveal.reasoning, v => { q.reveal.reasoning = v; touch(true); }, { rows: 2, placeholder: 'เช่น ทะเลหมอก + ไร่ผักขั้นบันได → ภูเขาสูง · ภาคกลางตอนบนสุด → เพชรบูรณ์ · ยอดเขาของชาวม้ง → อ.หล่มเก่า' })),
     h('header', {}, h('h4', { text: 'แหล่งที่มา' }), btn('+ เพิ่มแหล่ง', () => { E.sources.push({ title: '', url: '' }); touch(true); drawSrcs(); }, 'sm')), srcs);
 }
 function renderAside() {
@@ -621,65 +603,6 @@ async function copyJSON(obj) {
   catch (e) { dialog('JSON', [h('textarea', { class: 'ad-in', rows: 16, value: text, readonly: true })]); }
 }
 
-/* ---------------- 3. จังหวัด ---------------- */
-function viewProvinces(main) {
-  const f = A.pf;
-  const done = A.provinces.filter(p => p.verified).length;
-  const adj = (A.meta && A.meta.region_adjacency) || {};
-  const table = h('table', { class: 'ad-table ad-prov' });
-  const saveRow = async p => {
-    const d = A.provDirty[p.id];
-    if (!d) return;
-    const next = Object.assign({}, p, d);
-    next.adjacent_regions = adj[next.region] || p.adjacent_regions || [];
-    await guard(async () => { await BE.saveProvince(next); delete A.provDirty[p.id]; A.provinces = await BE.listProvinces(); A.prov = {}; A.provinces.forEach(x => { A.prov[x.id] = x; }); draw(); }, 'บันทึก ' + p.name_th + ' แล้ว');
-  };
-  const draw = () => {
-    table.innerHTML = '';
-    table.append(h('tr', {}, ...['จังหวัด', 'ภาค', 'ภาษาถิ่น', 'ศาสนา', 'ภูมิประเทศ', 'อาชีพหลัก', 'อาชีพรอง', 'ตรวจแล้ว', 'หมายเหตุ'].map(x => h('th', { text: x }))));
-    const txt = f.text.trim();
-    A.provinces.filter(p => (!txt || p.name_th.includes(txt) || p.name_en.toLowerCase().includes(txt.toLowerCase())) && (!f.region || p.region === f.region) && (!f.unverified || !p.verified))
-      .sort((a, b) => a.name_th.localeCompare(b.name_th, 'th'))
-      .forEach(p => {
-        const cur = () => Object.assign({}, p, A.provDirty[p.id] || {});
-        const set = (k, v) => { A.provDirty[p.id] = Object.assign(A.provDirty[p.id] || {}, { [k]: v }); tr.classList.add('dirty'); saveBtn.hidden = false; };
-        const c = cur();
-        const occ = c.main_occupation || [];
-        const togs = (vals, list, onChange) => h('div', { class: 'ad-togs' }, vals.map(v => h('button', { type: 'button', class: 'ad-tog' + (list.includes(v) ? ' on' : ''), 'aria-pressed': String(list.includes(v)), onclick: e => {
-          const now = list.includes(v) ? list.filter(x => x !== v) : list.concat(v);
-          list = now; e.target.classList.toggle('on'); e.target.setAttribute('aria-pressed', String(now.includes(v))); onChange(now);
-        } }, v)));
-        const saveBtn = btn('บันทึก', () => saveRow(p), 'sm primary', { hidden: !A.provDirty[p.id] });
-        const tr = h('tr', { class: A.provDirty[p.id] ? 'dirty' : '' },
-          h('td', { class: 'nm' }, h('b', { text: c.name_th }), h('div', { class: 'ad-help', text: c.name_en }), saveBtn),
-          h('td', {}, sel(REGIONS, c.region, v => set('region', v), 'sm')),
-          h('td', {}, sel(DIALECTS, c.dialect, v => set('dialect', v), 'sm')),
-          h('td', {}, sel(RELIGIONS, c.religion_culture, v => set('religion_culture', v), 'sm')),
-          h('td', { class: 't' }, togs(TERRAINS, (c.terrain || []).slice(), v => set('terrain', TERRAINS.filter(t => v.includes(t))))),
-          h('td', { class: 'o1' }, sel(OCCUPATIONS, occ[0] || '', v => { const rest = (cur().main_occupation || []).slice(1).filter(x => x !== v); set('main_occupation', [v].concat(rest)); draw(); }, 'sm')),
-          h('td', { class: 'o2' }, togs(OCCUPATIONS.filter(o => o !== occ[0]), occ.slice(1), v => { const first = (cur().main_occupation || [])[0]; set('main_occupation', [first].concat(OCCUPATIONS.filter(o => v.includes(o) && o !== first)).filter(Boolean)); })),
-          h('td', {}, h('input', { type: 'checkbox', checked: !!c.verified, 'aria-label': 'ตรวจแล้ว', onchange: e => set('verified', e.target.checked) })),
-          h('td', {}, inp(c.note || '', v => set('note', v), { class: 'ad-in sm', style: 'min-width:120px' })));
-        table.append(tr);
-      });
-  };
-  main.append(h('div', { class: 'ad-head' },
-    h('div', {}, h('h2', { text: 'ป้ายจังหวัด' }), h('p', { text: 'ใช้คิดคะแนนส่วน A ตอนตอบผิด (ป้ายละ 80 คะแนน) · ตรวจแล้ว ' + done + '/77 จังหวัด · แก้แล้วเกมใช้ค่าใหม่เมื่อโหลดหน้าใหม่' })),
-    btn('บันทึกทุกแถวที่แก้', async () => { for (const id of Object.keys(A.provDirty)) await saveRow(A.prov[id]); }, 'primary sm')));
-  if (A.meta && A.meta.sources_to_check && A.meta.sources_to_check.length) {
-    main.append(h('details', { class: 'ad-card' }, h('summary', { text: 'แหล่งข้อมูลที่ใช้ตรวจป้าย' }),
-      h('ul', {}, A.meta.sources_to_check.map(s => h('li', { text: s }))),
-      h('p', { class: 'ad-help', text: 'ภูมิประเทศ: ตรงกันเมื่อมีค่าร่วมอย่างน้อย 1 ค่า · อาชีพ: ตรงกันเมื่ออาชีพอันดับ 1 เหมือนกัน · ภาคติดกันได้ 40 คะแนน' })));
-  }
-  main.append(h('div', { class: 'ad-card ad-stack' },
-    h('div', { class: 'ad-bar' },
-      h('div', { class: 'grow' }, inp(f.text, v => { f.text = v; draw(); }, { placeholder: 'ค้นหาจังหวัด', 'aria-label': 'ค้นหาจังหวัด' })),
-      sel([['', 'ทุกภาค']].concat(REGIONS), f.region, v => { f.region = v; draw(); }),
-      h('label', { class: 'ad-check' }, h('input', { type: 'checkbox', checked: f.unverified, onchange: e => { f.unverified = e.target.checked; draw(); } }), 'เฉพาะที่ยังไม่ตรวจ')),
-    h('div', { class: 'ad-scroll' }, table)));
-  draw();
-}
-
 /* ---------------- 4. ระบบ ---------------- */
 function download(name, obj) {
   const blob = new Blob([JSON.stringify(obj, null, 1)], { type: 'application/json' });
@@ -699,7 +622,7 @@ function viewSystem(main) {
       : h('p', { text: 'โหมดสาธิต: ไม่มีเซิร์ฟเวอร์ ข้อมูลและภาพเก็บใน localStorage/IndexedDB ของเบราว์เซอร์นี้ เว็บเล่นเกมกับเว็บใส่ข้อมูลเห็นข้อมูลเดียวกันเมื่อเปิดจากที่อยู่เดียวกันในเบราว์เซอร์นี้' }),
     live ? null : h('p', { class: 'ad-help', text: 'ใช้งานจริง: ใส่ supabaseUrl และ supabaseKey (publishable key) ในไฟล์ config.js ของทั้งสองเว็บ (ดู README ขั้นที่ 4)' })));
   main.append(h('div', { class: 'ad-card ad-stack' }, h('h3', { text: 'ข้อมูลตั้งต้น' }),
-    h('p', { text: live ? 'เพิ่มคำถาม 12 ข้อและป้าย 77 จังหวัดจากไฟล์ที่มากับเว็บ เฉพาะรายการที่ยังไม่มีในฐานข้อมูล คำถามเข้ามาเป็น “ร่าง” ต้องตรวจก่อนเผยแพร่' : 'คืนค่าข้อมูลสาธิตทั้งหมดเป็นค่าเริ่มต้น (ลบภาพที่ส่งและคำถามที่สร้างในเบราว์เซอร์นี้)' }),
+    h('p', { text: live ? 'เพิ่มคำถามตั้งต้นและรายชื่อ 77 จังหวัดจากไฟล์ที่มากับเว็บ เฉพาะรายการที่ยังไม่มีในฐานข้อมูล คำถามเข้ามาเป็น “ร่าง” ต้องตรวจก่อนเผยแพร่' : 'คืนค่าข้อมูลสาธิตทั้งหมดเป็นค่าเริ่มต้น (ลบภาพที่ส่งและคำถามที่สร้างในเบราว์เซอร์นี้)' }),
     h('div', { class: 'ad-bar' }, live
       ? btn('นำเข้าข้อมูลตั้งต้น', async () => { if (!await confirmBox('นำเข้าข้อมูลตั้งต้น?', 'ไม่เขียนทับรายการที่มีอยู่แล้ว')) return; await guard(async () => { await BE.importSeed(); await loadAll(); setView('system'); }, 'นำเข้าแล้ว'); }, 'primary')
       : btn('ล้างข้อมูลสาธิต', async () => { if (!await confirmBox('ล้างข้อมูลสาธิต?', 'ภาพที่ส่งและการแก้ไขทั้งหมดในเบราว์เซอร์นี้จะหายไป', 'ล้างข้อมูล', 'danger')) return; await guard(async () => { await BE.importSeed(); await loadAll(); setView('system'); }, 'ล้างข้อมูลแล้ว'); }, 'danger'))));

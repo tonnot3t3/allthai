@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ออลไทย — เกมทายของดี 77 จังหวัด</title>
+<title>ออลไทย — เกมทายที่เที่ยวทั่วไทย ระดับอำเภอ</title>
 <!--@@HEAD@@-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
 </style>
 </head>
 <body>
-<noscript><p style="max-width:430px;margin:24px auto;padding:0 20px;font-family:sans-serif">ออลไทย เกมทายของดี 77 จังหวัดจากภาพและเบาะแส ทั้งอาหาร กีฬา เทศกาลและวัฒนธรรม และสถานที่ท่องเที่ยว ต้องเปิด JavaScript เพื่อเล่น</p></noscript>
+<noscript><p style="max-width:430px;margin:24px auto;padding:0 20px;font-family:sans-serif">ออลไทย เกมทายที่เที่ยวทั่วไทยระดับอำเภอ ดูภาพ เปิดเบาะแส แล้วแตะอำเภอบนแผนที่ คะแนนตามระยะห่างจากคำตอบ ต้องเปิด JavaScript เพื่อเล่น</p></noscript>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -34,11 +34,11 @@
       <svg class="ghost-map" id="ghost-map" viewBox="0 0 600 1080" aria-hidden="true"></svg>
       <div class="logo-mark"><svg style="color:#fff"><use href="#i-pin"/></svg></div>
       <h1 class="wordmark" id="home-title">ออลไทย</h1>
-      <p class="tagline">ทายของดี 77 จังหวัดจากเบาะแส</p>
+      <p class="tagline">ทายที่เที่ยวทั่วไทย ระดับอำเภอ</p>
     </div>
     <div class="spacer"></div>
     <button class="mode-daily" id="btn-daily" type="button">
-      <span><h2>เล่นรายวัน</h2><p>4 ข้อ 4 หมวด ชุดเดียวกันทุกคน</p></span>
+      <span><h2>เล่นรายวัน</h2><p id="daily-sub">5 ข้อ ชุดเดียวกันทุกคน</p></span>
       <span class="badge" id="daily-badge">วันนี้</span>
     </button>
     <button class="mode-unl" id="btn-unl" type="button">
@@ -47,7 +47,7 @@
     </button>
     <div class="tiles">
       <button class="tile" id="btn-board" type="button"><svg style="color:#B07A1C"><use href="#i-trophy"/></svg><h3>จัดอันดับ</h3><p>รายวัน และไม่จำกัด</p></button>
-      <button class="tile" id="btn-submit" type="button"><svg style="color:var(--rice)"><use href="#i-camera"/></svg><h3>แชร์ประสบการณ์</h3><p>ส่งภาพของดีบ้านคุณ ทีมงานตรวจก่อนใช้</p></button>
+      <button class="tile" id="btn-submit" type="button"><svg style="color:var(--rice)"><use href="#i-camera"/></svg><h3>แชร์ประสบการณ์</h3><p>ส่งภาพที่เที่ยวบ้านคุณ ทีมงานตรวจก่อนใช้</p></button>
     </div>
     <p class="home-msg" id="home-msg" role="status" hidden></p>
     <div class="nick-wrap">
@@ -70,11 +70,11 @@
       <div class="score-box"><small>คะแนน</small><b class="num" id="q-score">0</b></div>
     </div>
     <div class="metaline"><span id="q-meta">ผู้เล่น · หมวด</span><span class="mult">ตัวคูณ<b class="num" id="q-mult">1.0</b></span></div>
-    <h2 class="q-title" id="q-title">เห็นภาพนี้แล้วจะนึกถึงจังหวัดไหน</h2>
+    <h2 class="q-title" id="q-title">ที่นี่อยู่อำเภอไหน</h2>
     <div class="clues" id="q-clues"></div>
     <div class="spacer"></div>
     <button class="btn primary block" id="q-go" type="button">ไปตอบบนแผนที่ <svg width="20" height="20"><use href="#i-next"/></svg></button>
-    <p class="note-center">เวลา 15 วินาทีเริ่มนับเมื่อเข้าหน้าตอบ</p>
+    <p class="note-center">เวลา 45 วินาทีเริ่มนับเมื่อเข้าหน้าตอบ</p>
   </section>
 
   <!-- 3. ตอบบนแผนที่ -->
@@ -83,19 +83,19 @@
       <div class="who"><div id="a-who">ผู้เล่น</div><div id="a-progress">ข้อ 1/4 · คะแนน 0</div></div>
       <div class="timer" id="timer" role="timer" aria-live="off">
         <svg viewBox="0 0 66 66"><circle class="track" cx="33" cy="33" r="28"/><circle class="bar" id="timer-bar" cx="33" cy="33" r="28" stroke-dasharray="175.93" stroke-dashoffset="0"/></svg>
-        <div class="t"><span><b class="num" id="timer-num">15</b><small>วินาที</small></span></div>
+        <div class="t"><span><b class="num" id="timer-num">45</b><small>วินาที</small></span></div>
       </div>
     </div>
-    <h2 id="a-title" style="font-size:24px">แตะจังหวัดเพื่อตอบ</h2>
+    <h2 id="a-title" style="font-size:24px">แตะอำเภอ/เขตเพื่อตอบ</h2>
     <div class="map-panel" id="map-panel">
       <div class="map-tools">
         <button type="button" id="z-in" aria-label="ซูมเข้า"><svg><use href="#i-plus"/></svg></button>
         <button type="button" id="z-out" aria-label="ซูมออก"><svg><use href="#i-minus"/></svg></button>
         <button type="button" id="z-fit" aria-label="ดูทั้งประเทศ"><svg><use href="#i-fit"/></svg></button>
       </div>
-      <div class="map-help">แตะเพื่อเลือก · สองนิ้วเพื่อซูม</div>
+      <div class="map-help">ซูมเข้าเพื่อดูชื่ออำเภอ · สองนิ้วหรือปุ่ม +</div>
     </div>
-    <div class="card choice"><span class="muted">คำตอบของคุณ</span><b id="a-choice" class="none">ยังไม่ได้เลือก</b></div>
+    <div class="card choice"><span class="muted">คำตอบของคุณ</span><span class="choice-r"><b id="a-choice" class="none">ยังไม่ได้เลือก</b><small id="a-choice-prov"></small></span></div>
     <div class="row2">
       <button class="btn" id="a-cards" type="button">ดูการ์ดอีกครั้ง</button>
       <button class="btn primary" id="a-confirm" type="button" disabled>ยืนยันคำตอบ</button>
@@ -113,14 +113,14 @@
   <!-- 4. เฉลย -->
   <section id="s-reveal" class="screen" aria-labelledby="rv-name">
     <div class="rv-head"><span id="rv-who">ผู้เล่น</span><span>คะแนนรวม <b class="num" id="rv-total">0</b></span></div>
-    <div class="rv-answer" id="rv-answer"><p class="muted" id="rv-you">คุณตอบ – · คำตอบคือ</p><h1 id="rv-name">–</h1></div>
+    <div class="rv-answer" id="rv-answer"><p class="muted" id="rv-you">คุณตอบ – · คำตอบคือ</p><h1 id="rv-name">–</h1><p class="rv-prov" id="rv-prov"></p></div>
     <div class="score-pair">
-      <div class="card" id="rv-acc"><small>ความถูกต้อง</small><b class="num" id="rv-acc-n">0</b><small id="rv-acc-sub">ตอบถูกได้ 1,000</small></div>
-      <div class="card" id="rv-ana"><small>การวิเคราะห์</small><b class="num" id="rv-ana-n">0</b><small id="rv-ana-sub">ตัวคูณการ์ด × 1.0</small></div>
+      <div class="card" id="rv-dist"><small>ระยะห่าง</small><b class="num" id="rv-km">–</b><small id="rv-km-sub">จากอำเภอที่ตอบถึงคำตอบ</small></div>
+      <div class="card" id="rv-score"><small>คะแนนข้อนี้</small><b class="num" id="rv-pts">0</b><small id="rv-pts-sub">× ตัวคูณ 1.0</small></div>
     </div>
     <div class="card breakdown" id="rv-lines"></div>
     <div class="mini-map" id="rv-map" aria-label="ตำแหน่งคำตอบบนแผนที่"></div>
-    <div class="legend"><span><i style="background:var(--rice)"></i>คำตอบที่ถูก</span><span><i style="background:var(--amber)"></i>จังหวัดที่คุณตอบ</span></div>
+    <div class="legend"><span><i style="background:var(--rice)"></i>อำเภอที่ถูก</span><span><i style="background:var(--amber)"></i>อำเภอที่คุณตอบ</span><span><i class="dash"></i>ระยะห่าง</span></div>
     <article class="card facts-card" id="rv-facts"></article>
     <div class="row2">
       <button class="btn" id="rv-stop" type="button">เล่นแค่นี้</button>
@@ -134,7 +134,7 @@
       <span class="pill" id="sum-pill">โหมดรายวัน</span>
       <h2 id="sum-title">จบรอบวันนี้แล้ว</h2>
       <div class="big-score num" id="sum-score">0</div>
-      <p class="muted" id="sum-sub">จาก 4,000 คะแนน</p>
+      <p class="muted" id="sum-sub">จาก 5,000 คะแนน</p>
     </div>
     <div class="card cat-list" id="sum-cats"></div>
     <div class="share-box" id="share-text"></div>
@@ -177,7 +177,7 @@
     <div class="card" style="display:flex;flex-direction:column;gap:8px;font-size:15px">
       <h3 style="font-size:19px">สถานะต้นแบบ</h3>
       <p id="cr-status"></p>
-      <p>โปรไฟล์ 77 จังหวัด (ภาค ภาษาถิ่น ศาสนา ภูมิประเทศ อาชีพ) เป็นค่าร่าง ใช้คิดคะแนนส่วน A ระหว่างทดสอบ</p>
+      <p>คะแนนวัดจากระยะเส้นตรงระหว่างจุดกลางอำเภอที่ตอบกับจุดกลางอำเภอคำตอบ (ไม่ใช่พิกัดของสถานที่)</p>
       <p>คะแนนคิดในเครื่องผู้เล่น ยังไม่มีระบบกันโกง (ต้องย้ายไปคิดที่เซิร์ฟเวอร์ก่อนเปิดอันดับจริง)</p>
     </div>
     <div class="card"><h3 style="font-size:19px;margin-bottom:10px">ภาพ</h3><div class="credits-list" id="cr-images"></div></div>
@@ -194,7 +194,7 @@
       <button class="icon-btn" id="sub-back" type="button" aria-label="กลับหน้าแรก"><svg><use href="#i-back"/></svg></button>
       <h1 id="sub-title-h" style="font-size:28px">แชร์ประสบการณ์</h1>
     </div>
-    <p class="sub-intro">ส่งภาพของดีจากจังหวัดที่คุณไปมา ทีมงานจะตรวจทุกภาพก่อนนำไปทำคำถาม ภาพจะยังไม่ขึ้นในเกมจนกว่าจะผ่านการตรวจ</p>
+    <p class="sub-intro">ส่งภาพสถานที่เที่ยวจากอำเภอที่คุณไปมา ทีมงานจะตรวจทุกภาพก่อนนำไปทำคำถาม ภาพจะยังไม่ขึ้นในเกมจนกว่าจะผ่านการตรวจ</p>
     <p class="demo-note" id="sub-demo" hidden>โหมดสาธิต: ภาพเก็บในเบราว์เซอร์นี้เท่านั้น เปิดเว็บใส่ข้อมูลในเบราว์เซอร์เดียวกันเพื่อลองตรวจ</p>
     <form id="sub-form" class="sub-form" novalidate>
       <label class="photo-pick" for="sub-file">
@@ -205,9 +205,8 @@
       </label>
       <p class="field-msg" id="sub-file-msg" aria-live="polite"></p>
       <div class="field"><label for="sub-prov">จังหวัดในภาพ</label><select id="sub-prov" required><option value="">เลือกจังหวัด</option></select></div>
-      <div class="field"><label for="sub-cat">หมวด</label>
-        <select id="sub-cat"><option value="">ไม่แน่ใจ</option><option>อาหาร</option><option>กีฬา</option><option>เทศกาลและวัฒนธรรม</option><option>สถานที่ท่องเที่ยว</option></select></div>
-      <div class="field"><label for="sub-title">ในภาพคืออะไร</label><input id="sub-title" type="text" maxlength="80" placeholder="เช่น ขนมหม้อแกงร้านในตัวเมือง" required></div>
+      <div class="field"><label for="sub-dist">อำเภอ/เขต <small>ไม่บังคับ</small></label><select id="sub-dist" disabled><option value="">เลือกจังหวัดก่อน</option></select></div>
+      <div class="field"><label for="sub-title">ในภาพคืออะไร</label><input id="sub-title" type="text" maxlength="80" placeholder="เช่น จุดชมวิวทะเลหมอกบนดอย" required></div>
       <div class="field"><label for="sub-desc">เล่าสั้น ๆ <small>ไม่บังคับ</small></label><textarea id="sub-desc" maxlength="500" rows="3" placeholder="ถ่ายที่ไหน มีอะไรน่าสนใจ"></textarea></div>
       <div class="field"><label for="sub-when">ถ่ายเมื่อ <small>ไม่บังคับ</small></label><input id="sub-when" type="text" maxlength="40" placeholder="เช่น เมษายน 2568"></div>
       <div class="field"><label for="sub-credit">ชื่อที่จะใส่ในเครดิตภาพ</label><input id="sub-credit" type="text" maxlength="60" autocomplete="nickname" required></div>

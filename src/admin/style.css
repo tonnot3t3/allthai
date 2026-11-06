@@ -118,6 +118,7 @@ select.ad-in { padding-right: 6px; }
 /* coverage */
 .ad-cov { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
 .ad-cov .ad-card { padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.ad-cov.one { grid-template-columns: minmax(0, 560px); }
 .ad-cov b { font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .ad-meter { position: relative; height: 8px; border-radius: 4px; background: #EFE8DC; overflow: hidden; }
 .ad-meter i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--rice); border-radius: 4px; }
