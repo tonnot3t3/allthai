@@ -20,6 +20,9 @@ const AllThaiBackend = (() => {
   const LICENSE_ID = 'allthai-nonexclusive-v1';
   const LICENSE_TEXT = 'ผู้ส่งอนุญาตให้ออลไทยใช้แบบไม่ผูกขาด รวมเชิงพาณิชย์ ครอปและปรับขนาดได้';
 
+  // build.py stamps a hash of the data files here, so a new deploy never mixes old cached JSON with new code
+  const DATA_VERSION = 'dev';
+  const dataUrl = name => CFG.dataBase + name + '?v=' + DATA_VERSION;
   const getJSON = p => fetch(p).then(r => { if (!r.ok) throw new Error(p + ' ' + r.status); return r.json(); });
   // v4 UUID (the database checks that a photo's file name matches its row id)
   const uuid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
@@ -32,13 +35,13 @@ const AllThaiBackend = (() => {
   // Bundled starting data. The game on Supabase only needs the province file (the draft questions stay out of it).
   let provP = null, qP = null;
   function seedProvinces() {
-    return provP || (provP = getJSON(CFG.dataBase + 'provinces.json').then(p => ({
+    return provP || (provP = getJSON(dataUrl('provinces.json')).then(p => ({
       provinces: p.provinces,
       provinceMeta: { region_adjacency: p.region_adjacency || {}, rules: p.rules || {}, sources_to_check: p.sources_to_check || [] }
     })));
   }
   function seedQuestions() {
-    return qP || (qP = getJSON(CFG.dataBase + 'questions.json').then(q => ({
+    return qP || (qP = getJSON(dataUrl('questions.json')).then(q => ({
       questions: q.questions.map(x => Object.assign({ status: 'published' }, x)),
       backlog: q.backlog || []
     })));
@@ -355,7 +358,7 @@ const AllThaiBackend = (() => {
   }
 
   return {
-    MODE, CFG, LICENSE_ID, LICENSE_TEXT, CATEGORIES,
+    MODE, CFG, LICENSE_ID, LICENSE_TEXT, CATEGORIES, dataUrl,
     seed, seedProvinces, loadContent, submitPhoto, mySubmissionStatus,
     session, signIn, signOut,
     listQuestions, saveQuestion, deleteQuestion, listProvinces, saveProvince,

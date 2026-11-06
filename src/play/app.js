@@ -104,7 +104,7 @@ function applyContent(content) {
   QS = content.questions.filter(q => q.category === CAT && q.cards && q.cards[0] && q.cards[0].src && DIST[q.answer]);
 }
 async function loadData() {
-  const getMap = fetch('data/map.json').then(r => { if (!r.ok) throw new Error('map ' + r.status); return r.json(); });
+  const getMap = fetch(BE.dataUrl('map.json')).then(r => { if (!r.ok) throw new Error('map ' + r.status); return r.json(); });
   const [content, map] = await Promise.all([BE.loadContent(), getMap]);
   MAP = map;
   DIST = {};

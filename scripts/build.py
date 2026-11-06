@@ -13,7 +13,7 @@ config/site.json (optional): {"siteUrl", "supabaseUrl", "supabaseKey", "googleSi
 config/play.config.js, config/admin.config.js (optional) override dist/<site>/config.js as-is.
 supabase/seed.sql is regenerated from data/*.json (questions arrive as drafts).
 """
-import argparse, datetime, html, json, os, shutil
+import argparse, datetime, hashlib, html, json, os, shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIST = os.path.join(ROOT, 'dist')
@@ -196,6 +196,10 @@ def main():
     live = bool(SITE.get('supabaseUrl') and SITE.get('supabaseKey'))
 
     scoring, backend = read('src/shared/scoring.js'), read('src/shared/backend.js')
+    # cache-busting for data/*.json: same data → same URL, new data → new URL (GitHub Pages caches files for 10 minutes)
+    data_version = hashlib.sha1(''.join(read('data/' + f) for f in ('map.json', 'questions.json', 'provinces.json')).encode('utf-8')).hexdigest()[:10]
+    assert "const DATA_VERSION = 'dev';" in backend
+    backend = backend.replace("const DATA_VERSION = 'dev';", "const DATA_VERSION = '%s';" % data_version)
     play_css, play_js, play_tpl = read('src/play/style.css'), read('src/play/app.js'), read('src/play/template.src.html')
     admin_css, admin_js, admin_tpl, admin_body = read('src/admin/style.css'), read('src/admin/app.js'), read('src/admin/template.src.html'), read('src/admin/body.html')
     assert "const SHARE_URL_BUILD = '';" in play_js

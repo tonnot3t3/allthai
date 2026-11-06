@@ -120,7 +120,7 @@ const provOptions = () => [['', 'เลือกจังหวัด']].concat(
 const reviewerName = () => A.session && !A.session.demo ? A.session.email : 'ทีมงาน (โหมดสาธิต)';
 
 let distP = null;
-const loadDistricts = () => distP || (distP = fetch((BE.CFG.dataBase || 'data/') + 'districts.json').then(r => { if (!r.ok) throw new Error('districts.json ' + r.status); return r.json(); }));
+const loadDistricts = () => distP || (distP = fetch(BE.dataUrl('districts.json')).then(r => { if (!r.ok) throw new Error('districts.json ' + r.status); return r.json(); }));
 async function loadAll() {
   const [subs, qs, ps, sd, ds] = await Promise.all([BE.listSubmissions(), BE.listQuestions(), BE.listProvinces(), BE.seedProvinces(), loadDistricts()]);
   A.subs = subs; A.questions = qs; A.provinces = ps; A.meta = sd.provinceMeta;
