@@ -1,0 +1,2197 @@
+{
+ "status": "ร่าง — ค่าป้ายทุกจังหวัดยังไม่ได้ตรวจกับแหล่งข้อมูล (verified=false) ห้ามถือเป็นข้อมูลจริงจนกว่าทีมตรวจ",
+ "rules": {
+  "region": "แบ่ง 6 ภาคตามคณะกรรมการภูมิศาสตร์แห่งชาติ (ครม. เห็นชอบ 2520) · ภาคติดกัน = มีจังหวัดในสองภาคที่มีพรมแดนทางบกติดกัน (คำนวณจาก map.json)",
+  "multi_value_match": {
+   "terrain": "any — มีค่าร่วมกันอย่างน้อย 1 ค่า",
+   "main_occupation": "primary — ค่าแรก (อาชีพหลักอันดับ 1) ตรงกัน"
+  },
+  "neighbors": "จังหวัดที่มีพรมแดนทางบกติดกัน คำนวณจาก topology ของ map.json (ภูเก็ตไม่มี เพราะเป็นเกาะ)"
+ },
+ "region_adjacency": {
+  "กลาง": [
+   "ตะวันตก",
+   "ตะวันออก",
+   "อีสาน",
+   "เหนือ"
+  ],
+  "ตะวันตก": [
+   "กลาง",
+   "เหนือ",
+   "ใต้"
+  ],
+  "ตะวันออก": [
+   "กลาง",
+   "อีสาน"
+  ],
+  "อีสาน": [
+   "กลาง",
+   "ตะวันออก"
+  ],
+  "เหนือ": [
+   "กลาง",
+   "ตะวันตก"
+  ],
+  "ใต้": [
+   "ตะวันตก"
+  ]
+ },
+ "sources_to_check": [
+  "ภาค: ราชบัณฑิตยสภา / คณะกรรมการภูมิศาสตร์แห่งชาติ (2520)",
+  "ติดทะเล 23 จังหวัด: กรมทรัพยากรทางทะเลและชายฝั่ง (รายงานฐานข้อมูลการกัดเซาะชายฝั่ง 23 จังหวัด, 2558) และกฎกระทรวงกำหนดเขตทะเลชายฝั่ง 23 จังหวัด",
+  "ศาสนา: สำนักงานสถิติแห่งชาติ (สำมะโนประชากร)",
+  "ภาษาถิ่น: แผนที่ภาษาของกลุ่มชาติพันธุ์ต่าง ๆ ในประเทศไทย (สุวิไล เปรมศรีรัตน์ และคณะ, 2547)",
+  "อาชีพหลัก: ผลิตภัณฑ์มวลรวมจังหวัด (GPP) รายสาขา — สศช."
+ ],
+ "provinces": [
+  {
+   "id": "bangkok",
+   "iso": "TH-10",
+   "name_th": "กรุงเทพมหานคร",
+   "name_en": "Bangkok",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "บริการ",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "samut-prakan",
+    "nonthaburi",
+    "pathum-thani",
+    "chachoengsao",
+    "nakhon-pathom",
+    "samut-sakhon"
+   ],
+   "verified": false
+  },
+  {
+   "id": "samut-prakan",
+   "iso": "TH-11",
+   "name_th": "สมุทรปราการ",
+   "name_en": "Samut Prakan",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "อุตสาหกรรม"
+   ],
+   "neighbors": [
+    "bangkok",
+    "chachoengsao"
+   ],
+   "verified": false
+  },
+  {
+   "id": "nonthaburi",
+   "iso": "TH-12",
+   "name_th": "นนทบุรี",
+   "name_en": "Nonthaburi",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "บริการ"
+   ],
+   "neighbors": [
+    "bangkok",
+    "pathum-thani",
+    "ayutthaya",
+    "nakhon-pathom"
+   ],
+   "verified": false
+  },
+  {
+   "id": "pathum-thani",
+   "iso": "TH-13",
+   "name_th": "ปทุมธานี",
+   "name_en": "Pathum Thani",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "อุตสาหกรรม"
+   ],
+   "neighbors": [
+    "bangkok",
+    "nonthaburi",
+    "ayutthaya",
+    "saraburi",
+    "chachoengsao",
+    "nakhon-nayok"
+   ],
+   "verified": false
+  },
+  {
+   "id": "ayutthaya",
+   "iso": "TH-14",
+   "name_th": "พระนครศรีอยุธยา",
+   "name_en": "Phra Nakhon Si Ayutthaya",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "อุตสาหกรรม",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "nonthaburi",
+    "pathum-thani",
+    "ang-thong",
+    "lopburi",
+    "saraburi",
+    "suphanburi",
+    "nakhon-pathom"
+   ],
+   "verified": false
+  },
+  {
+   "id": "ang-thong",
+   "iso": "TH-15",
+   "name_th": "อ่างทอง",
+   "name_en": "Ang Thong",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "ayutthaya",
+    "lopburi",
+    "sing-buri",
+    "suphanburi"
+   ],
+   "verified": false
+  },
+  {
+   "id": "lopburi",
+   "iso": "TH-16",
+   "name_th": "ลพบุรี",
+   "name_en": "Lopburi",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "ayutthaya",
+    "ang-thong",
+    "sing-buri",
+    "saraburi",
+    "nakhon-ratchasima",
+    "nakhon-sawan",
+    "phetchabun"
+   ],
+   "verified": false
+  },
+  {
+   "id": "sing-buri",
+   "iso": "TH-17",
+   "name_th": "สิงห์บุรี",
+   "name_en": "Sing Buri",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "ang-thong",
+    "lopburi",
+    "chai-nat",
+    "nakhon-sawan",
+    "suphanburi"
+   ],
+   "verified": false
+  },
+  {
+   "id": "chai-nat",
+   "iso": "TH-18",
+   "name_th": "ชัยนาท",
+   "name_en": "Chai Nat",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "sing-buri",
+    "nakhon-sawan",
+    "uthai-thani",
+    "suphanburi"
+   ],
+   "verified": false
+  },
+  {
+   "id": "saraburi",
+   "iso": "TH-19",
+   "name_th": "สระบุรี",
+   "name_en": "Saraburi",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "อุตสาหกรรม"
+   ],
+   "neighbors": [
+    "pathum-thani",
+    "ayutthaya",
+    "lopburi",
+    "nakhon-nayok",
+    "nakhon-ratchasima"
+   ],
+   "verified": false
+  },
+  {
+   "id": "chonburi",
+   "iso": "TH-20",
+   "name_th": "ชลบุรี",
+   "name_en": "Chonburi",
+   "region": "ตะวันออก",
+   "adjacent_regions": [
+    "กลาง",
+    "อีสาน"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "อุตสาหกรรม",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "rayong",
+    "chanthaburi",
+    "chachoengsao"
+   ],
+   "verified": false
+  },
+  {
+   "id": "rayong",
+   "iso": "TH-21",
+   "name_th": "ระยอง",
+   "name_en": "Rayong",
+   "region": "ตะวันออก",
+   "adjacent_regions": [
+    "กลาง",
+    "อีสาน"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล"
+   ],
+   "main_occupation": [
+    "อุตสาหกรรม"
+   ],
+   "neighbors": [
+    "chonburi",
+    "chanthaburi"
+   ],
+   "verified": false
+  },
+  {
+   "id": "chanthaburi",
+   "iso": "TH-22",
+   "name_th": "จันทบุรี",
+   "name_en": "Chanthaburi",
+   "region": "ตะวันออก",
+   "adjacent_regions": [
+    "กลาง",
+    "อีสาน"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "chonburi",
+    "rayong",
+    "trat",
+    "chachoengsao",
+    "sa-kaeo"
+   ],
+   "verified": false
+  },
+  {
+   "id": "trat",
+   "iso": "TH-23",
+   "name_th": "ตราด",
+   "name_en": "Trat",
+   "region": "ตะวันออก",
+   "adjacent_regions": [
+    "กลาง",
+    "อีสาน"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "chanthaburi"
+   ],
+   "verified": false
+  },
+  {
+   "id": "chachoengsao",
+   "iso": "TH-24",
+   "name_th": "ฉะเชิงเทรา",
+   "name_en": "Chachoengsao",
+   "region": "ตะวันออก",
+   "adjacent_regions": [
+    "กลาง",
+    "อีสาน"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "อุตสาหกรรม",
+    "เกษตร"
+   ],
+   "neighbors": [
+    "bangkok",
+    "samut-prakan",
+    "pathum-thani",
+    "chonburi",
+    "chanthaburi",
+    "prachinburi",
+    "nakhon-nayok",
+    "sa-kaeo"
+   ],
+   "verified": false
+  },
+  {
+   "id": "prachinburi",
+   "iso": "TH-25",
+   "name_th": "ปราจีนบุรี",
+   "name_en": "Prachinburi",
+   "region": "ตะวันออก",
+   "adjacent_regions": [
+    "กลาง",
+    "อีสาน"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "อุตสาหกรรม",
+    "เกษตร"
+   ],
+   "neighbors": [
+    "chachoengsao",
+    "nakhon-nayok",
+    "sa-kaeo",
+    "nakhon-ratchasima"
+   ],
+   "verified": false
+  },
+  {
+   "id": "nakhon-nayok",
+   "iso": "TH-26",
+   "name_th": "นครนายก",
+   "name_en": "Nakhon Nayok",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "pathum-thani",
+    "saraburi",
+    "chachoengsao",
+    "prachinburi",
+    "nakhon-ratchasima"
+   ],
+   "verified": false
+  },
+  {
+   "id": "sa-kaeo",
+   "iso": "TH-27",
+   "name_th": "สระแก้ว",
+   "name_en": "Sa Kaeo",
+   "region": "ตะวันออก",
+   "adjacent_regions": [
+    "กลาง",
+    "อีสาน"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "chanthaburi",
+    "chachoengsao",
+    "prachinburi",
+    "nakhon-ratchasima",
+    "buriram"
+   ],
+   "verified": false
+  },
+  {
+   "id": "nakhon-ratchasima",
+   "iso": "TH-30",
+   "name_th": "นครราชสีมา",
+   "name_en": "Nakhon Ratchasima",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "อุตสาหกรรม"
+   ],
+   "neighbors": [
+    "lopburi",
+    "saraburi",
+    "prachinburi",
+    "nakhon-nayok",
+    "sa-kaeo",
+    "buriram",
+    "chaiyaphum",
+    "khon-kaen"
+   ],
+   "verified": false,
+   "note": "ภาษาโคราช (ไทเบิ้ง) ใกล้ภาษากลาง และมีผู้พูดอีสาน ต้องตรวจ"
+  },
+  {
+   "id": "buriram",
+   "iso": "TH-31",
+   "name_th": "บุรีรัมย์",
+   "name_en": "Buriram",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "sa-kaeo",
+    "nakhon-ratchasima",
+    "surin",
+    "khon-kaen",
+    "maha-sarakham"
+   ],
+   "verified": false,
+   "note": "มีผู้พูดภาษาเขมรถิ่นไทยบางส่วน"
+  },
+  {
+   "id": "surin",
+   "iso": "TH-32",
+   "name_th": "สุรินทร์",
+   "name_en": "Surin",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "buriram",
+    "sisaket",
+    "maha-sarakham",
+    "roi-et"
+   ],
+   "verified": false,
+   "note": "มีผู้พูดภาษาเขมรถิ่นไทยจำนวนมาก อาจใช้ค่า \"อื่น ๆ\""
+  },
+  {
+   "id": "sisaket",
+   "iso": "TH-33",
+   "name_th": "ศรีสะเกษ",
+   "name_en": "Sisaket",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "surin",
+    "ubon-ratchathani",
+    "yasothon",
+    "roi-et"
+   ],
+   "verified": false,
+   "note": "มีผู้พูดภาษาเขมรถิ่นไทย/กูย บางส่วน"
+  },
+  {
+   "id": "ubon-ratchathani",
+   "iso": "TH-34",
+   "name_th": "อุบลราชธานี",
+   "name_en": "Ubon Ratchathani",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "sisaket",
+    "yasothon",
+    "amnat-charoen"
+   ],
+   "verified": false
+  },
+  {
+   "id": "yasothon",
+   "iso": "TH-35",
+   "name_th": "ยโสธร",
+   "name_en": "Yasothon",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "sisaket",
+    "ubon-ratchathani",
+    "amnat-charoen",
+    "roi-et",
+    "mukdahan"
+   ],
+   "verified": false
+  },
+  {
+   "id": "chaiyaphum",
+   "iso": "TH-36",
+   "name_th": "ชัยภูมิ",
+   "name_en": "Chaiyaphum",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "nakhon-ratchasima",
+    "khon-kaen",
+    "phetchabun"
+   ],
+   "verified": false
+  },
+  {
+   "id": "amnat-charoen",
+   "iso": "TH-37",
+   "name_th": "อำนาจเจริญ",
+   "name_en": "Amnat Charoen",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "ubon-ratchathani",
+    "yasothon",
+    "mukdahan"
+   ],
+   "verified": false
+  },
+  {
+   "id": "bueng-kan",
+   "iso": "TH-38",
+   "name_th": "บึงกาฬ",
+   "name_en": "Bueng Kan",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "nong-khai",
+    "sakon-nakhon",
+    "nakhon-phanom"
+   ],
+   "verified": false
+  },
+  {
+   "id": "nong-bua-lamphu",
+   "iso": "TH-39",
+   "name_th": "หนองบัวลำภู",
+   "name_en": "Nong Bua Lamphu",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "khon-kaen",
+    "udon-thani",
+    "loei"
+   ],
+   "verified": false
+  },
+  {
+   "id": "khon-kaen",
+   "iso": "TH-40",
+   "name_th": "ขอนแก่น",
+   "name_en": "Khon Kaen",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "บริการ"
+   ],
+   "neighbors": [
+    "nakhon-ratchasima",
+    "buriram",
+    "chaiyaphum",
+    "nong-bua-lamphu",
+    "udon-thani",
+    "loei",
+    "maha-sarakham",
+    "kalasin",
+    "phetchabun"
+   ],
+   "verified": false
+  },
+  {
+   "id": "udon-thani",
+   "iso": "TH-41",
+   "name_th": "อุดรธานี",
+   "name_en": "Udon Thani",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "nong-bua-lamphu",
+    "khon-kaen",
+    "loei",
+    "nong-khai",
+    "kalasin",
+    "sakon-nakhon"
+   ],
+   "verified": false
+  },
+  {
+   "id": "loei",
+   "iso": "TH-42",
+   "name_th": "เลย",
+   "name_en": "Loei",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "nong-bua-lamphu",
+    "khon-kaen",
+    "udon-thani",
+    "nong-khai",
+    "phitsanulok",
+    "phetchabun"
+   ],
+   "verified": false
+  },
+  {
+   "id": "nong-khai",
+   "iso": "TH-43",
+   "name_th": "หนองคาย",
+   "name_en": "Nong Khai",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "bueng-kan",
+    "udon-thani",
+    "loei",
+    "sakon-nakhon"
+   ],
+   "verified": false
+  },
+  {
+   "id": "maha-sarakham",
+   "iso": "TH-44",
+   "name_th": "มหาสารคาม",
+   "name_en": "Maha Sarakham",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "buriram",
+    "surin",
+    "khon-kaen",
+    "roi-et",
+    "kalasin"
+   ],
+   "verified": false
+  },
+  {
+   "id": "roi-et",
+   "iso": "TH-45",
+   "name_th": "ร้อยเอ็ด",
+   "name_en": "Roi Et",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "surin",
+    "sisaket",
+    "yasothon",
+    "maha-sarakham",
+    "kalasin",
+    "mukdahan"
+   ],
+   "verified": false
+  },
+  {
+   "id": "kalasin",
+   "iso": "TH-46",
+   "name_th": "กาฬสินธุ์",
+   "name_en": "Kalasin",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "khon-kaen",
+    "udon-thani",
+    "maha-sarakham",
+    "roi-et",
+    "sakon-nakhon",
+    "mukdahan"
+   ],
+   "verified": false
+  },
+  {
+   "id": "sakon-nakhon",
+   "iso": "TH-47",
+   "name_th": "สกลนคร",
+   "name_en": "Sakon Nakhon",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "bueng-kan",
+    "udon-thani",
+    "nong-khai",
+    "kalasin",
+    "nakhon-phanom",
+    "mukdahan"
+   ],
+   "verified": false
+  },
+  {
+   "id": "nakhon-phanom",
+   "iso": "TH-48",
+   "name_th": "นครพนม",
+   "name_en": "Nakhon Phanom",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "bueng-kan",
+    "sakon-nakhon",
+    "mukdahan"
+   ],
+   "verified": false
+  },
+  {
+   "id": "mukdahan",
+   "iso": "TH-49",
+   "name_th": "มุกดาหาร",
+   "name_en": "Mukdahan",
+   "region": "อีสาน",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันออก"
+   ],
+   "dialect": "อีสาน",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "yasothon",
+    "amnat-charoen",
+    "roi-et",
+    "kalasin",
+    "sakon-nakhon",
+    "nakhon-phanom"
+   ],
+   "verified": false
+  },
+  {
+   "id": "chiang-mai",
+   "iso": "TH-50",
+   "name_th": "เชียงใหม่",
+   "name_en": "Chiang Mai",
+   "region": "เหนือ",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันตก"
+   ],
+   "dialect": "เหนือ",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "lamphun",
+    "lampang",
+    "chiang-rai",
+    "mae-hong-son",
+    "tak"
+   ],
+   "verified": false
+  },
+  {
+   "id": "lamphun",
+   "iso": "TH-51",
+   "name_th": "ลำพูน",
+   "name_en": "Lamphun",
+   "region": "เหนือ",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันตก"
+   ],
+   "dialect": "เหนือ",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "อุตสาหกรรม",
+    "เกษตร"
+   ],
+   "neighbors": [
+    "chiang-mai",
+    "lampang",
+    "tak"
+   ],
+   "verified": false
+  },
+  {
+   "id": "lampang",
+   "iso": "TH-52",
+   "name_th": "ลำปาง",
+   "name_en": "Lampang",
+   "region": "เหนือ",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันตก"
+   ],
+   "dialect": "เหนือ",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "chiang-mai",
+    "lamphun",
+    "phrae",
+    "phayao",
+    "chiang-rai",
+    "tak",
+    "sukhothai"
+   ],
+   "verified": false
+  },
+  {
+   "id": "uttaradit",
+   "iso": "TH-53",
+   "name_th": "อุตรดิตถ์",
+   "name_en": "Uttaradit",
+   "region": "เหนือ",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันตก"
+   ],
+   "dialect": "เหนือ",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "phrae",
+    "nan",
+    "sukhothai",
+    "phitsanulok"
+   ],
+   "verified": false
+  },
+  {
+   "id": "phrae",
+   "iso": "TH-54",
+   "name_th": "แพร่",
+   "name_en": "Phrae",
+   "region": "เหนือ",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันตก"
+   ],
+   "dialect": "เหนือ",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "lampang",
+    "uttaradit",
+    "nan",
+    "phayao",
+    "sukhothai"
+   ],
+   "verified": false
+  },
+  {
+   "id": "nan",
+   "iso": "TH-55",
+   "name_th": "น่าน",
+   "name_en": "Nan",
+   "region": "เหนือ",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันตก"
+   ],
+   "dialect": "เหนือ",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "uttaradit",
+    "phrae",
+    "phayao"
+   ],
+   "verified": false
+  },
+  {
+   "id": "phayao",
+   "iso": "TH-56",
+   "name_th": "พะเยา",
+   "name_en": "Phayao",
+   "region": "เหนือ",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันตก"
+   ],
+   "dialect": "เหนือ",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "lampang",
+    "phrae",
+    "nan",
+    "chiang-rai"
+   ],
+   "verified": false
+  },
+  {
+   "id": "chiang-rai",
+   "iso": "TH-57",
+   "name_th": "เชียงราย",
+   "name_en": "Chiang Rai",
+   "region": "เหนือ",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันตก"
+   ],
+   "dialect": "เหนือ",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "chiang-mai",
+    "lampang",
+    "phayao"
+   ],
+   "verified": false
+  },
+  {
+   "id": "mae-hong-son",
+   "iso": "TH-58",
+   "name_th": "แม่ฮ่องสอน",
+   "name_en": "Mae Hong Son",
+   "region": "เหนือ",
+   "adjacent_regions": [
+    "กลาง",
+    "ตะวันตก"
+   ],
+   "dialect": "เหนือ",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "chiang-mai",
+    "tak"
+   ],
+   "verified": false
+  },
+  {
+   "id": "nakhon-sawan",
+   "iso": "TH-60",
+   "name_th": "นครสวรรค์",
+   "name_en": "Nakhon Sawan",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "lopburi",
+    "sing-buri",
+    "chai-nat",
+    "uthai-thani",
+    "kamphaeng-phet",
+    "tak",
+    "phichit",
+    "phetchabun"
+   ],
+   "verified": false
+  },
+  {
+   "id": "uthai-thani",
+   "iso": "TH-61",
+   "name_th": "อุทัยธานี",
+   "name_en": "Uthai Thani",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "chai-nat",
+    "nakhon-sawan",
+    "tak",
+    "kanchanaburi",
+    "suphanburi"
+   ],
+   "verified": false
+  },
+  {
+   "id": "kamphaeng-phet",
+   "iso": "TH-62",
+   "name_th": "กำแพงเพชร",
+   "name_en": "Kamphaeng Phet",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "nakhon-sawan",
+    "tak",
+    "sukhothai",
+    "phitsanulok",
+    "phichit"
+   ],
+   "verified": false
+  },
+  {
+   "id": "tak",
+   "iso": "TH-63",
+   "name_th": "ตาก",
+   "name_en": "Tak",
+   "region": "ตะวันตก",
+   "adjacent_regions": [
+    "กลาง",
+    "เหนือ",
+    "ใต้"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "chiang-mai",
+    "lamphun",
+    "lampang",
+    "mae-hong-son",
+    "nakhon-sawan",
+    "uthai-thani",
+    "kamphaeng-phet",
+    "sukhothai",
+    "kanchanaburi"
+   ],
+   "verified": false,
+   "note": "ภาษาถิ่นตาก/แม่สอด มีลักษณะผสม ต้องตรวจว่าเป็นถิ่นเหนือหรือกลาง"
+  },
+  {
+   "id": "sukhothai",
+   "iso": "TH-64",
+   "name_th": "สุโขทัย",
+   "name_en": "Sukhothai",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "lampang",
+    "uttaradit",
+    "phrae",
+    "kamphaeng-phet",
+    "tak",
+    "phitsanulok"
+   ],
+   "verified": false
+  },
+  {
+   "id": "phitsanulok",
+   "iso": "TH-65",
+   "name_th": "พิษณุโลก",
+   "name_en": "Phitsanulok",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "บริการ"
+   ],
+   "neighbors": [
+    "loei",
+    "uttaradit",
+    "kamphaeng-phet",
+    "sukhothai",
+    "phichit",
+    "phetchabun"
+   ],
+   "verified": false
+  },
+  {
+   "id": "phichit",
+   "iso": "TH-66",
+   "name_th": "พิจิตร",
+   "name_en": "Phichit",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "nakhon-sawan",
+    "kamphaeng-phet",
+    "phitsanulok",
+    "phetchabun"
+   ],
+   "verified": false
+  },
+  {
+   "id": "phetchabun",
+   "iso": "TH-67",
+   "name_th": "เพชรบูรณ์",
+   "name_en": "Phetchabun",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "lopburi",
+    "chaiyaphum",
+    "khon-kaen",
+    "loei",
+    "nakhon-sawan",
+    "phitsanulok",
+    "phichit"
+   ],
+   "verified": false,
+   "note": "อำเภอตอนบน (หล่มสัก หล่มเก่า) พูดภาษาถิ่นคล้ายเลย ต้องตรวจ"
+  },
+  {
+   "id": "ratchaburi",
+   "iso": "TH-70",
+   "name_th": "ราชบุรี",
+   "name_en": "Ratchaburi",
+   "region": "ตะวันตก",
+   "adjacent_regions": [
+    "กลาง",
+    "เหนือ",
+    "ใต้"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "อุตสาหกรรม"
+   ],
+   "neighbors": [
+    "kanchanaburi",
+    "nakhon-pathom",
+    "samut-sakhon",
+    "samut-songkhram",
+    "phetchaburi"
+   ],
+   "verified": false
+  },
+  {
+   "id": "kanchanaburi",
+   "iso": "TH-71",
+   "name_th": "กาญจนบุรี",
+   "name_en": "Kanchanaburi",
+   "region": "ตะวันตก",
+   "adjacent_regions": [
+    "กลาง",
+    "เหนือ",
+    "ใต้"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "uthai-thani",
+    "tak",
+    "ratchaburi",
+    "suphanburi",
+    "nakhon-pathom"
+   ],
+   "verified": false
+  },
+  {
+   "id": "suphanburi",
+   "iso": "TH-72",
+   "name_th": "สุพรรณบุรี",
+   "name_en": "Suphan Buri",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "ayutthaya",
+    "ang-thong",
+    "sing-buri",
+    "chai-nat",
+    "uthai-thani",
+    "kanchanaburi",
+    "nakhon-pathom"
+   ],
+   "verified": false
+  },
+  {
+   "id": "nakhon-pathom",
+   "iso": "TH-73",
+   "name_th": "นครปฐม",
+   "name_en": "Nakhon Pathom",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "อุตสาหกรรม"
+   ],
+   "neighbors": [
+    "bangkok",
+    "nonthaburi",
+    "ayutthaya",
+    "ratchaburi",
+    "kanchanaburi",
+    "suphanburi",
+    "samut-sakhon"
+   ],
+   "verified": false
+  },
+  {
+   "id": "samut-sakhon",
+   "iso": "TH-74",
+   "name_th": "สมุทรสาคร",
+   "name_en": "Samut Sakhon",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "อุตสาหกรรม",
+    "ประมง"
+   ],
+   "neighbors": [
+    "bangkok",
+    "ratchaburi",
+    "nakhon-pathom",
+    "samut-songkhram"
+   ],
+   "verified": false
+  },
+  {
+   "id": "samut-songkhram",
+   "iso": "TH-75",
+   "name_th": "สมุทรสงคราม",
+   "name_en": "Samut Songkhram",
+   "region": "กลาง",
+   "adjacent_regions": [
+    "ตะวันตก",
+    "ตะวันออก",
+    "อีสาน",
+    "เหนือ"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ประมง"
+   ],
+   "neighbors": [
+    "ratchaburi",
+    "samut-sakhon",
+    "phetchaburi"
+   ],
+   "verified": false
+  },
+  {
+   "id": "phetchaburi",
+   "iso": "TH-76",
+   "name_th": "เพชรบุรี",
+   "name_en": "Phetchaburi",
+   "region": "ตะวันตก",
+   "adjacent_regions": [
+    "กลาง",
+    "เหนือ",
+    "ใต้"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "ratchaburi",
+    "samut-songkhram",
+    "prachuap-khiri-khan"
+   ],
+   "verified": false
+  },
+  {
+   "id": "prachuap-khiri-khan",
+   "iso": "TH-77",
+   "name_th": "ประจวบคีรีขันธ์",
+   "name_en": "Prachuap Khiri Khan",
+   "region": "ตะวันตก",
+   "adjacent_regions": [
+    "กลาง",
+    "เหนือ",
+    "ใต้"
+   ],
+   "dialect": "กลาง",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "phetchaburi",
+    "chumphon"
+   ],
+   "verified": false
+  },
+  {
+   "id": "nakhon-si-thammarat",
+   "iso": "TH-80",
+   "name_th": "นครศรีธรรมราช",
+   "name_en": "Nakhon Si Thammarat",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "krabi",
+    "surat-thani",
+    "songkhla",
+    "trang",
+    "phatthalung"
+   ],
+   "verified": false
+  },
+  {
+   "id": "krabi",
+   "iso": "TH-81",
+   "name_th": "กระบี่",
+   "name_en": "Krabi",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "ท่องเที่ยว",
+    "เกษตร"
+   ],
+   "neighbors": [
+    "nakhon-si-thammarat",
+    "phang-nga",
+    "surat-thani",
+    "trang"
+   ],
+   "verified": false
+  },
+  {
+   "id": "phang-nga",
+   "iso": "TH-82",
+   "name_th": "พังงา",
+   "name_en": "Phang Nga",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "krabi",
+    "surat-thani",
+    "ranong"
+   ],
+   "verified": false
+  },
+  {
+   "id": "phuket",
+   "iso": "TH-83",
+   "name_th": "ภูเก็ต",
+   "name_en": "Phuket",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [],
+   "verified": false
+  },
+  {
+   "id": "surat-thani",
+   "iso": "TH-84",
+   "name_th": "สุราษฎร์ธานี",
+   "name_en": "Surat Thani",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ท่องเที่ยว"
+   ],
+   "neighbors": [
+    "nakhon-si-thammarat",
+    "krabi",
+    "phang-nga",
+    "ranong",
+    "chumphon"
+   ],
+   "verified": false
+  },
+  {
+   "id": "ranong",
+   "iso": "TH-85",
+   "name_th": "ระนอง",
+   "name_en": "Ranong",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "ประมง",
+    "เกษตร"
+   ],
+   "neighbors": [
+    "phang-nga",
+    "surat-thani",
+    "chumphon"
+   ],
+   "verified": false
+  },
+  {
+   "id": "chumphon",
+   "iso": "TH-86",
+   "name_th": "ชุมพร",
+   "name_en": "Chumphon",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "prachuap-khiri-khan",
+    "surat-thani",
+    "ranong"
+   ],
+   "verified": false
+  },
+  {
+   "id": "songkhla",
+   "iso": "TH-90",
+   "name_th": "สงขลา",
+   "name_en": "Songkhla",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ประมง"
+   ],
+   "neighbors": [
+    "nakhon-si-thammarat",
+    "satun",
+    "trang",
+    "phatthalung",
+    "pattani",
+    "yala"
+   ],
+   "verified": false
+  },
+  {
+   "id": "satun",
+   "iso": "TH-91",
+   "name_th": "สตูล",
+   "name_en": "Satun",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "อิสลาม",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร",
+    "ประมง"
+   ],
+   "neighbors": [
+    "songkhla",
+    "trang"
+   ],
+   "verified": false,
+   "note": "ประชากรส่วนใหญ่นับถืออิสลาม แต่ส่วนมากพูดภาษาไทยถิ่นใต้"
+  },
+  {
+   "id": "trang",
+   "iso": "TH-92",
+   "name_th": "ตรัง",
+   "name_en": "Trang",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "nakhon-si-thammarat",
+    "krabi",
+    "songkhla",
+    "satun",
+    "phatthalung"
+   ],
+   "verified": false
+  },
+  {
+   "id": "phatthalung",
+   "iso": "TH-93",
+   "name_th": "พัทลุง",
+   "name_en": "Phatthalung",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "ใต้",
+   "religion_culture": "พุทธ",
+   "terrain": [
+    "ภูเขา",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "nakhon-si-thammarat",
+    "songkhla",
+    "trang"
+   ],
+   "verified": false,
+   "note": "ติดทะเลสาบสงขลา ไม่นับเป็นจังหวัดชายฝั่งทะเล"
+  },
+  {
+   "id": "pattani",
+   "iso": "TH-94",
+   "name_th": "ปัตตานี",
+   "name_en": "Pattani",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "มลายูถิ่น",
+   "religion_culture": "อิสลาม",
+   "terrain": [
+    "ติดทะเล",
+    "ที่ราบ"
+   ],
+   "main_occupation": [
+    "ประมง",
+    "เกษตร"
+   ],
+   "neighbors": [
+    "songkhla",
+    "yala",
+    "narathiwat"
+   ],
+   "verified": false
+  },
+  {
+   "id": "yala",
+   "iso": "TH-95",
+   "name_th": "ยะลา",
+   "name_en": "Yala",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "มลายูถิ่น",
+   "religion_culture": "อิสลาม",
+   "terrain": [
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "songkhla",
+    "pattani",
+    "narathiwat"
+   ],
+   "verified": false
+  },
+  {
+   "id": "narathiwat",
+   "iso": "TH-96",
+   "name_th": "นราธิวาส",
+   "name_en": "Narathiwat",
+   "region": "ใต้",
+   "adjacent_regions": [
+    "ตะวันตก"
+   ],
+   "dialect": "มลายูถิ่น",
+   "religion_culture": "อิสลาม",
+   "terrain": [
+    "ติดทะเล",
+    "ภูเขา"
+   ],
+   "main_occupation": [
+    "เกษตร"
+   ],
+   "neighbors": [
+    "pattani",
+    "yala"
+   ],
+   "verified": false
+  }
+ ]
+}

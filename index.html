@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ออลไทย — เกมทายที่เที่ยวทั่วไทย ระดับอำเภอ</title>
+<meta name="description" content="เกมทายสถานที่ท่องเที่ยวทั่วไทยจากภาพและเบาะแส ตอบถึงระดับอำเภอบนแผนที่ 928 อำเภอและเขต ยิ่งใกล้ยิ่งได้คะแนน เล่นฟรีวันละ 5 ข้อ หรือเล่นต่อแบบไม่จำกัด">
+<meta name="theme-color" content="#2F6B3B">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="canonical" href="https://tonnot3t3.github.io/allthai/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ออลไทย">
+<meta property="og:locale" content="th_TH">
+<meta property="og:title" content="ออลไทย — เกมทายที่เที่ยวทั่วไทย ระดับอำเภอ">
+<meta property="og:description" content="เกมทายสถานที่ท่องเที่ยวทั่วไทยจากภาพและเบาะแส ตอบถึงระดับอำเภอบนแผนที่ 928 อำเภอและเขต ยิ่งใกล้ยิ่งได้คะแนน เล่นฟรีวันละ 5 ข้อ หรือเล่นต่อแบบไม่จำกัด">
+<meta property="og:url" content="https://tonnot3t3.github.io/allthai/">
+<meta property="og:image" content="https://tonnot3t3.github.io/allthai/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ออลไทย ทายที่เที่ยวทั่วไทย ระดับอำเภอ">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "ออลไทย", "alternateName": "All Thai", "url": "https://tonnot3t3.github.io/allthai/", "inLanguage": "th", "description": "เกมทายสถานที่ท่องเที่ยวทั่วไทยจากภาพและเบาะแส ตอบถึงระดับอำเภอบนแผนที่ 928 อำเภอและเขต ยิ่งใกล้ยิ่งได้คะแนน เล่นฟรีวันละ 5 ข้อ หรือเล่นต่อแบบไม่จำกัด"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&amp;family=Mitr:wght@500;600&amp;display=swap">
+<style>
+:root {
+  /* Layout: one phone column (max 430px). Screens stack cards top to bottom; the answer screen gives the map all remaining height. Single light theme on purpose (rice-field green on paper). */
+  --paper: #FBF8F2;
+  --ink: #211E1A;
+  --muted: #6E675D;
+  --line: #E6DED0;
+  --card: #FFFFFF;
+  --rice: #2F6B3B;
+  --rice-deep: #24532E;
+  --rice-soft: #E4EFE5;
+  --amber: #D99A2B;
+  --amber-ink: #8F5512;
+  --sea: #DCE8EE;
+  --sea-line: #C3D5DD;
+  --bad: #B4452F;
+  --font-display: 'Mitr', 'IBM Plex Sans Thai', 'Leelawadee UI', Tahoma, sans-serif;
+  --font-body: 'IBM Plex Sans Thai', 'Noto Sans Thai', 'Leelawadee UI', Tahoma, sans-serif;
+  --r-lg: 22px;
+  --r-md: 16px;
+  --tap: 48px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: #F2EDE3;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+#app {
+  position: relative;
+  max-width: 430px;
+  height: 100%;
+  margin: 0 auto;
+  background: var(--paper);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.04), 0 10px 40px rgba(60,45,20,.08);
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; text-wrap: balance; line-height: 1.25; }
+p { margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; touch-action: manipulation; }
+button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+[hidden] { display: none !important; }
+.fig, .topbar .score-box b, .metaline .mult b, .timer .t b, .score-pair b, .big-score, .me-card b, .rv-head b { font-family: var(--font-body) !important; font-weight: 600; letter-spacing: -.3px; }
+
+/* screens */
+.screen {
+  position: absolute; inset: 0;
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  padding: max(20px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.screen.on { display: flex; }
+.screen > * { flex-shrink: 0; }
+.screen > .spacer, .screen > .map-panel { flex-shrink: 1; }
+.spacer { flex: 1 1 auto; min-height: 8px; }
+
+/* buttons */
+.btn {
+  min-height: var(--tap);
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  padding: 12px 18px;
+  font-size: 17px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  transition: transform .12s ease, background .12s ease;
+}
+.btn:active { transform: scale(.98); }
+.btn.primary { background: var(--rice); border-color: var(--rice); color: #fff; font-family: var(--font-display); font-weight: 500; font-size: 19px; }
+.btn.primary:disabled { background: #9DB7A2; border-color: #9DB7A2; cursor: not-allowed; }
+.btn.line { background: #06C755; border-color: #06C755; color: #fff; font-family: var(--font-display); font-weight: 500; font-size: 19px; }
+.btn.block { width: 100%; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.icon-btn {
+  width: 52px; height: 52px; flex: none;
+  border-radius: 16px; border: 1.5px solid var(--line); background: var(--card);
+  display: grid; place-items: center;
+}
+.icon-btn svg { width: 22px; height: 22px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; background: var(--rice-soft); color: var(--rice-deep); font-size: 15px; white-space: nowrap; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+.card { background: var(--card); border: 1.5px solid var(--line); border-radius: var(--r-lg); padding: 16px 18px; }
+
+/* home */
+.home-hero { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding-top: 34px; }
+.home-hero .ghost-map { position: absolute; top: -10px; left: 50%; width: 210px; transform: translateX(-50%) rotate(-4deg); opacity: .16; pointer-events: none; }
+.home-hero .ghost-map path { fill: none; stroke: var(--rice); stroke-width: 2.2; }
+.logo-mark { position: relative; width: 74px; height: 74px; border-radius: 22px; background: var(--rice); display: grid; place-items: center; box-shadow: 0 8px 18px rgba(47,107,59,.25); }
+.logo-mark svg { width: 34px; height: 34px; }
+.wordmark { position: relative; font-size: 58px; font-weight: 600; letter-spacing: -.5px; line-height: 1.1; margin-top: 6px; }
+.tagline { position: relative; color: var(--muted); font-size: 18px; }
+.mode-daily {
+  display: flex; align-items: center; gap: 12px; text-align: left; width: 100%;
+  background: var(--rice); color: #fff; border: 0; border-radius: var(--r-lg); padding: 20px 20px;
+}
+.mode-daily h2 { font-size: 24px; font-weight: 500; }
+.mode-daily p { opacity: .9; font-size: 15px; }
+.mode-daily .badge { margin-left: auto; background: #fff; color: var(--rice-deep); border-radius: 999px; padding: 6px 14px; font-size: 15px; white-space: nowrap; }
+.mode-unl { display: flex; align-items: center; gap: 12px; text-align: left; width: 100%; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--r-lg); padding: 18px 20px; }
+.mode-unl h2 { font-size: 22px; font-weight: 500; }
+.mode-unl p { color: var(--muted); font-size: 15px; }
+.mode-unl .chev { margin-left: auto; width: 22px; height: 22px; }
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.tile { text-align: left; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--r-lg); padding: 16px; min-height: 118px; display: flex; flex-direction: column; gap: 6px; }
+.tile svg { width: 26px; height: 26px; }
+.tile h3 { font-size: 19px; font-weight: 500; }
+.tile p { font-size: 14px; color: var(--muted); }
+.tile.soon { border-style: dashed; background: transparent; cursor: default; }
+.nick-wrap { display: flex; flex-direction: column; gap: 8px; text-align: center; }
+.nick-wrap label { color: var(--muted); font-size: 15px; }
+.nick-wrap input { width: 100%; min-height: 52px; border-radius: var(--r-md); border: 1.5px solid var(--line); background: var(--card); padding: 12px 16px; font: inherit; font-size: 18px; color: var(--ink); }
+.nick-msg { font-size: 13px; min-height: 18px; color: var(--bad); }
+.foot { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; }
+.linkish { background: none; border: 0; color: var(--rice-deep); text-decoration: underline; text-underline-offset: 3px; padding: 6px; font-size: 14px; }
+.proto-note { font-size: 12.5px; color: var(--muted); text-align: center; }
+
+/* top bars */
+.topbar { display: flex; align-items: center; gap: 12px; }
+.topbar .score-box { margin-left: auto; text-align: right; line-height: 1.2; }
+.topbar .score-box small { display: block; color: var(--muted); font-size: 14px; }
+.topbar .score-box b { font-family: var(--font-display); font-weight: 600; font-size: 22px; }
+.metaline { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 15px; }
+.metaline .mult b { font-family: var(--font-display); font-weight: 600; font-size: 26px; color: var(--rice); margin-left: 4px; }
+.q-title { font-size: 27px; }
+
+/* clue cards */
+.clues { display: flex; flex-direction: column; gap: 12px; }
+.clue { border-radius: var(--r-lg); border: 1.5px solid var(--line); background: var(--card); padding: 14px 16px; }
+.clue-head { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 15px; }
+.clue-img { margin-top: 10px; width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: #EDE5D7; border: 0; padding: 0; display: block; }
+.clue-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.credit { font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+.clue.locked { border-style: dashed; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 64px; width: 100%; text-align: left; }
+.clue.locked .cost { color: var(--amber-ink); font-size: 15px; white-space: nowrap; }
+.clue.locked:disabled { opacity: .55; cursor: not-allowed; }
+.clue.open .hint-text { margin-top: 6px; font-size: 17px; }
+.clue.open .tag { display: inline-block; margin-top: 8px; font-size: 12.5px; color: var(--rice-deep); background: var(--rice-soft); border-radius: 999px; padding: 2px 10px; }
+.note-center { text-align: center; color: var(--muted); font-size: 14px; }
+
+/* answer screen */
+.ans-head { display: flex; align-items: center; gap: 12px; }
+.ans-head .who { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.timer { margin-left: auto; position: relative; width: 66px; height: 66px; flex: none; }
+.timer svg { width: 66px; height: 66px; transform: rotate(-90deg); }
+.timer circle { fill: none; stroke-width: 6; }
+.timer .track { stroke: #F1E6D2; }
+.timer .bar { stroke: var(--amber); stroke-linecap: round; transition: stroke .2s; }
+.timer.low .bar { stroke: var(--bad); }
+.timer .t { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; line-height: 1; }
+.timer .t b { font-family: var(--font-display); font-size: 24px; font-weight: 600; display: block; }
+.timer .t small { font-size: 11px; color: var(--muted); }
+.map-panel { position: relative; flex: 1 1 auto; min-height: 280px; border-radius: 24px; border: 1.5px solid var(--sea-line); background: var(--sea); overflow: hidden; touch-action: none; }
+.map-svg { width: 100%; height: 100%; display: block; touch-action: none; user-select: none; -webkit-user-select: none; }
+.map-svg .nbr path { fill: #EFEADF; stroke: #D8D0C1; stroke-width: calc(1px / var(--k, 1)); }
+.map-svg .prov path { fill: #fff; stroke: #9DB3A2; stroke-width: calc(1.1px / var(--k, 1)); stroke-linejoin: round; cursor: pointer; transition: fill .12s; }
+@media (hover: hover) { .map-svg .prov path:hover { fill: #EEF5EE; } }
+.map-svg .prov path.sel { fill: var(--amber); stroke: var(--amber-ink); stroke-width: calc(2px / var(--k, 1)); }
+.map-svg .labels text { display: none; font-family: var(--font-body); font-size: calc(19px / var(--k, 1)); fill: #4E5A50; text-anchor: middle; dominant-baseline: middle; paint-order: stroke; stroke: rgba(255,255,255,.9); stroke-width: calc(3px / var(--k, 1)); pointer-events: none; }
+.map-svg.show-labels .labels text { display: block; }
+.map-tools { position: absolute; top: 12px; right: 12px; display: flex; flex-direction: column; gap: 10px; }
+.map-tools button { width: 48px; height: 48px; border-radius: 14px; border: 1.5px solid var(--sea-line); background: #fff; display: grid; place-items: center; }
+.map-tools svg { width: 22px; height: 22px; }
+.map-help { position: absolute; left: 12px; bottom: 10px; font-size: 13px; color: #45606B; background: rgba(255,255,255,.75); border-radius: 999px; padding: 3px 10px; pointer-events: none; }
+.choice { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.choice b { font-family: var(--font-display); font-size: 22px; font-weight: 600; text-align: right; }
+.choice b.none { color: var(--muted); font-family: var(--font-body); font-size: 17px; font-weight: 400; }
+
+/* sheet (cards during the answer timer) + modal */
+.sheet-backdrop { position: absolute; inset: 0; background: rgba(33,30,26,.35); display: none; z-index: 20; }
+.sheet-backdrop.on { display: block; }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; max-height: 86%; overflow-y: auto; background: var(--paper); border-radius: 26px 26px 0 0; padding: 14px 18px max(18px, env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 12px; }
+.sheet .grip { width: 44px; height: 5px; border-radius: 3px; background: var(--line); margin: 0 auto 4px; }
+.modal-backdrop { position: absolute; inset: 0; background: rgba(33,30,26,.45); display: none; z-index: 30; align-items: center; justify-content: center; padding: 20px; }
+.modal-backdrop.on { display: flex; }
+.modal { background: var(--paper); border-radius: var(--r-lg); padding: 20px; width: 100%; display: flex; flex-direction: column; gap: 14px; }
+.modal img { width: 100%; max-height: 70vh; object-fit: contain; border-radius: 12px; background: #000; }
+
+/* reveal */
+.rv-head { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; color: var(--muted); }
+.rv-head b { color: var(--ink); font-family: var(--font-display); font-weight: 600; font-size: 18px; }
+.rv-answer .muted { font-size: 15px; }
+.rv-answer h1 { font-size: 40px; color: var(--rice); }
+.rv-answer.miss h1 { color: var(--rice); }
+.score-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.score-pair .card { padding: 14px 16px; }
+.score-pair small { display: block; color: var(--muted); font-size: 14px; }
+.score-pair b { display: block; font-family: var(--font-display); font-size: 32px; font-weight: 600; line-height: 1.3; }
+.score-pair .hot { background: var(--rice-soft); border-color: #B7D2BC; }
+.score-pair .hot b, .score-pair .hot small { color: var(--rice-deep); }
+.breakdown { display: flex; flex-direction: column; gap: 8px; }
+.breakdown .ln { display: flex; justify-content: space-between; gap: 12px; font-size: 15.5px; }
+.breakdown .ln span:last-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.breakdown .total { border-top: 1px solid var(--line); padding-top: 8px; font-weight: 600; }
+.mini-map { width: 100%; height: 170px; border-radius: 16px; background: var(--sea); border: 1.5px solid var(--sea-line); overflow: hidden; }
+.mini-map svg { width: 100%; height: 100%; display: block; }
+.mini-map .prov path { fill: #fff; stroke: #B9C9BC; stroke-width: .6; }
+.mini-map .nbr path { fill: #EFEADF; stroke: none; }
+.mini-map .prov path.is-answer { fill: var(--rice); stroke: var(--rice-deep); }
+.mini-map .prov path.is-guess { fill: var(--amber); stroke: var(--amber-ink); }
+.legend { display: flex; gap: 14px; font-size: 13px; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.facts-card { padding: 0; overflow: hidden; }
+.facts-card .ph { width: 100%; aspect-ratio: 4 / 3; background: #EDE5D7; border: 0; padding: 0; display: block; }
+.facts-card .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.facts-card .body { padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 12px; }
+.facts-card h2 { font-size: 23px; }
+.status-chip { align-self: flex-start; font-size: 12.5px; color: var(--amber-ink); background: #FBEBD0; border-radius: 999px; padding: 3px 10px; }
+.facts { display: grid; grid-template-columns: 7.4em 1fr; gap: 8px 12px; font-size: 15.5px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.howto { background: #F2EDE3; border-radius: 14px; padding: 12px 14px; font-size: 15px; }
+.sources { font-size: 13.5px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+.sources a { color: var(--rice-deep); }
+
+/* summary */
+.sum-top { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding-top: 12px; }
+.sum-top h2 { font-size: 26px; }
+.big-score { font-family: var(--font-display); font-weight: 600; font-size: 76px; line-height: 1.05; color: var(--rice); }
+.cat-list .ln { display: flex; justify-content: space-between; align-items: center; padding: 14px 4px; border-bottom: 1px solid #F0E9DD; font-size: 17px; }
+.cat-list .ln:last-child { border-bottom: 0; }
+.cat-list .ln b { font-variant-numeric: tabular-nums; }
+.share-box { background: #F2EDE3; border-radius: var(--r-md); padding: 14px 16px; white-space: pre-wrap; font-size: 16px; line-height: 1.6; word-break: break-word; }
+
+/* leaderboard */
+.seg { display: grid; grid-template-columns: 1fr 1fr; background: #EFE8DC; border-radius: 18px; padding: 5px; }
+.seg button { border: 0; background: transparent; border-radius: 14px; min-height: 46px; font-size: 17px; color: var(--muted); }
+.seg button.on { background: #fff; color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+.me-card { background: var(--rice); color: #fff; border-radius: var(--r-lg); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.me-card small { opacity: .85; display: block; font-size: 14px; }
+.me-card b { font-family: var(--font-display); font-weight: 600; font-size: 20px; }
+.me-card .rk { text-align: right; }
+.me-card .rk b { font-size: 30px; }
+.board { width: 100%; border-collapse: collapse; font-size: 16px; }
+.board th { text-align: left; font-weight: 400; color: var(--muted); font-size: 14px; padding: 4px 6px 10px; border-bottom: 1px solid var(--line); }
+.board td { padding: 13px 6px; border-bottom: 1px solid #F0E9DD; font-variant-numeric: tabular-nums; }
+.board tr:last-child td { border-bottom: 0; }
+.board .r { text-align: right; }
+.board td:first-child { font-weight: 600; width: 3.2em; }
+.board tr.me td { background: var(--rice-soft); }
+.board-src { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.board-src i { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); display: inline-block; }
+.board-src.shared i { background: var(--rice); }
+.empty { text-align: center; color: var(--muted); padding: 18px 6px; font-size: 15px; }
+
+/* credits */
+.credits-list { display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; }
+.credits-list .it { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: center; }
+.credits-list img { width: 64px; height: 48px; object-fit: cover; border-radius: 8px; }
+.credits-list a { color: var(--rice-deep); }
+.toast { position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 999px; font-size: 15px; z-index: 40; opacity: 0; pointer-events: none; transition: opacity .2s; white-space: nowrap; }
+.toast.on { opacity: .95; }
+
+/* home messages */
+.home-msg { text-align: center; color: var(--amber-ink); background: #FBEBD0; border-radius: var(--r-md); padding: 10px 14px; font-size: 14.5px; }
+.proto-note:empty { display: none; }
+.tile:disabled { opacity: .55; cursor: not-allowed; }
+.mode-daily:disabled, .mode-unl:disabled { opacity: .55; cursor: not-allowed; }
+
+/* แชร์ประสบการณ์ (photo submission) */
+.sub-intro { color: var(--muted); font-size: 15.5px; }
+.demo-note { background: var(--sea); color: #2E4954; border-radius: var(--r-md); padding: 10px 14px; font-size: 14px; }
+.sub-form { display: flex; flex-direction: column; gap: 14px; }
+.photo-pick { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: var(--r-lg); border: 2px dashed #CFC3AE; background: var(--card); overflow: hidden; cursor: pointer; }
+.photo-pick:focus-within { outline: 3px solid var(--amber); outline-offset: 2px; }
+.photo-pick input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.photo-pick img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ph-change { position: absolute; right: 12px; bottom: 12px; background: rgba(33,30,26,.78); color: #fff; border-radius: 999px; padding: 5px 12px; font-size: 14px; pointer-events: none; }
+.ph-empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; padding: 16px; color: var(--muted); }
+.ph-empty svg { width: 40px; height: 40px; color: var(--rice); }
+.ph-empty b { font-family: var(--font-display); font-weight: 500; font-size: 20px; color: var(--ink); }
+.ph-empty small { font-size: 13.5px; }
+.field-msg { font-size: 13.5px; color: var(--muted); min-height: 0; }
+.field-msg:empty { display: none; }
+.field-msg.bad { color: var(--bad); }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field > label { font-size: 15px; color: var(--ink); font-weight: 500; }
+.field > label small { color: var(--muted); font-weight: 400; font-size: 13px; margin-left: 4px; }
+.field input, .field select, .field textarea { width: 100%; min-height: 50px; border-radius: var(--r-md); border: 1.5px solid var(--line); background: var(--card); padding: 11px 14px; font: inherit; font-size: 17px; color: var(--ink); }
+.field textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
+.field select { appearance: auto; }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 3px solid var(--amber); outline-offset: 1px; }
+.consents { border: 1.5px solid var(--line); border-radius: var(--r-lg); background: var(--card); padding: 12px 16px 14px; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.consents legend { font-family: var(--font-display); font-weight: 500; font-size: 17px; padding: 0 6px; }
+.consents label { display: grid; grid-template-columns: 26px 1fr; gap: 8px; align-items: start; font-size: 15px; cursor: pointer; }
+.consents input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--rice); }
+.my-subs { display: flex; flex-direction: column; gap: 6px; }
+.my-subs h3 { font-size: 19px; }
+.my-subs .ln { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid #F0E9DD; font-size: 15px; }
+.my-subs .ln:last-child { border-bottom: 0; }
+.my-subs .st { font-size: 12.5px; border-radius: 999px; padding: 2px 10px; white-space: nowrap; background: #FBEBD0; color: var(--amber-ink); }
+.my-subs .st-approved { background: var(--rice-soft); color: var(--rice-deep); }
+.my-subs .st-rejected { background: #F6DED8; color: var(--bad); }
+
+/* V2 district map */
+.map-svg .nbr path { fill: #EFEADF; stroke: #D8D0C1; stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.map-svg .dist path { fill: #fff; stroke: #CFDBD1; stroke-width: .6px; vector-effect: non-scaling-stroke; cursor: pointer; }
+.map-svg.deep .dist path { stroke: #AFC2B3; stroke-width: 1px; }
+@media (hover: hover) { .map-svg .dist path:hover { fill: #EEF5EE; } }
+.map-svg .dist path.sel { fill: var(--amber); }
+.map-svg .provline path { fill: none; stroke: #6F8C77; stroke-width: 1.3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.map-svg.deep .provline path { stroke-width: 2px; }
+.map-svg .selline path { fill: none; stroke: var(--amber-ink); stroke-width: 2.4px; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.map-svg .dlabels text, .map-svg .plabels text { font-family: var(--font-body); text-anchor: middle; dominant-baseline: middle; paint-order: stroke; stroke: rgba(255,255,255,.92); stroke-linejoin: round; pointer-events: none; }
+.map-svg .plabels text { font-weight: 600; fill: #2C382F; }
+.map-svg.deep .plabels text { fill: #5F7F67; fill-opacity: .55; stroke: rgba(255,255,255,.5); letter-spacing: .02em; }
+.map-svg .dlabels text { fill: #4A584D; }
+.choice-r { display: flex; flex-direction: column; align-items: flex-end; text-align: right; line-height: 1.25; }
+.choice-r small { color: var(--muted); font-size: 14px; }
+.rv-prov { font-size: 17px; color: var(--muted); margin-top: -2px; }
+.curve-note { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.mini-map { height: 210px; }
+.mini-map .dist path { fill: #fff; stroke: #D6E0D8; stroke-width: .5px; vector-effect: non-scaling-stroke; }
+.mini-map .dist path.is-answer { fill: var(--rice); stroke: var(--rice-deep); stroke-width: 1.2px; }
+.mini-map .dist path.is-guess { fill: var(--amber); stroke: var(--amber-ink); stroke-width: 1.2px; }
+.mini-map .provline path { fill: none; stroke: #8FA595; stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
+.mini-map .nbr path { stroke: none; }
+.mini-map .gap { stroke: var(--ink); stroke-width: 1.6px; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
+.mini-map .pt-answer { fill: #fff; stroke: var(--rice-deep); stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.mini-map .pt-guess { fill: #fff; stroke: var(--amber-ink); stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.legend i.dash { width: 16px; height: 0; border-top: 2px dashed var(--ink); border-radius: 0; vertical-align: 3px; }
+.cat-list .ln b { white-space: nowrap; }
+
+@keyframes pop { from { transform: scale(.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.rv-answer h1, .big-score { animation: pop .35s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+</style>
+</head>
+<body>
+<noscript><p style="max-width:430px;margin:24px auto;padding:0 20px;font-family:sans-serif">ออลไทย เกมทายที่เที่ยวทั่วไทยระดับอำเภอ ดูภาพ เปิดเบาะแส แล้วแตะอำเภอบนแผนที่ คะแนนตามระยะห่างจากคำตอบ ต้องเปิด JavaScript เพื่อเล่น</p></noscript>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 21s-6.5-6.2-6.5-11.2A6.5 6.5 0 0 1 12 3.3a6.5 6.5 0 0 1 6.5 6.5C18.5 14.8 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.5"/></g></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5.5a2.5 2.5 0 0 0 2.6 4M16 6h2.5a2.5 2.5 0 0 1-2.6 4M12 13v4M8.5 20h7M10 17h4"/></g></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.4"/><path d="M9 7l1.4-2.4h3.2L15 7"/></g></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-fit" viewBox="0 0 24 24"><path d="M4 9V5h4M16 4h4v4M20 15v4h-4M8 20H4v-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div id="app">
+  <!-- 1. หน้าแรก -->
+  <section id="s-home" class="screen on" aria-labelledby="home-title">
+    <div class="home-hero">
+      <svg class="ghost-map" id="ghost-map" viewBox="0 0 600 1080" aria-hidden="true"></svg>
+      <div class="logo-mark"><svg style="color:#fff"><use href="#i-pin"/></svg></div>
+      <h1 class="wordmark" id="home-title">ออลไทย</h1>
+      <p class="tagline">ทายที่เที่ยวทั่วไทย ระดับอำเภอ</p>
+    </div>
+    <div class="spacer"></div>
+    <button class="mode-daily" id="btn-daily" type="button">
+      <span><h2>เล่นรายวัน</h2><p id="daily-sub">5 ข้อ ชุดเดียวกันทุกคน</p></span>
+      <span class="badge" id="daily-badge">วันนี้</span>
+    </button>
+    <button class="mode-unl" id="btn-unl" type="button">
+      <span><h2>เล่นไม่จำกัด</h2><p>สุ่มคำถามต่อไปเรื่อย ๆ</p></span>
+      <svg class="chev"><use href="#i-next"/></svg>
+    </button>
+    <div class="tiles">
+      <button class="tile" id="btn-board" type="button"><svg style="color:#B07A1C"><use href="#i-trophy"/></svg><h3>จัดอันดับ</h3><p>รายวัน และไม่จำกัด</p></button>
+      <button class="tile" id="btn-submit" type="button"><svg style="color:var(--rice)"><use href="#i-camera"/></svg><h3>แชร์ประสบการณ์</h3><p>ส่งภาพที่เที่ยวบ้านคุณ ทีมงานตรวจก่อนใช้</p></button>
+    </div>
+    <p class="home-msg" id="home-msg" role="status" hidden></p>
+    <div class="nick-wrap">
+      <label for="nick">ชื่อที่จะขึ้นในอันดับ</label>
+      <input id="nick" type="text" maxlength="20" autocomplete="nickname" placeholder="ใส่ชื่อเล่นของคุณ">
+      <div class="nick-msg" id="nick-msg" aria-live="polite"></div>
+    </div>
+    <div class="foot">
+      <span>By Amarin Sappalikit</span>
+      <button class="linkish" id="btn-credits" type="button">เครดิตภาพ ข้อมูล และหมายเหตุต้นแบบ</button>
+      <p class="proto-note" id="proto-note"></p>
+    </div>
+  </section>
+
+  <!-- 2. คำถาม -->
+  <section id="s-question" class="screen" aria-labelledby="q-title">
+    <div class="topbar">
+      <button class="icon-btn" id="q-back" type="button" aria-label="กลับหน้าแรก"><svg><use href="#i-back"/></svg></button>
+      <span class="pill" id="q-pill">โหมดรายวัน · ข้อ 1/4</span>
+      <div class="score-box"><small>คะแนน</small><b class="num" id="q-score">0</b></div>
+    </div>
+    <div class="metaline"><span id="q-meta">ผู้เล่น · หมวด</span><span class="mult">ตัวคูณ<b class="num" id="q-mult">1.0</b></span></div>
+    <h2 class="q-title" id="q-title">ที่นี่อยู่อำเภอไหน</h2>
+    <div class="clues" id="q-clues"></div>
+    <div class="spacer"></div>
+    <button class="btn primary block" id="q-go" type="button">ไปตอบบนแผนที่ <svg width="20" height="20"><use href="#i-next"/></svg></button>
+    <p class="note-center">เวลา 45 วินาทีเริ่มนับเมื่อเข้าหน้าตอบ</p>
+  </section>
+
+  <!-- 3. ตอบบนแผนที่ -->
+  <section id="s-answer" class="screen fixed" aria-labelledby="a-title">
+    <div class="ans-head">
+      <div class="who"><div id="a-who">ผู้เล่น</div><div id="a-progress">ข้อ 1/4 · คะแนน 0</div></div>
+      <div class="timer" id="timer" role="timer" aria-live="off">
+        <svg viewBox="0 0 66 66"><circle class="track" cx="33" cy="33" r="28"/><circle class="bar" id="timer-bar" cx="33" cy="33" r="28" stroke-dasharray="175.93" stroke-dashoffset="0"/></svg>
+        <div class="t"><span><b class="num" id="timer-num">45</b><small>วินาที</small></span></div>
+      </div>
+    </div>
+    <h2 id="a-title" style="font-size:24px">แตะอำเภอ/เขตเพื่อตอบ</h2>
+    <div class="map-panel" id="map-panel">
+      <div class="map-tools">
+        <button type="button" id="z-in" aria-label="ซูมเข้า"><svg><use href="#i-plus"/></svg></button>
+        <button type="button" id="z-out" aria-label="ซูมออก"><svg><use href="#i-minus"/></svg></button>
+        <button type="button" id="z-fit" aria-label="ดูทั้งประเทศ"><svg><use href="#i-fit"/></svg></button>
+      </div>
+      <div class="map-help">ซูมเข้าเพื่อดูชื่ออำเภอ · สองนิ้วหรือปุ่ม +</div>
+    </div>
+    <div class="card choice"><span class="muted">คำตอบของคุณ</span><span class="choice-r"><b id="a-choice" class="none">ยังไม่ได้เลือก</b><small id="a-choice-prov"></small></span></div>
+    <div class="row2">
+      <button class="btn" id="a-cards" type="button">ดูการ์ดอีกครั้ง</button>
+      <button class="btn primary" id="a-confirm" type="button" disabled>ยืนยันคำตอบ</button>
+    </div>
+    <div class="sheet-backdrop" id="sheet-bg">
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="การ์ดเบาะแส">
+        <div class="grip"></div>
+        <div class="metaline"><span>เวลายังเดินต่อ</span><span class="mult">ตัวคูณ<b class="num" id="sheet-mult">1.0</b></span></div>
+        <div class="clues" id="sheet-clues"></div>
+        <button class="btn primary block" id="sheet-close" type="button">กลับไปที่แผนที่</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. เฉลย -->
+  <section id="s-reveal" class="screen" aria-labelledby="rv-name">
+    <div class="rv-head"><span id="rv-who">ผู้เล่น</span><span>คะแนนรวม <b class="num" id="rv-total">0</b></span></div>
+    <div class="rv-answer" id="rv-answer"><p class="muted" id="rv-you">คุณตอบ – · คำตอบคือ</p><h1 id="rv-name">–</h1><p class="rv-prov" id="rv-prov"></p></div>
+    <div class="score-pair">
+      <div class="card" id="rv-dist"><small>ระยะห่าง</small><b class="num" id="rv-km">–</b><small id="rv-km-sub">จากอำเภอที่ตอบถึงคำตอบ</small></div>
+      <div class="card" id="rv-score"><small>คะแนนข้อนี้</small><b class="num" id="rv-pts">0</b><small id="rv-pts-sub">× ตัวคูณ 1.0</small></div>
+    </div>
+    <div class="card breakdown" id="rv-lines"></div>
+    <div class="mini-map" id="rv-map" aria-label="ตำแหน่งคำตอบบนแผนที่"></div>
+    <div class="legend"><span><i style="background:var(--rice)"></i>อำเภอที่ถูก</span><span><i style="background:var(--amber)"></i>อำเภอที่คุณตอบ</span><span><i class="dash"></i>ระยะห่าง</span></div>
+    <article class="card facts-card" id="rv-facts"></article>
+    <div class="row2">
+      <button class="btn" id="rv-stop" type="button">เล่นแค่นี้</button>
+      <button class="btn primary" id="rv-next" type="button">เล่นต่อ</button>
+    </div>
+  </section>
+
+  <!-- 5. สรุปรายวัน + แชร์ -->
+  <section id="s-summary" class="screen" aria-labelledby="sum-title">
+    <div class="sum-top">
+      <span class="pill" id="sum-pill">โหมดรายวัน</span>
+      <h2 id="sum-title">จบรอบวันนี้แล้ว</h2>
+      <div class="big-score num" id="sum-score">0</div>
+      <p class="muted" id="sum-sub">จาก 5,000 คะแนน</p>
+    </div>
+    <div class="card cat-list" id="sum-cats"></div>
+    <div class="share-box" id="share-text"></div>
+    <a class="btn line block" id="share-line" href="#" target="_blank" rel="noopener">แชร์ทาง LINE</a>
+    <div class="row2">
+      <a class="btn" id="share-fb" href="#" target="_blank" rel="noopener">Facebook</a>
+      <button class="btn" id="share-copy" type="button">คัดลอกผล</button>
+    </div>
+    <div class="spacer"></div>
+    <div class="row2">
+      <button class="btn" id="sum-board" type="button">ดูอันดับ</button>
+      <button class="btn primary" id="sum-home" type="button">กลับหน้าแรก</button>
+    </div>
+  </section>
+
+  <!-- 6. จัดอันดับ -->
+  <section id="s-board" class="screen" aria-labelledby="board-title">
+    <div class="topbar">
+      <button class="icon-btn" id="b-back" type="button" aria-label="กลับ"><svg><use href="#i-back"/></svg></button>
+      <h1 id="board-title" style="font-size:30px">จัดอันดับ</h1>
+    </div>
+    <div class="seg" role="tablist">
+      <button type="button" role="tab" id="tab-daily" class="on" aria-selected="true">รายวัน</button>
+      <button type="button" role="tab" id="tab-unl" aria-selected="false">ไม่จำกัด</button>
+    </div>
+    <p class="muted small" id="b-rule"></p>
+    <div class="me-card" id="b-me"></div>
+    <div class="card" style="padding:12px 14px"><table class="board" id="b-table"></table></div>
+    <div class="board-src" id="b-src"><i></i><span></span></div>
+    <div class="spacer"></div>
+    <button class="btn block" id="b-cta" type="button">กลับมาเล่นพรุ่งนี้ หรือเล่นไม่จำกัด</button>
+  </section>
+
+  <!-- เครดิต -->
+  <section id="s-credits" class="screen" aria-labelledby="cr-title">
+    <div class="topbar">
+      <button class="icon-btn" id="cr-back" type="button" aria-label="กลับ"><svg><use href="#i-back"/></svg></button>
+      <h1 id="cr-title" style="font-size:26px">เครดิตและหมายเหตุ</h1>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:8px;font-size:15px">
+      <h3 style="font-size:19px">สถานะต้นแบบ</h3>
+      <p id="cr-status"></p>
+      <p>คะแนนวัดจากระยะเส้นตรงระหว่างจุดกลางอำเภอที่ตอบกับจุดกลางอำเภอคำตอบ (ไม่ใช่พิกัดของสถานที่)</p>
+      <p>คะแนนคิดในเครื่องผู้เล่น ยังไม่มีระบบกันโกง (ต้องย้ายไปคิดที่เซิร์ฟเวอร์ก่อนเปิดอันดับจริง)</p>
+    </div>
+    <div class="card"><h3 style="font-size:19px;margin-bottom:10px">ภาพ</h3><div class="credits-list" id="cr-images"></div></div>
+    <div class="card" style="font-size:14.5px;display:flex;flex-direction:column;gap:6px">
+      <h3 style="font-size:19px">แผนที่</h3>
+      <p id="cr-map"></p>
+      <p>ฟอนต์ IBM Plex Sans Thai และ Mitr (SIL Open Font License) ผ่าน Google Fonts</p>
+    </div>
+  </section>
+
+  <!-- 7. แชร์ประสบการณ์: ส่งภาพให้ทีมตรวจ -->
+  <section id="s-submit" class="screen" aria-labelledby="sub-title-h">
+    <div class="topbar">
+      <button class="icon-btn" id="sub-back" type="button" aria-label="กลับหน้าแรก"><svg><use href="#i-back"/></svg></button>
+      <h1 id="sub-title-h" style="font-size:28px">แชร์ประสบการณ์</h1>
+    </div>
+    <p class="sub-intro">ส่งภาพสถานที่เที่ยวจากอำเภอที่คุณไปมา ทีมงานจะตรวจทุกภาพก่อนนำไปทำคำถาม ภาพจะยังไม่ขึ้นในเกมจนกว่าจะผ่านการตรวจ</p>
+    <p class="demo-note" id="sub-demo" hidden>โหมดสาธิต: ภาพเก็บในเบราว์เซอร์นี้เท่านั้น เปิดเว็บใส่ข้อมูลในเบราว์เซอร์เดียวกันเพื่อลองตรวจ</p>
+    <form id="sub-form" class="sub-form" novalidate>
+      <label class="photo-pick" for="sub-file">
+        <input id="sub-file" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif">
+        <span class="ph-empty" id="sub-empty"><svg><use href="#i-camera"/></svg><b>เลือกภาพหรือถ่ายภาพ</b><small>ภาพแนวนอนดีที่สุด · ด้านสั้นอย่างน้อย 400 พิกเซล</small></span>
+        <img id="sub-preview" alt="ภาพที่เลือก" hidden>
+        <span class="ph-change" id="sub-change" hidden>แตะเพื่อเปลี่ยนภาพ</span>
+      </label>
+      <p class="field-msg" id="sub-file-msg" aria-live="polite"></p>
+      <div class="field"><label for="sub-prov">จังหวัดในภาพ</label><select id="sub-prov" required><option value="">เลือกจังหวัด</option></select></div>
+      <div class="field"><label for="sub-dist">อำเภอ/เขต <small>ไม่บังคับ</small></label><select id="sub-dist" disabled><option value="">เลือกจังหวัดก่อน</option></select></div>
+      <div class="field"><label for="sub-title">ในภาพคืออะไร</label><input id="sub-title" type="text" maxlength="80" placeholder="เช่น จุดชมวิวทะเลหมอกบนดอย" required></div>
+      <div class="field"><label for="sub-desc">เล่าสั้น ๆ <small>ไม่บังคับ</small></label><textarea id="sub-desc" maxlength="500" rows="3" placeholder="ถ่ายที่ไหน มีอะไรน่าสนใจ"></textarea></div>
+      <div class="field"><label for="sub-when">ถ่ายเมื่อ <small>ไม่บังคับ</small></label><input id="sub-when" type="text" maxlength="40" placeholder="เช่น เมษายน 2568"></div>
+      <div class="field"><label for="sub-credit">ชื่อที่จะใส่ในเครดิตภาพ</label><input id="sub-credit" type="text" maxlength="60" autocomplete="nickname" required></div>
+      <div class="field"><label for="sub-contact">ช่องทางติดต่อ <small>ไม่บังคับ</small></label><input id="sub-contact" type="text" maxlength="120" placeholder="อีเมล หรือ LINE ID">
+        <small class="muted">ใช้ติดต่อเรื่องภาพนี้เท่านั้น ไม่แสดงในเกม</small></div>
+      <fieldset class="consents">
+        <legend>ยืนยันก่อนส่ง</legend>
+        <label><input type="checkbox" id="c-owner"><span>ฉันเป็นคนถ่ายภาพนี้เอง</span></label>
+        <label><input type="checkbox" id="c-license"><span>อนุญาตให้ออลไทยใช้ภาพนี้แบบไม่ผูกขาด รวมถึงเชิงพาณิชย์ ครอปและปรับขนาดได้ โดยใส่ชื่อเครดิตของฉัน</span></label>
+        <label><input type="checkbox" id="c-people"><span>ในภาพไม่มีใบหน้าคนที่จำได้ชัด หรือคนในภาพอนุญาตแล้ว</span></label>
+      </fieldset>
+      <p class="muted small">ระบบย่อภาพและลบข้อมูลตำแหน่ง (GPS) กับข้อมูลกล้องออกก่อนส่ง</p>
+      <button class="btn primary block" id="sub-send" type="submit" disabled>ส่งให้ทีมตรวจ</button>
+      <p class="field-msg bad" id="sub-missing" aria-live="polite"></p>
+    </form>
+    <div class="card my-subs" id="my-subs" hidden><h3>ภาพที่คุณส่ง</h3><div id="my-subs-list"></div></div>
+  </section>
+
+  <div class="modal-backdrop" id="modal-bg"><div class="modal" role="dialog" aria-modal="true" id="modal"></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script src="config.js"></script>
+<script>
+// scoring.js — pure functions shared by the pages and the Node tests. V2: one category, answers are districts.
+//
+// score = round(base × h)
+//   base = 1000 when the guessed district is the answer, otherwise 1000 × e^(−km / 150) (capped at 999)
+//          km = great-circle distance between the two districts' anchor points (inside each district)
+//   h    = 1.0 / 0.8 / 0.6 / 0.4 for 1 / 2 / 3 / 4 cards opened · timeout = 0
+
+const MULTIPLIERS = [1.0, 0.8, 0.6, 0.4];      // cards opened: 1 (free), 2, 3, 4
+const CORRECT_BASE = 1000;
+const DISTANCE_SCALE_KM = 150;                  // 25 km ≈ 846 · 100 km ≈ 513 · 300 km ≈ 135
+const DAILY_COUNT = 5;
+const DAY0_UTC = Date.UTC(2026, 10, 5);         // day 0 of the daily rotation (Asia/Bangkok)
+
+function multiplierFor(cardsOpened) {
+  const n = Math.max(1, Math.min(MULTIPLIERS.length, cardsOpened | 0));
+  return MULTIPLIERS[n - 1];
+}
+
+// Great-circle distance in km between [lat, lon] points.
+function haversineKm(a, b) {
+  const R = 6371.0088, rad = Math.PI / 180;
+  const dLat = (b[0] - a[0]) * rad, dLon = (b[1] - a[1]) * rad;
+  const s = Math.sin(dLat / 2) ** 2 + Math.cos(a[0] * rad) * Math.cos(b[0] * rad) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.min(1, Math.sqrt(s)));
+}
+
+function distanceBase(km) {
+  if (km <= 0) return CORRECT_BASE;
+  return Math.min(CORRECT_BASE - 1, Math.round(CORRECT_BASE * Math.exp(-km / DISTANCE_SCALE_KM)));
+}
+
+// One answered question → score breakdown. districts: { [id]: { ll: [lat, lon], … } }
+function scoreAnswer({ question, guessId, cardsOpened, timedOut, districts }) {
+  const h = multiplierFor(cardsOpened);
+  if (timedOut || !guessId) return { correct: false, timeout: true, h, base: 0, score: 0, km: null };
+  if (guessId === question.answer) return { correct: true, timeout: false, h, base: CORRECT_BASE, score: Math.round(CORRECT_BASE * h), km: 0 };
+  const g = districts[guessId], a = districts[question.answer];
+  if (!g || !a) return { correct: false, timeout: false, h, base: 0, score: 0, km: null };
+  const km = haversineKm(g.ll, a.ll);
+  const base = distanceBase(km);
+  return { correct: false, timeout: false, h, base, score: Math.round(base * h), km };
+}
+
+const fmtKm = km => km == null ? '–' : km < 10 ? km.toFixed(1) : Math.round(km).toLocaleString('en-US');
+
+// Calendar day in Thailand, as YYYY-MM-DD (daily set changes at midnight Asia/Bangkok).
+function bangkokDate(d) {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d || new Date());
+}
+function dayIndex(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return Math.round((Date.UTC(y, m - 1, d) - DAY0_UTC) / 86400000);
+}
+function bangkokDayStartMs(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return Date.UTC(y, m - 1, d) - 7 * 3600000;
+}
+// Same questions for everybody on a date. Questions pinned to the date come first, then the pool is walked in
+// blocks of `count`, so nothing repeats until every question has been used. A question published during day D
+// joins from D+1, so publishing in the team site never changes a day that has started. (No published_at = always.)
+function dailySet(questions, dateStr, count) {
+  count = count || DAILY_COUNT;
+  const dayStart = bangkokDayStartMs(dateStr);
+  const all = questions.slice().sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+  const ready = all.filter(q => !q.published_at || Date.parse(q.published_at) < dayStart);
+  const pool = ready.length ? ready : all;
+  const out = pool.filter(q => q.schedule_date === dateStr).slice(0, count);
+  const free = pool.filter(q => !q.schedule_date);
+  const n = free.length;
+  if (n) {
+    const start = (((dayIndex(dateStr) * count) % n) + n) % n;
+    for (let i = 0; out.length < count && i < n; i++) out.push(free[(start + i) % n]);
+  }
+  return out;
+}
+
+// 🎯 right district · 🟩 ≤ 25 km · 🟨 ≤ 100 km · 🟧 ≤ 300 km · 🟥 farther · ⬜ timeout
+function distanceMark(r) {
+  if (r.timeout) return '⬜';
+  if (r.correct) return '🎯';
+  return r.km <= 25 ? '🟩' : r.km <= 100 ? '🟨' : r.km <= 300 ? '🟧' : '🟥';
+}
+function shareText({ dateLabel, total, max, results, url }) {
+  return 'ออลไทย ' + dateLabel + ' — ' + total.toLocaleString('en-US') + ' / ' + max.toLocaleString('en-US') + '\n' +
+    results.map(distanceMark).join('') + (url ? '\n' + url : '');
+}
+
+// Daily: total score, then less time on the answer screens wins.
+function rankDaily(entries) {
+  return entries.slice().sort((a, b) => (b.score - a.score) || ((a.timeMs || 0) - (b.timeMs || 0)));
+}
+// Unlimited: average per question (min 10 questions), then more rounds wins.
+function rankUnlimited(entries, minRounds) {
+  const min = minRounds == null ? 10 : minRounds;
+  return entries.filter(e => (e.rounds || 0) >= min)
+    .map(e => Object.assign({}, e, { avg: e.total / e.rounds }))
+    .sort((a, b) => (b.avg - a.avg) || (b.rounds - a.rounds));
+}
+
+const BLOCKED_NAME_PARTS = ['ควย', 'เหี้ย', 'สัส', 'เย็ด', 'แตด', 'อีดอก', 'ระยำ', 'ชาติหมา', 'fuck', 'shit', 'bitch', 'cunt', 'dick', 'pussy', 'nigg'];
+// Basic nickname filter. Returns the cleaned name, '' for empty, or null when blocked.
+function cleanNickname(raw) {
+  const s = String(raw || '').replace(/[<>"'`]/g, '').replace(/\s+/g, ' ').trim().slice(0, 20);
+  if (!s) return '';
+  const flat = s.toLowerCase().replace(/[\s._\-]/g, '');
+  return BLOCKED_NAME_PARTS.some(w => flat.includes(w)) ? null : s;
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = { MULTIPLIERS, DAILY_COUNT, DISTANCE_SCALE_KM, multiplierFor, haversineKm, distanceBase, scoreAnswer, fmtKm, bangkokDate, dayIndex,
+    dailySet, distanceMark, shareText, rankDaily, rankUnlimited, cleanNickname };
+}
+
+</script>
+<script>
+/* backend.js — one data layer shared by เว็บเล่นเกม (play) and เว็บใส่ข้อมูล (admin).
+ *
+ * mode "supabase": the real shared database + photo storage. Set in config.js:
+ *     window.ALLTHAI_CONFIG = { supabaseUrl: "https://xxxx.supabase.co", supabaseKey: "sb_publishable_..." }
+ *     (the publishable key, or the legacy anon key; never a secret / service_role key)
+ * mode "demo": no server. Rows live in this browser's localStorage, photos in IndexedDB.
+ *     Both sites see the same demo data only when they are opened from the same origin
+ *     (the preview page, or /play and /admin on one local server).
+ */
+const AllThaiBackend = (() => {
+  'use strict';
+  const CFG = Object.assign({ supabaseUrl: '', supabaseKey: '', supabaseJs: 'vendor/supabase.js', dataBase: 'data/', shareUrl: '', playUrl: '' }, window.ALLTHAI_CONFIG || {});
+  const KEY = CFG.supabaseKey || CFG.supabaseAnonKey || '';
+  const jwtRole = k => { try { return JSON.parse(atob(k.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).role || ''; } catch (e) { return ''; } };
+  const SECRET_KEY = /^sb_secret_/.test(KEY) || jwtRole(KEY) === 'service_role';
+  const MODE = CFG.supabaseUrl && KEY ? 'supabase' : 'demo';
+  const BUCKET_SUB = 'submissions';        // private: photos waiting for review
+  const BUCKET_IMG = 'question-images';    // public: photos used by questions
+  const DEMO_KEY = 'allthai.demo.v1';
+  const LICENSE_ID = 'allthai-nonexclusive-v1';
+  const LICENSE_TEXT = 'ผู้ส่งอนุญาตให้ออลไทยใช้แบบไม่ผูกขาด รวมเชิงพาณิชย์ ครอปและปรับขนาดได้';
+
+  // build.py stamps a hash of the data files here, so a new deploy never mixes old cached JSON with new code
+  const DATA_VERSION = 'ad4d9c005f';
+  const dataUrl = name => CFG.dataBase + name + '?v=' + DATA_VERSION;
+  const getJSON = p => fetch(p).then(r => { if (!r.ok) throw new Error(p + ' ' + r.status); return r.json(); });
+  // v4 UUID (the database checks that a photo's file name matches its row id)
+  const uuid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+    : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & 15) >> c / 4).toString(16));
+  const nowIso = () => new Date().toISOString();
+  const byId = (a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+  const clone = o => JSON.parse(JSON.stringify(o));
+
+  const CATEGORIES = ['สถานที่ท่องเที่ยว'];   // V2: travel only, answers are districts
+  // Bundled starting data. The game on Supabase only needs the province file (the draft questions stay out of it).
+  let provP = null, qP = null;
+  function seedProvinces() {
+    return provP || (provP = getJSON(dataUrl('provinces.json')).then(p => ({
+      provinces: p.provinces,
+      provinceMeta: { region_adjacency: p.region_adjacency || {}, rules: p.rules || {}, sources_to_check: p.sources_to_check || [] }
+    })));
+  }
+  function seedQuestions() {
+    return qP || (qP = getJSON(dataUrl('questions.json')).then(q => ({
+      questions: q.questions.map(x => Object.assign({ status: 'published' }, x)),
+      backlog: q.backlog || []
+    })));
+  }
+  async function seed() {
+    const [p, q] = await Promise.all([seedProvinces(), seedQuestions()]);
+    return { categories: CATEGORIES, questions: q.questions, backlog: q.backlog, provinces: p.provinces, provinceMeta: p.provinceMeta };
+  }
+
+  /* ---------------- demo store ---------------- */
+  function demoRead() { try { return JSON.parse(localStorage.getItem(DEMO_KEY)) || null; } catch (e) { return null; } }
+  function demoWrite(s) {
+    try { localStorage.setItem(DEMO_KEY, JSON.stringify(s)); }
+    catch (e) { throw new Error('บันทึกในเบราว์เซอร์ไม่ได้ (พื้นที่เต็มหรือถูกปิด)'); }
+  }
+  async function demoState() {
+    let s = demoRead();
+    if (!s) {
+      const sd = await seed();
+      s = { questions: {}, provinces: {}, submissions: [] };
+      sd.questions.forEach(q => { s.questions[q.id] = q; });
+      sd.provinces.forEach(p => { s.provinces[p.id] = p; });
+      demoWrite(s);
+    }
+    return s;
+  }
+  // photos: IndexedDB when available, otherwise kept in memory for this visit
+  const mem = new Map();
+  let idbP = null;
+  function idb() {
+    if (!('indexedDB' in window)) return Promise.resolve(null);
+    return idbP || (idbP = new Promise(res => {
+      try {
+        const r = indexedDB.open('allthai-demo', 1);
+        r.onupgradeneeded = () => r.result.createObjectStore('blobs');
+        r.onsuccess = () => res(r.result);
+        r.onerror = () => res(null);
+      } catch (e) { res(null); }
+    }));
+  }
+  async function blobOp(mode, key, val) {
+    const db = await idb();
+    if (!db) { if (mode === 'put') mem.set(key, val); if (mode === 'del') mem.delete(key); return mem.get(key); }
+    return new Promise((res, rej) => {
+      const tx = db.transaction('blobs', mode === 'get' ? 'readonly' : 'readwrite');
+      const st = tx.objectStore('blobs');
+      const rq = mode === 'put' ? st.put(val, key) : mode === 'del' ? st.delete(key) : st.get(key);
+      rq.onsuccess = () => res(rq.result);
+      rq.onerror = () => rej(rq.error);
+    });
+  }
+  const urlCache = new Map();
+  async function demoUrl(key) {
+    if (urlCache.has(key)) return urlCache.get(key);
+    const b = await blobOp('get', key);
+    if (!b) return '';
+    const u = URL.createObjectURL(b);
+    urlCache.set(key, u);
+    return u;
+  }
+
+  /* ---------------- supabase ---------------- */
+  let sbP = null;
+  function loadScript(src) {
+    return new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = src; s.onload = res; s.onerror = () => rej(new Error('โหลด ' + src + ' ไม่สำเร็จ'));
+      document.head.appendChild(s);
+    });
+  }
+  function sb() {
+    return sbP || (sbP = (async () => {
+      if (SECRET_KEY) throw new Error('config.js ใส่ secret key ไว้ ซึ่งห้ามอยู่ในเว็บ: เปลี่ยนเป็น publishable key แล้วสร้าง secret key ใหม่ใน Supabase');
+      if (!window.supabase) await loadScript(CFG.supabaseJs);
+      return window.supabase.createClient(CFG.supabaseUrl, KEY, {
+        auth: { persistSession: true, autoRefreshToken: true, storageKey: 'allthai-auth' }
+      });
+    })());
+  }
+  function must(res) {
+    if (res && res.error) throw new Error(res.error.message || String(res.error));
+    return res ? res.data : null;
+  }
+
+  /* ---------------- public: game ---------------- */
+  // Published questions + province profiles for the game.
+  // Questions come only from the database (never the bundled file), so unpublishing in the admin site really hides them.
+  // Province profiles: database rows override the bundled draft by id (the map needs all 77).
+  async function loadContent() {
+    if (MODE === 'demo') {
+      const s = await demoState();
+      return { categories: CATEGORIES, source: 'demo',
+        questions: Object.values(s.questions).filter(q => q.status === 'published').sort(byId),
+        provinces: Object.values(s.provinces).sort(byId) };
+    }
+    const c = await sb();
+    const [qs, ps] = await Promise.all([
+      c.from('questions').select('data').eq('status', 'published'),
+      c.from('provinces').select('data')
+    ]);
+    const questions = must(qs).map(r => r.data).sort(byId);
+    const merged = {};
+    try { (await seedProvinces()).provinces.forEach(p => { merged[p.id] = p; }); } catch (e) { /* database rows only */ }
+    if (!ps.error) ps.data.forEach(r => { if (r.data && r.data.id) merged[r.data.id] = r.data; });
+    return { categories: CATEGORIES, source: 'supabase', questions, provinces: Object.values(merged).sort(byId) };
+  }
+
+  // A player's photo → private queue, status "pending". Nothing is shown in the game until an admin approves it.
+  async function submitPhoto(blob, meta) {
+    const row = {
+      id: uuid(), status: 'pending',
+      province_id: meta.province_id, category: meta.category || null,
+      district_id: /^TH\d{4}$/.test(meta.district_id || '') ? meta.district_id : null,
+      title: String(meta.title || '').slice(0, 120), description: String(meta.description || '').slice(0, 600) || null,
+      taken_at: String(meta.taken_at || '').slice(0, 60) || null,
+      credit_name: String(meta.credit_name || '').slice(0, 60) || null,
+      contact: String(meta.contact || '').slice(0, 120) || null,
+      consent_owner: !!meta.consent_owner, consent_license: !!meta.consent_license, consent_people: !!meta.consent_people,
+      license: LICENSE_ID
+    };
+    if (!row.consent_owner || !row.consent_license || !row.consent_people) throw new Error('ต้องยืนยันครบ 3 ข้อ');
+    if (MODE === 'demo') {
+      const key = 'sub:' + row.id;
+      await blobOp('put', key, blob);
+      const s = await demoState();
+      s.submissions.unshift(Object.assign(row, { image_path: key, created_at: nowIso() }));
+      demoWrite(s);
+      return { id: row.id };
+    }
+    const c = await sb();
+    row.image_path = 'pending/' + row.id + '.jpg';
+    must(await c.storage.from(BUCKET_SUB).upload(row.image_path, blob, { contentType: 'image/jpeg', upsert: false }));
+    must(await c.from('submissions').insert(row));
+    return { id: row.id };
+  }
+  // Demo only: let the sender see the review status. (On Supabase, players cannot read the queue.)
+  async function mySubmissionStatus(ids) {
+    if (MODE !== 'demo') return {};
+    const s = await demoState();
+    const out = {};
+    s.submissions.forEach(r => { if (ids.includes(r.id)) out[r.id] = r.status; });
+    return out;
+  }
+
+  /* ---------------- admin ---------------- */
+  async function session() {
+    if (MODE === 'demo') return { email: 'โหมดสาธิต', admin: true, demo: true };
+    const c = await sb();
+    const { data } = await c.auth.getSession();
+    const s = data && data.session;
+    if (!s) return null;
+    const r = await c.rpc('is_admin');
+    return { email: s.user.email, admin: !r.error && r.data === true };
+  }
+  async function signIn(email, password) {
+    const c = await sb();
+    must(await c.auth.signInWithPassword({ email, password }));
+    return session();
+  }
+  async function signOut() { if (MODE === 'supabase') { const c = await sb(); await c.auth.signOut(); } }
+
+  async function listQuestions() {
+    if (MODE === 'demo') { const s = await demoState(); return Object.values(s.questions).sort(byId); }
+    const c = await sb();
+    return must(await c.from('questions').select('id, category, status, data, verified_by, verified_at, updated_at').order('id'))
+      .map(r => Object.assign({}, r.data, { id: r.id, category: r.category, status: r.status, verified_by: r.verified_by, verified_at: r.verified_at, updated_at: r.updated_at }));
+  }
+  async function saveQuestion(q) {
+    q = clone(q);
+    q.updated_at = nowIso();
+    // published_at drives the daily rotation (a question joins the day after it is published)
+    if (q.status !== 'published') q.published_at = null;
+    else if (!q.published_at) q.published_at = q.updated_at;
+    if (MODE === 'demo') { const s = await demoState(); s.questions[q.id] = q; demoWrite(s); return q; }
+    const c = await sb();
+    must(await c.from('questions').upsert({ id: q.id, category: q.category, status: q.status, data: q, verified_by: q.verified_by || null, verified_at: q.verified_at || null, updated_at: q.updated_at }));
+    return q;
+  }
+  async function deleteQuestion(id) {
+    if (MODE === 'demo') { const s = await demoState(); delete s.questions[id]; demoWrite(s); return; }
+    const c = await sb();
+    must(await c.from('questions').delete().eq('id', id));
+  }
+  async function listProvinces() {
+    if (MODE === 'demo') { const s = await demoState(); return Object.values(s.provinces).sort(byId); }
+    const c = await sb();
+    const rows = must(await c.from('provinces').select('data').order('id')).map(r => r.data);
+    return rows.length ? rows : (await seedProvinces()).provinces;
+  }
+  async function saveProvince(p) {
+    p = clone(p);
+    if (MODE === 'demo') { const s = await demoState(); s.provinces[p.id] = p; demoWrite(s); return p; }
+    const c = await sb();
+    must(await c.from('provinces').upsert({ id: p.id, data: p, verified: !!p.verified, updated_at: nowIso() }));
+    return p;
+  }
+  async function listSubmissions() {
+    if (MODE === 'demo') {
+      const s = await demoState();
+      const rows = clone(s.submissions);
+      for (const r of rows) r.imageUrl = await demoUrl(r.image_path);
+      return rows;
+    }
+    const c = await sb();
+    const rows = must(await c.from('submissions').select('*').order('created_at', { ascending: false }));
+    if (rows.length) {
+      const signed = must(await c.storage.from(BUCKET_SUB).createSignedUrls(rows.map(r => r.image_path), 3600)) || [];
+      const map = {};
+      signed.forEach(x => { if (x && x.path) map[x.path] = x.signedUrl; });
+      rows.forEach(r => { r.imageUrl = map[r.image_path] || r.public_url || ''; });
+    }
+    return rows;
+  }
+  // status: "approved" copies the photo into the public bucket so questions can use it.
+  async function reviewSubmission(id, status, note, reviewer) {
+    const patch = { status, review_note: note || null, reviewed_at: nowIso(), reviewed_by: reviewer || null };
+    if (MODE === 'demo') {
+      const s = await demoState();
+      const r = s.submissions.find(x => x.id === id);
+      if (!r) throw new Error('ไม่พบรายการ');
+      if (status === 'approved' && !r.public_url) {
+        const key = 'img:player-' + id;
+        await blobOp('put', key, await blobOp('get', r.image_path));
+        patch.public_url = 'idb:' + key;
+      }
+      Object.assign(r, patch);
+      demoWrite(s);
+      return r;
+    }
+    const c = await sb();
+    if (status === 'approved') {
+      const cur = must(await c.from('submissions').select('image_path, public_url').eq('id', id).single());
+      if (!cur.public_url) {
+        const blob = must(await c.storage.from(BUCKET_SUB).download(cur.image_path));
+        const path = 'player/' + id + '.jpg';
+        must(await c.storage.from(BUCKET_IMG).upload(path, blob, { contentType: 'image/jpeg', upsert: true }));
+        patch.public_url = c.storage.from(BUCKET_IMG).getPublicUrl(path).data.publicUrl;
+      }
+    }
+    must(await c.from('submissions').update(patch).eq('id', id));
+    return patch;
+  }
+  async function deleteSubmission(row) {
+    if (MODE === 'demo') {
+      const s = await demoState();
+      s.submissions = s.submissions.filter(x => x.id !== row.id);
+      demoWrite(s);
+      await blobOp('del', row.image_path);
+      return;
+    }
+    const c = await sb();
+    must(await c.storage.from(BUCKET_SUB).remove([row.image_path]));
+    must(await c.from('submissions').delete().eq('id', row.id));
+  }
+  // Admin's own upload for a question card. Returns the value to store in card.src.
+  async function uploadQuestionImage(blob) {
+    if (MODE === 'demo') { const key = 'img:admin-' + uuid(); await blobOp('put', key, blob); return 'idb:' + key; }
+    const c = await sb();
+    const path = 'admin/' + uuid() + '.jpg';
+    must(await c.storage.from(BUCKET_IMG).upload(path, blob, { contentType: 'image/jpeg', upsert: false }));
+    return c.storage.from(BUCKET_IMG).getPublicUrl(path).data.publicUrl;
+  }
+  // card.src → displayable URL ("idb:" keys are demo photos)
+  function imageUrl(src) {
+    if (!src) return Promise.resolve('');
+    if (src.indexOf('idb:') === 0) return demoUrl(src.slice(4));
+    return Promise.resolve(src);
+  }
+  // Copy the bundled 12 questions + 77 provinces into the database without overwriting existing rows.
+  // On Supabase the questions arrive as drafts: they go live only after someone checks them and presses publish.
+  async function importSeed() {
+    const sd = await seed();
+    if (MODE === 'demo') { await resetDemo(); await demoState(); return { questions: sd.questions.length, provinces: sd.provinces.length }; }
+    const c = await sb();
+    must(await c.from('provinces').upsert(sd.provinces.map(p => ({ id: p.id, data: p, verified: !!p.verified })), { onConflict: 'id', ignoreDuplicates: true }));
+    must(await c.from('questions').upsert(sd.questions.map(q => {
+      const d = Object.assign({}, q, { status: 'draft', published_at: null });
+      return { id: d.id, category: d.category, status: 'draft', data: d };
+    }), { onConflict: 'id', ignoreDuplicates: true }));
+    return { questions: sd.questions.length, provinces: sd.provinces.length };
+  }
+  // Demo only: forget every demo row and photo in this browser.
+  async function resetDemo() {
+    try { localStorage.removeItem(DEMO_KEY); } catch (e) { /* ignore */ }
+    mem.clear();
+    urlCache.forEach(u => URL.revokeObjectURL(u)); urlCache.clear();
+    const db = await idb();
+    if (db) await new Promise(res => { const tx = db.transaction('blobs', 'readwrite'); tx.objectStore('blobs').clear(); tx.oncomplete = res; tx.onerror = res; });
+  }
+
+  // Resize + re-encode in the browser: max 1600 px, JPEG. Re-encoding also drops EXIF (GPS, device).
+  async function compressImage(file, maxSide, quality) {
+    maxSide = maxSide || 1600; quality = quality || 0.85;
+    let src;
+    try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+    catch (e) {
+      src = await new Promise((res, rej) => {
+        const img = new Image();
+        img.onload = () => res(img);
+        img.onerror = () => rej(new Error('เปิดไฟล์ภาพนี้ไม่ได้ ลองเลือกไฟล์ .jpg หรือ .png'));
+        img.src = URL.createObjectURL(file);
+      });
+    }
+    const w0 = src.width, h0 = src.height;
+    if (Math.min(w0, h0) < 400) throw new Error('ภาพเล็กเกินไป (ด้านสั้นต้องอย่างน้อย 400 พิกเซล)');
+    const k = Math.min(1, maxSide / Math.max(w0, h0));
+    const w = Math.round(w0 * k), h = Math.round(h0 * k);
+    const cv = document.createElement('canvas');
+    cv.width = w; cv.height = h;
+    cv.getContext('2d').drawImage(src, 0, 0, w, h);
+    const blob = await new Promise(res => cv.toBlob(res, 'image/jpeg', quality));
+    if (!blob) throw new Error('แปลงภาพไม่สำเร็จ');
+    return { blob, width: w, height: h };
+  }
+
+  return {
+    MODE, CFG, LICENSE_ID, LICENSE_TEXT, CATEGORIES, dataUrl,
+    seed, seedProvinces, loadContent, submitPhoto, mySubmissionStatus,
+    session, signIn, signOut,
+    listQuestions, saveQuestion, deleteQuestion, listProvinces, saveProvince,
+    listSubmissions, reviewSubmission, deleteSubmission, uploadQuestionImage,
+    imageUrl, importSeed, resetDemo, compressImage
+  };
+})();
+
+window.AllThaiBackend = AllThaiBackend;
+
+</script>
+<script>
+(() => {
+'use strict';
+// ออลไทย V2 — ทายสถานที่ท่องเที่ยวระดับอำเภอ/เขต. Score = distance between the guessed and the answer district (scoring.js).
+
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+const CAT = 'สถานที่ท่องเที่ยว';
+const TAG_TH = { region: 'ภาค', dialect: 'ภาษาถิ่น', religion_culture: 'ศาสนา/วัฒนธรรม', terrain: 'ภูมิประเทศ', main_occupation: 'อาชีพหลัก', district: 'อำเภอ' };
+const ANSWER_SECONDS = 45;
+const DAILY_N = DAILY_COUNT;           // from scoring.js (5)
+const MAX_ZOOM = 48;
+const DIST_LABEL_MIN_K = 3;            // district names from here; province names stay, drawn larger and faint
+const SHARE_URL_BUILD = "https://tonnot3t3.github.io/allthai/";
+const CFG = window.ALLTHAI_CONFIG || {};
+const SHARE_URL = CFG.shareUrl || SHARE_URL_BUILD || (/^https?:$/.test(location.protocol) ? location.origin + location.pathname : '');
+const BE = window.AllThaiBackend;
+const CIRC = 2 * Math.PI * 28;
+
+const fmt = n => Math.round(n).toLocaleString('en-US');
+function svgEl(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function thaiDate(dateStr, long) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d, 5)).toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok', day: 'numeric', month: long ? 'long' : 'short', year: long ? 'numeric' : '2-digit' });
+}
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+/* ---------- local storage (one viewer's browser only) ---------- */
+const LS_KEY = 'allthai.v2';
+let S = {};
+try { S = JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch (e) { S = {}; }
+if (!S.nick) { try { S.nick = (JSON.parse(localStorage.getItem('allthai.v1')) || {}).nick || ''; } catch (e) { S.nick = ''; } }
+S.daily = S.daily || {};
+S.unl = S.unl || { total: 0, rounds: 0 };
+S.subs = S.subs || [];
+function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) { /* storage unavailable: keep playing in memory */ } }
+const playerName = () => S.nick || 'ผู้เล่นใหม่';
+
+/* ---------- small UI helpers ---------- */
+let toastTimer;
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 2400); }
+let current = 's-home';
+function show(id) {
+  current = id;
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id));
+  $(id).scrollTop = 0;
+  if (id === 's-answer' && mapView) requestAnimationFrame(() => mapView.refreshLabels());
+}
+function modal(nodes, buttons) {
+  return new Promise(resolve => {
+    const m = $('modal'); m.innerHTML = '';
+    nodes.forEach(n => m.appendChild(n));
+    const row = document.createElement('div'); row.className = buttons.length > 1 ? 'row2' : '';
+    buttons.forEach(b => {
+      const x = document.createElement('button'); x.type = 'button';
+      x.className = 'btn' + (b.primary ? ' primary' : '') + (buttons.length === 1 ? ' block' : '');
+      x.textContent = b.label;
+      x.onclick = () => { $('modal-bg').classList.remove('on'); resolve(b.value); };
+      row.appendChild(x);
+    });
+    m.appendChild(row);
+    $('modal-bg').classList.add('on');
+    row.querySelector('button').focus();
+  });
+}
+function para(text, cls) { const p = document.createElement('p'); p.textContent = text; if (cls) p.className = cls; return p; }
+function zoomImage(src, alt) {
+  const img = new Image(); setImg(img, src); img.alt = alt || 'ภาพเบาะแส';
+  modal([img], [{ label: 'ปิด', value: 0 }]);
+}
+function countUp(el, to) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || to <= 0) { el.textContent = fmt(to); return; }
+  const t0 = performance.now(), dur = 650;
+  const step = now => { const k = Math.min(1, (now - t0) / dur); el.textContent = fmt(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+const licTh = l => l === 'Public domain' ? 'สาธารณสมบัติ' : l;
+// Credit line under every image: Wikimedia Commons file, a player's photo, or another source the team cleared.
+function creditText(c) {
+  if (c.source === 'player') return 'ภาพ: ' + (c.credit || 'ผู้เล่นออลไทย') + ' · ภาพจากผู้เล่นออลไทย';
+  if (c.source === 'other') return 'ภาพ: ' + c.credit + (c.license ? ' / ' + licTh(c.license) : '');
+  return 'ภาพ: ' + c.credit + ' / Wikimedia Commons / ' + licTh(c.license);
+}
+// card.src may be a relative file, a remote URL, or a demo photo kept in this browser ("idb:")
+function setImg(img, src) {
+  if (src && src.indexOf('idb:') === 0) BE.imageUrl(src).then(u => { if (u) img.src = u; });
+  else img.src = src || '';
+}
+
+/* ---------- data ---------- */
+let PROV = {}, DIST = {}, QS = [], MAP = null;
+const provName = id => (PROV[id] || {}).name_th || id;
+const distName = d => (d.p === 'bangkok' ? 'เขต' : 'อ.') + d.n;
+const provLine = d => d.p === 'bangkok' ? 'กรุงเทพมหานคร' : 'จ.' + provName(d.p);
+const placeLine = id => { const d = DIST[id]; return d ? distName(d) + ' ' + provLine(d) : '–'; };
+function applyContent(content) {
+  const prov = {};
+  content.provinces.forEach(p => { prov[p.id] = p; });
+  PROV = prov;
+  QS = content.questions.filter(q => q.category === CAT && q.cards && q.cards[0] && q.cards[0].src && DIST[q.answer]);
+}
+async function loadData() {
+  const getMap = fetch(BE.dataUrl('map.json')).then(r => { if (!r.ok) throw new Error('map ' + r.status); return r.json(); });
+  const [content, map] = await Promise.all([BE.loadContent(), getMap]);
+  MAP = map;
+  DIST = {};
+  map.districts.forEach(d => { DIST[d.id] = d; });
+  applyContent(content);
+}
+
+/* ---------- label sizing: Thai combining marks take no width ---------- */
+const COMBINING = /[ัิ-ฺ็-๎]/g;
+const textEm = s => s.replace(COMBINING, '').length * 0.6;
+const PROV_FONT = 12.5, DIST_FONT = 11;
+
+/* ---------- map: 928 districts, pan / pinch / wheel zoom, tap to select ---------- */
+function createMapView(panel, data) {
+  const [, , W, H] = data.viewBox;
+  const svg = svgEl('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'map-svg', role: 'img', 'aria-label': 'แผนที่ประเทศไทย 77 จังหวัด 928 อำเภอและเขต' });
+  const g = svgEl('g', {}, svg);
+  const nb = svgEl('g', { class: 'nbr' }, g);
+  data.neighbors.forEach(n => svgEl('path', { d: n.d }, nb));
+  const dg = svgEl('g', { class: 'dist' }, g);
+  const byId = {};
+  data.districts.forEach(d => { byId[d.id] = svgEl('path', { d: d.d, 'data-id': d.id }, dg); });
+  const pg = svgEl('g', { class: 'provline' }, g);
+  data.provinces.forEach(p => svgEl('path', { d: p.d }, pg));
+  const selg = svgEl('g', { class: 'selline' }, g);
+  const dl = svgEl('g', { class: 'dlabels' }, g);
+  const pl = svgEl('g', { class: 'plabels' }, g);
+  const labels = [];
+  data.districts.forEach(d => {
+    const t = svgEl('text', { x: d.label[0], y: d.label[1], 'data-for': d.id }, dl);
+    t.textContent = d.n; t.style.display = 'none';
+    labels.push({ t, kind: 'd', x: d.label[0], y: d.label[1], w: d.bbox[2] - d.bbox[0], h: d.bbox[3] - d.bbox[1], em: textEm(d.n), on: false });
+  });
+  data.provinces.forEach(p => {
+    const name = p.id === 'bangkok' ? 'กรุงเทพฯ' : provName(p.id);
+    const t = svgEl('text', { x: p.label[0], y: p.label[1] }, pl);
+    t.textContent = name; t.style.display = 'none';
+    labels.push({ t, kind: 'p', x: p.label[0], y: p.label[1], w: p.bbox[2] - p.bbox[0], h: p.bbox[3] - p.bbox[1], em: textEm(name), on: false });
+  });
+  panel.insertBefore(svg, panel.firstChild);
+
+  let k = 1, tx = 0, ty = 0, sel = null, selOutline = null, onSelect = () => {};
+  const pointers = new Map();
+  let gesture = null, settleT = 0;
+  // px per map unit at k = 1 (the SVG letterboxes the viewBox inside the panel)
+  const unitPx = () => { const m = svg.getScreenCTM(); return m ? m.a : 0.5; };
+  // A label shows when it fits inside its own shape at the current zoom (no overlaps, no clutter) and is near the view.
+  function refreshLabels() {
+    const s = unitPx() * k;
+    if (!s) return;
+    const deep = k >= DIST_LABEL_MIN_K;
+    const pFont = deep ? PROV_FONT * 1.35 : PROV_FONT;
+    dl.setAttribute('font-size', (DIST_FONT / s).toFixed(3));
+    pl.setAttribute('font-size', (pFont / s).toFixed(3));
+    dl.setAttribute('stroke-width', (3 / s).toFixed(3));
+    pl.setAttribute('stroke-width', (3.4 / s).toFixed(3));
+    const r = svg.getBoundingClientRect();
+    const a = toSvg(r.left, r.top), b = toSvg(r.right, r.bottom);
+    const x0 = (a.x - tx) / k, x1 = (b.x - tx) / k, y0 = (a.y - ty) / k, y1 = (b.y - ty) / k;
+    const mx = (x1 - x0) * 0.2, my = (y1 - y0) * 0.2;
+    for (const L of labels) {
+      const font = L.kind === 'p' ? pFont : DIST_FONT;
+      const near = L.x >= x0 - mx && L.x <= x1 + mx && L.y >= y0 - my && L.y <= y1 + my;
+      const fits = L.w * s >= L.em * font * 0.92 && L.h * s >= font * 0.9;
+      const on = near && fits && (L.kind === 'p' || deep);
+      if (on !== L.on) { L.on = on; L.t.style.display = on ? '' : 'none'; }
+    }
+    svg.classList.toggle('deep', deep);
+  }
+  const scheduleSettle = () => { clearTimeout(settleT); settleT = setTimeout(refreshLabels, 90); };
+  const apply = () => {
+    g.setAttribute('transform', 'translate(' + tx.toFixed(2) + ' ' + ty.toFixed(2) + ') scale(' + k.toFixed(4) + ')');
+    scheduleSettle();
+  };
+  const clamp = () => {
+    k = Math.min(MAX_ZOOM, Math.max(1, k));
+    const m = 0.25;
+    tx = Math.min(W * m, Math.max(W * (1 - m) - W * k, tx));
+    ty = Math.min(H * m, Math.max(H * (1 - m) - H * k, ty));
+  };
+  const toSvg = (cx, cy) => { const pt = svg.createSVGPoint(); pt.x = cx; pt.y = cy; return pt.matrixTransform(svg.getScreenCTM().inverse()); };
+  const zoomAt = (f, sx, sy) => { const k0 = k; k = Math.min(MAX_ZOOM, Math.max(1, k * f)); const r = k / k0; tx = sx - (sx - tx) * r; ty = sy - (sy - ty) * r; clamp(); apply(); };
+  function select(id) {
+    if (sel && byId[sel]) byId[sel].classList.remove('sel');
+    if (selOutline) { selOutline.remove(); selOutline = null; }
+    sel = id;
+    if (id && byId[id]) {
+      byId[id].classList.add('sel');
+      selOutline = svgEl('path', { d: byId[id].getAttribute('d') }, selg);
+    }
+    onSelect(id);
+  }
+  svg.addEventListener('pointerdown', e => {
+    svg.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 1) {
+      const target = e.target.closest ? e.target.closest('path[data-id]') : null;
+      gesture = { type: 'pan', start: toSvg(e.clientX, e.clientY), tx0: tx, ty0: ty, sx: e.clientX, sy: e.clientY, t: performance.now(), target: target ? target.getAttribute('data-id') : null, moved: false };
+    } else if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      gesture = { type: 'pinch', d0: Math.hypot(a.x - b.x, a.y - b.y) || 1, k0: k, mid0: toSvg((a.x + b.x) / 2, (a.y + b.y) / 2), tx0: tx, ty0: ty, moved: true };
+    }
+  });
+  svg.addEventListener('pointermove', e => {
+    if (!pointers.has(e.pointerId) || !gesture) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (gesture.type === 'pan' && pointers.size === 1) {
+      if (!gesture.moved && Math.hypot(e.clientX - gesture.sx, e.clientY - gesture.sy) > 7) gesture.moved = true;
+      if (!gesture.moved) return;
+      const p = toSvg(e.clientX, e.clientY);
+      tx = gesture.tx0 + (p.x - gesture.start.x); ty = gesture.ty0 + (p.y - gesture.start.y);
+      clamp(); apply();
+    } else if (gesture.type === 'pinch' && pointers.size >= 2) {
+      const [a, b] = [...pointers.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      const mid = toSvg((a.x + b.x) / 2, (a.y + b.y) / 2);
+      const k1 = Math.min(MAX_ZOOM, Math.max(1, gesture.k0 * d / gesture.d0));
+      const px = (gesture.mid0.x - gesture.tx0) / gesture.k0, py = (gesture.mid0.y - gesture.ty0) / gesture.k0;
+      k = k1; tx = mid.x - px * k1; ty = mid.y - py * k1;
+      clamp(); apply();
+    }
+  });
+  const end = e => {
+    const g0 = gesture;
+    pointers.delete(e.pointerId);
+    if (g0 && g0.type === 'pan' && !g0.moved && e.type === 'pointerup' && performance.now() - g0.t < 700 && g0.target) select(g0.target);
+    if (pointers.size === 0) gesture = null;
+    else if (pointers.size === 1) {
+      const p = [...pointers.values()][0];
+      gesture = { type: 'pan', start: toSvg(p.x, p.y), tx0: tx, ty0: ty, sx: p.x, sy: p.y, t: 0, target: null, moved: true };
+    }
+  };
+  svg.addEventListener('pointerup', end);
+  svg.addEventListener('pointercancel', end);
+  svg.addEventListener('wheel', e => { e.preventDefault(); const p = toSvg(e.clientX, e.clientY); zoomAt(Math.exp(-e.deltaY * 0.0018), p.x, p.y); }, { passive: false });
+  window.addEventListener('resize', scheduleSettle);
+  apply();
+  return {
+    zoomIn: () => zoomAt(1.8, W / 2, H / 2),
+    zoomOut: () => zoomAt(1 / 1.8, W / 2, H / 2),
+    reset: () => { k = 1; tx = 0; ty = 0; apply(); },
+    clear: () => select(null),
+    refreshLabels,
+    onSelect: fn => { onSelect = fn; },
+    state: () => ({ k, tx, ty })
+  };
+}
+let mapView = null;
+
+function drawGhostMap() {
+  const svg = $('ghost-map');
+  MAP.provinces.forEach(p => svgEl('path', { d: p.d }, svg));
+}
+
+// Reveal map: both districts, the line between them, province borders for context.
+function miniMap(box, answerId, guessId) {
+  box.innerHTML = '';
+  const pa = DIST[answerId], pgu = guessId ? DIST[guessId] : null;
+  let [x0, y0, x1, y1] = pa.bbox;
+  if (pgu) { x0 = Math.min(x0, pgu.bbox[0]); y0 = Math.min(y0, pgu.bbox[1]); x1 = Math.max(x1, pgu.bbox[2]); y1 = Math.max(y1, pgu.bbox[3]); }
+  let w = x1 - x0, h = y1 - y0;
+  const pad = Math.max(10, Math.max(w, h) * 0.25); x0 -= pad; y0 -= pad; w += 2 * pad; h += 2 * pad;
+  const ar = 2.0, minW = 60;
+  if (w < minW) { const c = x0 + w / 2, cy = y0 + h / 2; w = minW; h = Math.max(h, minW / ar); x0 = c - w / 2; y0 = cy - h / 2; }
+  if (w / h < ar) { const nw = h * ar; x0 -= (nw - w) / 2; w = nw; } else { const nh = w / ar; y0 -= (nh - h) / 2; h = nh; }
+  const svg = svgEl('svg', { viewBox: [x0, y0, w, h].map(v => v.toFixed(2)).join(' '), preserveAspectRatio: 'xMidYMid meet' });
+  const nb = svgEl('g', { class: 'nbr' }, svg);
+  MAP.neighbors.forEach(n => svgEl('path', { d: n.d }, nb));
+  const dg = svgEl('g', { class: 'dist' }, svg);
+  MAP.districts.forEach(d => {
+    const b = d.bbox;
+    if (b[2] < x0 || b[0] > x0 + w || b[3] < y0 || b[1] > y0 + h) return;   // only what is in view
+    svgEl('path', { d: d.d, class: d.id === answerId ? 'is-answer' : d.id === guessId ? 'is-guess' : '' }, dg);
+  });
+  const pv = svgEl('g', { class: 'provline' }, svg);
+  MAP.provinces.forEach(p => svgEl('path', { d: p.d }, pv));
+  if (pgu && guessId !== answerId) {
+    svgEl('line', { x1: pgu.label[0], y1: pgu.label[1], x2: pa.label[0], y2: pa.label[1], class: 'gap' }, svg);
+    svgEl('circle', { cx: pgu.label[0], cy: pgu.label[1], r: (w / 160).toFixed(2), class: 'pt-guess' }, svg);
+  }
+  svgEl('circle', { cx: pa.label[0], cy: pa.label[1], r: (w / 130).toFixed(2), class: 'pt-answer' }, svg);
+  box.appendChild(svg);
+}
+
+/* ---------- shared leaderboard + test metrics (claude.ai artifact only: signed-in viewers) ---------- */
+const DB = { ready: false, db: null, uid: null, canWrite: false, daily: null, unl: null, stats: {} };
+let writeChain = Promise.resolve();
+function dbSet(path, body) {
+  if (!DB.ready || !DB.canWrite) return;
+  writeChain = writeChain.then(() => DB.db.doc(path).set(body)).catch(e => { if (e && e.code === 'invalid_argument') DB.canWrite = false; });
+}
+async function initDB() {
+  const c = window.claude;
+  if (!c || typeof c.use !== 'function') return;
+  try {
+    const [db, user] = await Promise.all([c.use('db'), c.use('user')]);
+    if (!db || !user) return;
+    const uid = await user.id();
+    if (!uid) return;
+    let can = null;
+    try { can = await user.can('data.write'); } catch (e) { can = null; }
+    Object.assign(DB, { db, uid, canWrite: can !== false, ready: true });
+    const today = bangkokDate();
+    db.collection('daily').where('date', '==', today).onSnapshot(s => {
+      DB.daily = s.docs.map(d => Object.assign({ id: d.id }, d.data()));
+      if (current === 's-board') renderBoard();
+    }, () => { DB.daily = null; });
+    db.collection('unlimited').onSnapshot(s => {
+      DB.unl = s.docs.map(d => Object.assign({ id: d.id }, d.data()));
+      if (current === 's-board') renderBoard();
+    }, () => { DB.unl = null; });
+    if (DB.canWrite) {
+      try { const sd = await db.doc('stats/' + uid).get(); DB.stats = sd.exists ? JSON.parse(JSON.stringify(sd.data())) : {}; } catch (e) { DB.stats = {}; }
+      const rec = S.daily[today];
+      if (rec && rec.done && !rec.pushed) pushDaily(today);
+    }
+  } catch (e) { /* no shared data in this view: the page stays local */ }
+}
+async function pushDaily(date) {
+  const rec = S.daily[date];
+  if (!DB.ready || !DB.canWrite || !rec || !rec.done) return;
+  try {
+    const cur = await DB.db.doc('daily/' + DB.uid).get();
+    if (!(cur.exists && cur.data().date === date)) {
+      dbSet('daily/' + DB.uid, { date, name: rec.name || playerName(), score: rec.total, timeMs: rec.timeMs, scores: rec.results.map(r => r.score), at: Date.now() });
+    }
+    rec.pushed = true; save();
+  } catch (e) { /* retry on next visit */ }
+}
+function pushUnlimited() {
+  if (S.unl.rounds > 0) dbSet('unlimited/' + DB.uid, { name: playerName(), total: S.unl.total, rounds: S.unl.rounds, at: Date.now() });
+}
+function stat(kind, payload) {
+  if (!DB.ready || !DB.canWrite) return;
+  const s = DB.stats;
+  s.name = playerName();
+  if (kind === 'dailyStarted') (s.dailyStarted = s.dailyStarted || {})[payload] = true;
+  else if (kind === 'dailyFinished') (s.dailyFinished = s.dailyFinished || {})[payload] = true;
+  else if (kind === 'share') { s.shares = s.shares || {}; s.shares[payload] = (s.shares[payload] || 0) + 1; }
+  else if (kind === 'answer') {
+    s.answers = s.answers || {};
+    const r = payload;
+    s.answers[r.qid] = { mode: r.mode, correct: r.correct, timeout: r.timeout, cards: r.cards, score: r.score, km: r.km, timeMs: r.timeMs, guess: r.guess, at: Date.now() };
+  }
+  s.updatedAt = Date.now();
+  dbSet('stats/' + DB.uid, JSON.parse(JSON.stringify(s)));
+}
+
+/* ---------- game ---------- */
+let G = null;
+const runTotal = () => G ? G.results.reduce((s, r) => s + r.score, 0) : 0;
+function resultRecord(q, res, guess, cards, ms, mode) {
+  return { qid: q.id, topic: q.topic, guess, correct: res.correct, timeout: res.timeout, km: res.km == null ? null : Math.round(res.km * 10) / 10, cards, h: res.h, base: res.base, score: res.score, timeMs: ms, mode };
+}
+const todaySet = () => dailySet(QS, bangkokDate(), DAILY_N);
+
+function startDaily() {
+  if (!QS.length) { toast('ยังไม่มีคำถามที่เผยแพร่'); return; }
+  const today = bangkokDate();
+  const rec = S.daily[today] || (S.daily[today] = { date: today, results: [], done: false });
+  if (rec.done) { renderSummary(today); show('s-summary'); return; }
+  const set = todaySet();
+  if (rec.pending && !rec.results.some(r => r.qid === rec.pending)) {
+    const q = set.find(x => x.id === rec.pending);
+    if (q) {
+      const res = scoreAnswer({ question: q, guessId: null, cardsOpened: rec.pendingCards || 1, timedOut: true, districts: DIST });
+      rec.results.push(resultRecord(q, res, null, rec.pendingCards || 1, ANSWER_SECONDS * 1000, 'daily'));
+      toast('ข้อที่ออกกลางคันนับเป็นหมดเวลา');
+    }
+  }
+  rec.pending = null;
+  if (!rec.started) { rec.started = true; stat('dailyStarted', today); }
+  save();
+  G = { mode: 'daily', date: today, list: set, i: rec.results.length, results: rec.results, cards: 1 };
+  if (G.i >= set.length) { finishDaily(); return; }
+  nextQuestion();
+}
+function startUnlimited() {
+  if (!QS.length) { toast('ยังไม่มีคำถามที่เผยแพร่'); return; }
+  const todays = new Set(todaySet().map(q => q.id));
+  let pool = QS.filter(q => !todays.has(q.id));
+  if (!pool.length) pool = QS.slice();     // small question bank: allow today's questions too
+  G = { mode: 'unl', list: shuffle(pool), i: 0, results: [], cards: 1 };
+  nextQuestion();
+}
+function nextQuestion() {
+  G.cards = 1; G.sel = null; G.answered = false;
+  const q = G.list[G.i];
+  if (G.mode === 'daily') { const rec = S.daily[G.date]; rec.pending = q.id; rec.pendingCards = 1; save(); }
+  renderQuestion();
+  show('s-question');
+}
+const progressLabel = () => G.mode === 'daily' ? 'ข้อ ' + (G.i + 1) + '/' + G.list.length : 'ข้อที่ ' + (G.i + 1);
+function renderQuestion() {
+  const q = G.list[G.i];
+  $('q-pill').textContent = (G.mode === 'daily' ? 'โหมดรายวัน · ' : 'ไม่จำกัด · ') + progressLabel();
+  $('q-score').textContent = fmt(runTotal());
+  $('q-meta').textContent = 'ผู้เล่น: ' + playerName();
+  updateMult();
+  renderClues($('q-clues'), q);
+}
+function updateMult() { const h = multiplierFor(G.cards).toFixed(1); $('q-mult').textContent = h; $('sheet-mult').textContent = h; }
+function renderClues(box, q) {
+  box.innerHTML = '';
+  q.cards.forEach((c, idx) => {
+    const n = idx + 1;
+    const kind = c.type === 'image' ? 'ภาพ' : 'ข้อความ';
+    if (n === 1 || n <= G.cards) {
+      const d = document.createElement('div');
+      d.className = 'clue' + (n > 1 ? ' open' : '');
+      const head = document.createElement('div'); head.className = 'clue-head';
+      head.append(Object.assign(document.createElement('span'), { textContent: 'การ์ด ' + n + ' · ' + (n === 1 ? 'ภาพหลัก' : kind) }),
+        Object.assign(document.createElement('span'), { textContent: n === 1 ? 'เปิดฟรี' : 'ตัวคูณ ' + multiplierFor(n).toFixed(1) }));
+      d.appendChild(head);
+      if (c.type === 'image') {
+        const b = document.createElement('button'); b.type = 'button'; b.className = 'clue-img'; b.setAttribute('aria-label', 'ขยายภาพเบาะแส');
+        const img = new Image(); setImg(img, c.src); img.alt = 'ภาพเบาะแส'; img.decoding = 'async'; img.style.objectPosition = c.focus || '50% 50%';
+        b.appendChild(img); b.onclick = () => zoomImage(c.src);
+        d.appendChild(b);
+        d.appendChild(para(creditText(c), 'credit'));
+      } else {
+        d.appendChild(para(c.text, 'hint-text'));
+      }
+      if (c.tag_hint && TAG_TH[c.tag_hint]) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = 'เบาะแสเรื่อง' + TAG_TH[c.tag_hint]; d.appendChild(t); }
+      box.appendChild(d);
+    } else {
+      const isNext = n === G.cards + 1;
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'clue locked'; b.disabled = !isNext;
+      b.append(Object.assign(document.createElement('span'), { textContent: 'การ์ด ' + n + ' · ' + kind }),
+        Object.assign(document.createElement('span'), { className: 'cost', textContent: isNext ? 'เปิด · ตัวคูณ ' + multiplierFor(n).toFixed(1) : 'เปิดการ์ด ' + (n - 1) + ' ก่อน' }));
+      b.onclick = () => openCard(n);
+      box.appendChild(b);
+    }
+  });
+}
+function openCard(n) {
+  if (!G || n !== G.cards + 1 || G.answered) return;
+  G.cards = n;
+  if (G.mode === 'daily') { S.daily[G.date].pendingCards = n; save(); }
+  updateMult();
+  const q = G.list[G.i];
+  renderClues($('q-clues'), q);
+  if ($('sheet-bg').classList.contains('on')) renderClues($('sheet-clues'), q);
+}
+
+function setChoice(id) {
+  const b = $('a-choice'), sub = $('a-choice-prov');
+  if (id && DIST[id]) { b.textContent = distName(DIST[id]); sub.textContent = provLine(DIST[id]); b.classList.remove('none'); }
+  else { b.textContent = 'ยังไม่ได้เลือก'; sub.textContent = ''; b.classList.add('none'); }
+  $('a-confirm').disabled = !id;
+}
+function goAnswer() {
+  $('a-who').textContent = 'ผู้เล่น: ' + playerName();
+  $('a-progress').textContent = progressLabel() + ' · คะแนน ' + fmt(runTotal());
+  G.sel = null; mapView.clear(); mapView.reset(); setChoice(null);
+  show('s-answer');
+  startTimer();
+}
+function startTimer() {
+  stopTimer();
+  G.t0 = performance.now();
+  const tick = () => {
+    const left = Math.max(0, ANSWER_SECONDS - (performance.now() - G.t0) / 1000);
+    $('timer-num').textContent = Math.ceil(left);
+    $('timer-bar').setAttribute('stroke-dashoffset', (CIRC * (1 - left / ANSWER_SECONDS)).toFixed(2));
+    $('timer').classList.toggle('low', left <= 10);
+    if (left <= 0) { finishAnswer(true); return; }
+    G.raf = requestAnimationFrame(tick);
+  };
+  G.raf = requestAnimationFrame(tick);
+}
+function stopTimer() { if (G && G.raf) { cancelAnimationFrame(G.raf); G.raf = null; } }
+function openSheet() { renderClues($('sheet-clues'), G.list[G.i]); $('sheet-bg').classList.add('on'); }
+function closeSheet() { $('sheet-bg').classList.remove('on'); }
+
+function finishAnswer(timedOut) {
+  if (!G || G.answered) return;
+  G.answered = true; stopTimer(); closeSheet();
+  const q = G.list[G.i];
+  const ms = timedOut ? ANSWER_SECONDS * 1000 : Math.min(ANSWER_SECONDS * 1000, Math.round(performance.now() - G.t0));
+  const guess = timedOut ? null : G.sel;
+  const res = scoreAnswer({ question: q, guessId: guess, cardsOpened: G.cards, timedOut, districts: DIST });
+  const rec = resultRecord(q, res, guess, G.cards, ms, G.mode);
+  G.results.push(rec);
+  if (G.mode === 'daily') { S.daily[G.date].pending = null; }
+  else { S.unl.total += rec.score; S.unl.rounds += 1; }
+  save();
+  stat('answer', rec);
+  renderReveal(q, res, rec);
+  show('s-reveal');
+}
+function addLine(box, label, pts, total) {
+  const d = document.createElement('div'); d.className = 'ln' + (total ? ' total' : '');
+  const a = document.createElement('span'); a.textContent = label;
+  const b = document.createElement('span'); b.textContent = pts;
+  d.append(a, b); box.appendChild(d);
+}
+function renderReveal(q, res, rec) {
+  const ans = DIST[q.answer];
+  $('rv-who').textContent = 'ผู้เล่น: ' + playerName() + ' · ' + progressLabel();
+  $('rv-total').textContent = fmt(runTotal());
+  $('rv-you').textContent = res.timeout ? 'หมดเวลา · คำตอบคือ' : res.correct ? 'คุณตอบถูกอำเภอ · คำตอบคือ' : 'คุณตอบ ' + placeLine(rec.guess) + ' · คำตอบคือ';
+  $('rv-name').textContent = distName(ans);
+  $('rv-prov').textContent = provLine(ans);
+  $('rv-km').textContent = res.timeout ? '–' : res.correct ? 'ถูกอำเภอ' : fmtKm(res.km) + ' กม.';
+  $('rv-km-sub').textContent = res.timeout ? 'ไม่ได้ตอบ' : res.correct ? 'ระยะห่าง 0 กม.' : 'จากอำเภอที่ตอบถึงคำตอบ';
+  countUp($('rv-pts'), res.score);
+  $('rv-pts-sub').textContent = res.timeout ? 'หมดเวลา' : fmt(res.base) + ' × ตัวคูณ ' + res.h.toFixed(1);
+  $('rv-dist').classList.toggle('hot', res.correct);
+  $('rv-score').classList.toggle('hot', !res.timeout && res.score > 0);
+  const box = $('rv-lines'); box.innerHTML = '';
+  if (res.timeout) addLine(box, 'หมดเวลา ' + ANSWER_SECONDS + ' วินาทีโดยยังไม่ยืนยันคำตอบ', '0');
+  else {
+    addLine(box, res.correct ? 'ตอบถูกอำเภอ' : 'ห่างจากคำตอบ ' + fmtKm(res.km) + ' กม.', '+' + fmt(res.base));
+    addLine(box, 'รวม ' + fmt(res.base) + ' × ตัวคูณ ' + res.h.toFixed(1), fmt(res.score), true);
+  }
+  box.appendChild(para('ยิ่งใกล้ยิ่งได้มาก: ห่าง 25 กม. ≈ 846 · 100 กม. ≈ 513 · 300 กม. ≈ 135', 'curve-note'));
+  miniMap($('rv-map'), q.answer, rec.guess);
+  renderFacts(q);
+  const last = G.mode === 'daily' && G.i + 1 >= G.list.length;
+  $('rv-next').textContent = last ? 'ดูสรุปวันนี้' : 'เล่นต่อ';
+  $('rv-stop').textContent = G.mode === 'daily' ? (last ? 'กลับหน้าแรก' : 'พักไว้ก่อน') : 'เล่นแค่นี้';
+}
+function renderFacts(q) {
+  const r = q.reveal, art = $('rv-facts');
+  art.innerHTML = '';
+  const ph = document.createElement('button'); ph.type = 'button'; ph.className = 'ph'; ph.setAttribute('aria-label', 'ขยายภาพ ' + q.topic);
+  const img = new Image(); setImg(img, r.image.src); img.alt = q.topic; img.style.objectPosition = r.image.focus || '50% 50%';
+  ph.appendChild(img); ph.onclick = () => zoomImage(r.image.src, q.topic);
+  art.appendChild(ph);
+  const body = document.createElement('div'); body.className = 'body';
+  body.appendChild(para(creditText(r.image) + (r.image.note ? ' · ' + r.image.note : ''), 'credit'));
+  const h = document.createElement('h2'); h.textContent = 'ข้อมูลจริง: ' + q.topic; body.appendChild(h);
+  if (!q.verified_by) { const c = document.createElement('span'); c.className = 'status-chip'; c.textContent = 'รอทีมตรวจทาน · เรียบเรียงจากแหล่งด้านล่าง'; body.appendChild(c); }
+  const dl = document.createElement('dl'); dl.className = 'facts';
+  Object.entries(r.facts).forEach(([k, v]) => { const dt = document.createElement('dt'); dt.textContent = k; const dd = document.createElement('dd'); dd.textContent = v; dl.append(dt, dd); });
+  body.appendChild(dl);
+  body.appendChild(para('วิธีคิด: ' + r.reasoning, 'howto'));
+  const src = document.createElement('div'); src.className = 'sources';
+  src.appendChild(para('ที่มาข้อมูล'));
+  r.sources.forEach(s => { const a = document.createElement('a'); a.href = s.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = s.title; src.appendChild(a); });
+  if (r.image.source_url) {
+    const a = document.createElement('a'); a.href = r.image.source_url; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = (r.image.source || 'commons') === 'commons' ? 'ไฟล์ภาพต้นฉบับบน Wikimedia Commons' : 'ที่มาของภาพ';
+    src.appendChild(a);
+  }
+  body.appendChild(src);
+  art.appendChild(body);
+}
+
+function finishDaily() {
+  const rec = S.daily[G.date];
+  rec.done = true;
+  rec.total = rec.results.reduce((s, r) => s + r.score, 0);
+  rec.timeMs = rec.results.reduce((s, r) => s + (r.timeMs || 0), 0);
+  rec.name = playerName();
+  save();
+  stat('dailyFinished', G.date);
+  pushDaily(G.date);
+  renderSummary(G.date);
+  show('s-summary');
+}
+function stopUnlimited() {
+  pushUnlimited();
+  const n = G ? G.results.length : 0;
+  if (n) toast('รอบนี้ ' + n + ' ข้อ ได้ ' + fmt(runTotal()) + ' คะแนน');
+  openBoard('unl');
+}
+function renderSummary(date) {
+  const rec = S.daily[date];
+  const total = rec.results.reduce((s, r) => s + r.score, 0);
+  const max = Math.max(1, rec.results.length) * 1000;
+  $('sum-pill').textContent = 'โหมดรายวัน · ' + thaiDate(date, true);
+  countUp($('sum-score'), total);
+  const rank = DB.ready && Array.isArray(DB.daily) ? myRank('daily') : null;
+  $('sum-sub').textContent = 'จาก ' + fmt(max) + ' คะแนน' + (rank ? ' · อันดับวันนี้ ' + rank : '');
+  const box = $('sum-cats'); box.innerHTML = '';
+  rec.results.forEach((r, i) => {
+    const d = document.createElement('div'); d.className = 'ln';
+    const a = document.createElement('span'); a.textContent = (i + 1) + '. ' + (r.topic || '') ;
+    const b = document.createElement('b'); b.textContent = distanceMark(r) + ' ' + (r.timeout ? 'หมดเวลา' : r.correct ? 'ถูกอำเภอ' : fmtKm(r.km) + ' กม.') + ' · ' + fmt(r.score);
+    d.append(a, b); box.appendChild(d);
+  });
+  const text = shareText({ dateLabel: thaiDate(date), total, max, results: rec.results, url: SHARE_URL });
+  $('share-text').textContent = text;
+  $('share-line').href = 'https://line.me/R/share?text=' + encodeURIComponent(text);
+  $('share-fb').href = SHARE_URL ? 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(SHARE_URL) : 'https://www.facebook.com/';
+}
+
+/* ---------- leaderboard ---------- */
+let boardTab = 'daily';
+function boardRows(tab) {
+  const today = bangkokDate();
+  if (tab === 'daily') {
+    let list = [], shared = false;
+    if (DB.ready && Array.isArray(DB.daily)) { list = DB.daily.map(d => ({ name: d.name || 'ผู้เล่น', score: d.score || 0, timeMs: d.timeMs || 0, me: d.id === DB.uid })); shared = true; }
+    const rec = S.daily[today];
+    if (rec && rec.done && !list.some(e => e.me)) list.push({ name: playerName(), score: rec.total, timeMs: rec.timeMs, me: true });
+    return { rows: rankDaily(list), shared };
+  }
+  let list = [], shared = false;
+  if (DB.ready && Array.isArray(DB.unl)) { list = DB.unl.map(d => ({ name: d.name || 'ผู้เล่น', total: d.total || 0, rounds: d.rounds || 0, me: d.id === DB.uid })); shared = true; }
+  const mine = list.find(e => e.me);
+  if (mine) { mine.total = Math.max(mine.total, S.unl.total); mine.rounds = Math.max(mine.rounds, S.unl.rounds); }
+  else if (S.unl.rounds) list.push({ name: playerName(), total: S.unl.total, rounds: S.unl.rounds, me: true });
+  return { rows: rankUnlimited(list, 10), shared };
+}
+function myRank(tab) { const { rows } = boardRows(tab); const i = rows.findIndex(r => r.me); return i < 0 ? null : i + 1; }
+function openBoard(tab) { boardTab = tab || boardTab; renderBoard(); show('s-board'); }
+function renderBoard() {
+  const daily = boardTab === 'daily';
+  $('tab-daily').classList.toggle('on', daily); $('tab-daily').setAttribute('aria-selected', String(daily));
+  $('tab-unl').classList.toggle('on', !daily); $('tab-unl').setAttribute('aria-selected', String(!daily));
+  $('b-rule').textContent = daily
+    ? 'คะแนนรวม ' + DAILY_N + ' ข้อของวันนี้ (เต็ม ' + fmt(DAILY_N * 1000) + ') · เท่ากันวัดที่เวลาบนหน้าตอบ · รีเซ็ตเที่ยงคืน'
+    : 'คะแนนเฉลี่ยต่อข้อ ต้องเล่นอย่างน้อย 10 ข้อ · เท่ากันวัดที่จำนวนข้อ';
+  const { rows, shared } = boardRows(boardTab);
+  const meIdx = rows.findIndex(r => r.me);
+  const me = $('b-me'); me.innerHTML = '';
+  const left = document.createElement('div'); left.append(Object.assign(document.createElement('small'), { textContent: 'อันดับของคุณ' }), Object.assign(document.createElement('b'), { textContent: playerName() }));
+  const right = document.createElement('div'); right.className = 'rk';
+  if (meIdx >= 0) {
+    const r = rows[meIdx];
+    right.append(Object.assign(document.createElement('b'), { textContent: String(meIdx + 1) }), Object.assign(document.createElement('small'), { textContent: daily ? fmt(r.score) + ' คะแนน' : fmt(r.avg) + ' ต่อข้อ' }));
+  } else {
+    const msg = daily ? (S.daily[bangkokDate()] && S.daily[bangkokDate()].done ? '' : 'ยังไม่ได้เล่นวันนี้') : 'เล่นอีก ' + Math.max(0, 10 - S.unl.rounds) + ' ข้อเพื่อขึ้นอันดับ';
+    right.append(Object.assign(document.createElement('b'), { textContent: '–' }), Object.assign(document.createElement('small'), { textContent: msg }));
+  }
+  me.append(left, right);
+  const t = $('b-table'); t.innerHTML = '';
+  const head = document.createElement('tr');
+  (daily ? ['อันดับ', 'ผู้เล่น', 'คะแนนรวม', 'เวลา'] : ['อันดับ', 'ผู้เล่น', 'เฉลี่ย/ข้อ', 'จำนวนข้อ']).forEach((h, i) => { const th = document.createElement('th'); th.textContent = h; if (i > 1) th.className = 'r'; head.appendChild(th); });
+  t.appendChild(head);
+  rows.slice(0, 50).forEach((r, i) => {
+    const tr = document.createElement('tr'); if (r.me) tr.className = 'me';
+    const cells = daily ? [i + 1, r.name, fmt(r.score), (r.timeMs / 1000).toFixed(1) + ' วิ'] : [i + 1, r.name, fmt(r.avg), fmt(r.rounds)];
+    cells.forEach((c, j) => { const td = document.createElement('td'); td.textContent = c; if (j > 1) td.className = 'r'; tr.appendChild(td); });
+    t.appendChild(tr);
+  });
+  if (!rows.length) {
+    const tr = document.createElement('tr'); const td = document.createElement('td'); td.colSpan = 4; td.className = 'empty';
+    td.textContent = daily ? 'ยังไม่มีผลของวันนี้ เล่นรายวันให้จบเพื่อขึ้นอันดับ' : 'ยังไม่มีผู้เล่นที่ครบ 10 ข้อ';
+    tr.appendChild(td); t.appendChild(tr);
+  }
+  const src = $('b-src'); src.classList.toggle('shared', shared);
+  src.querySelector('span').textContent = shared
+    ? 'อันดับรวมผู้เล่นที่เปิดผ่านบัญชี Claude และมีสิทธิ์บันทึกผล'
+    : 'แสดงผลในเครื่องนี้เท่านั้น · อันดับรวมทุกคนจะเปิดเมื่อย้ายการคิดคะแนนไปที่เซิร์ฟเวอร์';
+  const doneToday = S.daily[bangkokDate()] && S.daily[bangkokDate()].done;
+  $('b-cta').textContent = daily ? (doneToday ? 'กลับมาเล่นพรุ่งนี้ หรือเล่นไม่จำกัด' : 'เล่นรายวันของวันนี้') : 'เล่นไม่จำกัด';
+}
+
+/* ---------- home + credits ---------- */
+function refreshHome() {
+  const rec = S.daily[bangkokDate()];
+  const n = QS.length ? todaySet().length : DAILY_N;
+  $('daily-sub').textContent = n + ' ข้อ ชุดเดียวกันทุกคน';
+  $('daily-badge').textContent = !rec ? 'วันนี้' : rec.done ? 'ดูผลวันนี้' : 'ทำต่อ ข้อ ' + Math.min(n, (rec.results.length + 1)) + '/' + n;
+  const unverified = QS.filter(q => !q.verified_by).length;
+  $('proto-note').textContent = !QS.length ? '' : unverified ? 'ต้นแบบเพื่อทดสอบ · มี ' + unverified + ' ข้อที่ยังรอทีมตรวจทาน' : 'ทุกข้อผ่านการตรวจของทีมแล้ว';
+}
+function goHome() { G = null; refreshHome(); show('s-home'); }
+function renderCredits() {
+  const box = $('cr-images'); box.innerHTML = '';
+  const seen = new Set();
+  QS.forEach(q => [q.cards[0], q.reveal.image].forEach(im => {
+    if (!im || !im.src || seen.has(im.src)) return;
+    seen.add(im.src);
+    const it = document.createElement('div'); it.className = 'it';
+    const img = new Image(); setImg(img, im.src); img.alt = '';
+    const txt = document.createElement('div');
+    const source = im.source || 'commons';
+    if (im.source_url) { const a = document.createElement('a'); a.href = im.source_url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = im.file || q.topic; txt.appendChild(a); }
+    else txt.appendChild(para(q.topic));
+    const bits = source === 'player' ? [im.credit || 'ผู้เล่นออลไทย', 'ภาพจากผู้เล่น ใช้ตามที่เจ้าของภาพอนุญาต']
+      : [im.credit, licTh(im.license || ''), source === 'commons' ? 'Wikimedia Commons' : '', im.modified || ''];
+    txt.appendChild(para(bits.filter(Boolean).join(' · '), 'muted small'));
+    it.append(img, txt); box.appendChild(it);
+  }));
+  const done = QS.filter(q => q.verified_by).length;
+  $('cr-status').textContent = 'คำถามที่เผยแพร่ ' + QS.length + ' ข้อ ตรวจแล้ว ' + done + ' ข้อ ข้อที่ยังไม่ตรวจมีป้าย “รอทีมตรวจทาน” ในหน้าเฉลย ทุกข้อมีลิงก์ที่มาใต้หน้าเฉลย';
+  const a = MAP.attribution || {};
+  $('cr-map').textContent = [a.districts, a.names, a.neighbors].filter(Boolean).join(' · ');
+}
+
+/* ---------- แชร์ประสบการณ์: player photo → review queue (never straight into the game) ---------- */
+let subBlob = null, subUrl = '', subSending = false;
+const SUB_STATUS = { pending: 'รอตรวจ', approved: 'ผ่านการตรวจ', rejected: 'ไม่ผ่านการตรวจ' };
+function fillSubmitForm() {
+  const sel = $('sub-prov');
+  if (sel.options.length < 2) {
+    Object.values(PROV).sort((a, b) => a.name_th.localeCompare(b.name_th, 'th')).forEach(p => sel.add(new Option(p.name_th, p.id)));
+  }
+  if (!$('sub-credit').value && S.nick) $('sub-credit').value = S.nick;
+  $('sub-demo').hidden = BE.MODE !== 'demo';
+}
+function fillDistricts() {
+  const p = $('sub-prov').value, sel = $('sub-dist');
+  sel.innerHTML = '';
+  sel.add(new Option(p ? 'ไม่แน่ใจ' : 'เลือกจังหวัดก่อน', ''));
+  sel.disabled = !p;
+  if (!p) return;
+  Object.values(DIST).filter(d => d.p === p).sort((a, b) => a.n.localeCompare(b.n, 'th')).forEach(d => sel.add(new Option(distName(d), d.id)));
+}
+function openSubmit() { fillSubmitForm(); if (!$('sub-dist').options.length) fillDistricts(); renderMySubs(); updateSubmitState(); show('s-submit'); }
+function subMissing() {
+  const miss = [];
+  if (!subBlob) miss.push('ภาพ');
+  if (!$('sub-prov').value) miss.push('จังหวัด');
+  if (!$('sub-title').value.trim()) miss.push('ในภาพคืออะไร');
+  if (!$('sub-credit').value.trim()) miss.push('ชื่อเครดิต');
+  if (!['c-owner', 'c-license', 'c-people'].every(id => $(id).checked)) miss.push('ยืนยันให้ครบ 3 ข้อ');
+  return miss;
+}
+function updateSubmitState() {
+  const miss = subMissing();
+  $('sub-send').disabled = subSending || miss.length > 0;
+  $('sub-missing').textContent = miss.length ? 'ยังขาด: ' + miss.join(' · ') : '';
+}
+function resetPreview() {
+  subBlob = null;
+  if (subUrl) { URL.revokeObjectURL(subUrl); subUrl = ''; }
+  $('sub-preview').hidden = true; $('sub-change').hidden = true; $('sub-empty').hidden = false;
+}
+async function onPickFile() {
+  const f = $('sub-file').files[0];
+  const msg = $('sub-file-msg');
+  resetPreview(); msg.classList.remove('bad');
+  updateSubmitState();
+  if (!f) { msg.textContent = ''; return; }
+  msg.textContent = 'กำลังเตรียมภาพ…';
+  try {
+    if (!/^image\//.test(f.type || 'image/')) throw new Error('ไฟล์นี้ไม่ใช่ภาพ');
+    if (f.size > 25 * 1024 * 1024) throw new Error('ไฟล์ใหญ่เกิน 25 MB');
+    const out = await BE.compressImage(f, 1600, 0.85);
+    subBlob = out.blob;
+    subUrl = URL.createObjectURL(out.blob);
+    $('sub-preview').src = subUrl; $('sub-preview').hidden = false; $('sub-change').hidden = false; $('sub-empty').hidden = true;
+    msg.textContent = 'ย่อเหลือ ' + out.width + '×' + out.height + ' พิกเซล · ' + Math.round(out.blob.size / 1024) + ' KB · ลบข้อมูล GPS แล้ว';
+  } catch (e) {
+    msg.textContent = e.message || 'เปิดไฟล์ภาพนี้ไม่ได้'; msg.classList.add('bad');
+  }
+  updateSubmitState();
+}
+async function sendSubmission(ev) {
+  ev.preventDefault();
+  if (subSending || subMissing().length) return;
+  subSending = true; updateSubmitState();
+  const btn = $('sub-send'); btn.textContent = 'กำลังส่ง…';
+  const meta = {
+    province_id: $('sub-prov').value, district_id: $('sub-dist').value, category: CAT,
+    title: $('sub-title').value.trim(), description: $('sub-desc').value.trim(), taken_at: $('sub-when').value.trim(),
+    credit_name: $('sub-credit').value.trim(), contact: $('sub-contact').value.trim(),
+    consent_owner: $('c-owner').checked, consent_license: $('c-license').checked, consent_people: $('c-people').checked
+  };
+  try {
+    const r = await BE.submitPhoto(subBlob, meta);
+    S.subs.unshift({ id: r.id, title: meta.title, province: meta.province_id, district: meta.district_id, at: Date.now(), status: 'pending' });
+    S.subs = S.subs.slice(0, 30); save();
+    $('sub-form').reset(); $('sub-credit').value = S.nick || meta.credit_name; fillDistricts();
+    resetPreview(); $('sub-file-msg').textContent = '';
+    renderMySubs();
+    await modal([Object.assign(document.createElement('h3'), { textContent: 'ส่งภาพแล้ว ขอบคุณมาก' }),
+      para('ทีมงานจะตรวจภาพก่อนนำไปทำคำถาม ภาพจะยังไม่ขึ้นในเกมจนกว่าจะผ่านการตรวจ')], [{ label: 'ตกลง', value: 1 }]);
+  } catch (e) {
+    toast('ส่งไม่สำเร็จ ลองใหม่อีกครั้ง');
+    $('sub-missing').textContent = 'ส่งไม่สำเร็จ: ' + (e.message || e);
+  } finally {
+    subSending = false; btn.textContent = 'ส่งให้ทีมตรวจ'; updateSubmitState();
+  }
+}
+async function renderMySubs() {
+  const box = $('my-subs-list');
+  $('my-subs').hidden = !S.subs.length;
+  if (!S.subs.length) return;
+  let live = {};
+  try { live = await BE.mySubmissionStatus(S.subs.map(x => x.id)); } catch (e) { live = {}; }
+  box.innerHTML = '';
+  S.subs.forEach(x => {
+    if (live[x.id]) x.status = live[x.id];
+    const d = document.createElement('div'); d.className = 'ln';
+    const where = x.district && DIST[x.district] ? distName(DIST[x.district]) : provName(x.province);
+    const a = document.createElement('span'); a.textContent = x.title + ' · ' + where;
+    const b = document.createElement('span'); b.className = 'st st-' + (x.status || 'pending');
+    b.textContent = BE.MODE === 'demo' || x.status !== 'pending' ? SUB_STATUS[x.status || 'pending'] : 'ส่งแล้ว · รอตรวจ';
+    d.append(a, b); box.appendChild(d);
+  });
+  save();
+}
+
+/* ---------- wiring ---------- */
+function wire() {
+  $('btn-daily').onclick = startDaily;
+  $('btn-unl').onclick = startUnlimited;
+  $('btn-board').onclick = () => openBoard('daily');
+  $('btn-credits').onclick = () => { renderCredits(); show('s-credits'); };
+  $('btn-submit').onclick = openSubmit;
+  $('sub-back').onclick = goHome;
+  $('sub-file').addEventListener('change', onPickFile);
+  $('sub-prov').addEventListener('change', fillDistricts);
+  $('sub-form').addEventListener('input', updateSubmitState);
+  $('sub-form').addEventListener('change', updateSubmitState);
+  $('sub-form').addEventListener('submit', sendSubmission);
+  $('cr-back').onclick = goHome;
+  const nick = $('nick'); nick.value = S.nick;
+  nick.addEventListener('input', () => {
+    const c = cleanNickname(nick.value);
+    if (c === null) { $('nick-msg').textContent = 'ชื่อนี้ใช้ไม่ได้ ลองชื่ออื่น'; return; }
+    $('nick-msg').textContent = ''; S.nick = c; save();
+  });
+  $('q-back').onclick = async () => {
+    const msg = G && G.mode === 'daily' ? 'ออกตอนนี้ได้ ข้อนี้จะนับเป็นหมดเวลา (0 คะแนน) เมื่อกลับมาเล่นต่อ' : 'ออกจากโหมดไม่จำกัด ผลที่ตอบไปแล้วยังนับอยู่';
+    const ok = await modal([Object.assign(document.createElement('h3'), { textContent: 'กลับหน้าแรก?' }), para(msg)], [{ label: 'เล่นต่อ', value: false }, { label: 'กลับหน้าแรก', value: true, primary: true }]);
+    if (!ok) return;
+    if (G && G.mode === 'unl') pushUnlimited();
+    goHome();
+  };
+  $('q-go').onclick = goAnswer;
+  $('z-in').onclick = () => mapView.zoomIn();
+  $('z-out').onclick = () => mapView.zoomOut();
+  $('z-fit').onclick = () => mapView.reset();
+  $('a-cards').onclick = openSheet;
+  $('sheet-close').onclick = closeSheet;
+  $('sheet-bg').addEventListener('click', e => { if (e.target === $('sheet-bg')) closeSheet(); });
+  $('a-confirm').onclick = () => { if (G && G.sel) finishAnswer(false); };
+  $('rv-next').onclick = () => {
+    G.i++;
+    if (G.mode === 'daily') { if (G.i >= G.list.length) { finishDaily(); return; } }
+    else if (G.i >= G.list.length) { toast('เล่นครบทุกข้อในคลังแล้ว'); stopUnlimited(); return; }
+    nextQuestion();
+  };
+  $('rv-stop').onclick = () => {
+    if (G.mode === 'daily') {
+      if (G.i + 1 >= G.list.length) { G.i++; finishDaily(); goHome(); return; }
+      toast('บันทึกแล้ว กลับมาเล่นต่อได้ภายในวันนี้'); goHome(); return;
+    }
+    stopUnlimited();
+  };
+  $('share-copy').onclick = async () => {
+    const t = $('share-text').textContent;
+    try { await navigator.clipboard.writeText(t); toast('คัดลอกผลแล้ว'); }
+    catch (e) { const r = document.createRange(); r.selectNodeContents($('share-text')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('เลือกข้อความไว้แล้ว กดคัดลอกได้เลย'); }
+    stat('share', 'copy');
+  };
+  $('share-line').addEventListener('click', () => stat('share', 'line'));
+  $('share-fb').addEventListener('click', () => stat('share', 'facebook'));
+  $('sum-board').onclick = () => openBoard('daily');
+  $('sum-home').onclick = goHome;
+  $('b-back').onclick = goHome;
+  $('tab-daily').onclick = () => { boardTab = 'daily'; renderBoard(); };
+  $('tab-unl').onclick = () => { boardTab = 'unl'; renderBoard(); };
+  $('b-cta').onclick = () => {
+    const doneToday = S.daily[bangkokDate()] && S.daily[bangkokDate()].done;
+    if (boardTab === 'daily' && !doneToday) startDaily(); else startUnlimited();
+  };
+}
+
+function setHomeReady() {
+  const has = QS.length > 0;
+  ['btn-daily', 'btn-unl'].forEach(id => { $(id).disabled = !has; });
+  const m = $('home-msg');
+  m.hidden = has;
+  m.textContent = has ? '' : 'ยังไม่มีคำถามที่เผยแพร่ ทีมงานกำลังตรวจข้อมูลอยู่ ระหว่างนี้ส่งภาพที่เที่ยวจากอำเภอของคุณได้';
+  refreshHome();
+}
+let started = false;
+async function start(snapshot) {
+  if (started) return;
+  started = true;
+  wire();
+  ['btn-daily', 'btn-unl', 'btn-submit'].forEach(id => { $(id).disabled = true; });
+  try {
+    await loadData();
+  } catch (e) {
+    toast('โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชหน้า');
+    const m = $('home-msg'); m.hidden = false; m.textContent = 'โหลดข้อมูลไม่สำเร็จ: ' + (e.message || e);
+    return;
+  }
+  $('btn-submit').disabled = false;
+  setHomeReady();
+  mapView = createMapView($('map-panel'), MAP);
+  mapView.onSelect(id => { if (G) G.sel = id; setChoice(id); });
+  drawGhostMap();
+  if (snapshot && snapshot.screen === 's-board') openBoard(snapshot.tab);
+  if (snapshot && snapshot.screen === 's-credits') { renderCredits(); show('s-credits'); }
+  if (snapshot && snapshot.screen === 's-submit') openSubmit();
+  initDB();
+}
+// Re-read published content (used when the admin site in the same page changes data).
+async function refresh() {
+  if (!MAP || G) return;
+  try { applyContent(await BE.loadContent()); } catch (e) { return; }
+  setHomeReady();
+  if (current === 's-credits') renderCredits();
+  if (current === 's-submit') renderMySubs();
+}
+window.AllThaiPlay = { refresh };
+
+const hot = window.claude && window.claude.hot;
+if (hot && typeof hot.snapshot === 'function') hot.snapshot(() => ({ screen: current, tab: boardTab }));
+if (hot && typeof hot.ready === 'function') hot.ready(start); else start((hot && hot.data) || {});
+})();
+
+</script>
+</body>
+</html>

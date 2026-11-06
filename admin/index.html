@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ออลไทย · เว็บใส่ข้อมูล</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&amp;family=Mitr:wght@500;600&amp;display=swap">
+<style>
+html, body { height: 100%; margin: 0; }
+/* เว็บใส่ข้อมูล (admin). Desktop-first, same palette as the game. Every rule is scoped to #admin-app or an ad- class
+   so the preview page can hold both sites at once. */
+:root {
+  --paper: #FBF8F2; --ink: #211E1A; --muted: #6E675D; --line: #E6DED0; --card: #FFFFFF;
+  --rice: #2F6B3B; --rice-deep: #24532E; --rice-soft: #E4EFE5; --amber: #D99A2B; --amber-ink: #8F5512;
+  --sea: #DCE8EE; --sea-line: #C3D5DD; --bad: #B4452F;
+  --font-display: 'Mitr', 'IBM Plex Sans Thai', 'Leelawadee UI', Tahoma, sans-serif;
+  --font-body: 'IBM Plex Sans Thai', 'Noto Sans Thai', 'Leelawadee UI', Tahoma, sans-serif;
+}
+#admin-app { position: fixed; inset: 0; overflow-y: auto; background: #F2EDE3; color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; z-index: 50; -webkit-text-size-adjust: 100%; }
+#admin-app[hidden] { display: none; }
+#admin-app *, #admin-app *::before, #admin-app *::after { box-sizing: border-box; }
+#admin-app h1, #admin-app h2, #admin-app h3, #admin-app h4 { font-family: var(--font-display); font-weight: 600; margin: 0; line-height: 1.25; }
+#admin-app h2 { font-size: 24px; } #admin-app h3 { font-size: 18px; } #admin-app h4 { font-size: 15.5px; font-weight: 500; }
+#admin-app p { margin: 0; }
+#admin-app button, #admin-app input, #admin-app select, #admin-app textarea { font: inherit; color: inherit; }
+#admin-app button { cursor: pointer; }
+#admin-app :focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+#admin-app [hidden] { display: none !important; }
+.ad-muted { color: var(--muted); }
+.ad-small { font-size: 13.5px; }
+.ad-num { font-variant-numeric: tabular-nums; }
+
+/* top bar */
+.ad-top { position: sticky; top: 0; z-index: 5; background: var(--paper); border-bottom: 1.5px solid var(--line); }
+.ad-top-in { max-width: 1240px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.ad-brand { display: flex; align-items: center; gap: 10px; }
+.ad-logo { width: 36px; height: 36px; border-radius: 11px; background: var(--rice); display: grid; place-items: center; }
+.ad-brand b { font-family: var(--font-display); font-weight: 600; font-size: 22px; }
+.ad-brand span { color: var(--muted); }
+.ad-mode { font-size: 12.5px; padding: 3px 10px; border-radius: 999px; background: #FBEBD0; color: var(--amber-ink); white-space: nowrap; }
+.ad-mode.live { background: var(--rice-soft); color: var(--rice-deep); }
+.ad-tabs { display: flex; gap: 4px; background: #EFE8DC; border-radius: 14px; padding: 4px; flex-wrap: wrap; }
+.ad-tabs button { border: 0; background: transparent; border-radius: 10px; padding: 7px 14px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+.ad-tabs button.on { background: #fff; color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+.ad-count { min-width: 22px; padding: 0 7px; border-radius: 999px; background: var(--amber); color: #fff; font-size: 12.5px; font-weight: 600; text-align: center; line-height: 20px; }
+.ad-user { margin-left: auto; display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 14px; }
+
+/* layout */
+.ad-main { max-width: 1240px; margin: 0 auto; padding: 20px 20px 80px; display: flex; flex-direction: column; gap: 16px; }
+.ad-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.ad-head p { color: var(--muted); }
+.ad-card { background: var(--card); border: 1.5px solid var(--line); border-radius: 18px; padding: 16px 18px; }
+.ad-note { background: #FBF3E3; border: 1.5px solid #F0DDB8; border-radius: 14px; padding: 12px 14px; font-size: 14px; color: #5E4A25; }
+.ad-note ol, .ad-note ul { margin: 6px 0 0; padding-left: 20px; }
+.ad-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ad-bar .grow { flex: 1 1 200px; }
+.ad-bar > .ad-in { width: auto; flex: 0 0 auto; }
+.ad-grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.ad-grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.ad-stack { display: flex; flex-direction: column; gap: 12px; }
+
+/* controls */
+.ad-btn { min-height: 40px; border-radius: 12px; border: 1.5px solid var(--line); background: #fff; padding: 7px 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; color: var(--ink); white-space: nowrap; transition: background .12s; }
+.ad-btn:hover { background: #FAF7F1; }
+.ad-btn.primary { background: var(--rice); border-color: var(--rice); color: #fff; font-weight: 600; }
+.ad-btn.primary:hover { background: var(--rice-deep); }
+.ad-btn.ok { color: var(--rice-deep); border-color: #B7D2BC; background: var(--rice-soft); font-weight: 600; }
+.ad-btn.danger { color: var(--bad); border-color: #EBC9BF; }
+.ad-btn:disabled { opacity: .5; cursor: not-allowed; }
+.ad-btn.sm { min-height: 32px; padding: 3px 10px; font-size: 14px; border-radius: 10px; }
+.ad-link { background: none; border: 0; color: var(--rice-deep); text-decoration: underline; text-underline-offset: 3px; padding: 0; }
+.ad-in { width: 100%; min-height: 40px; border: 1.5px solid var(--line); border-radius: 10px; padding: 7px 10px; background: #fff; }
+textarea.ad-in { min-height: 76px; resize: vertical; line-height: 1.5; }
+select.ad-in { padding-right: 6px; }
+.ad-in.sm { min-height: 32px; padding: 3px 6px; font-size: 14px; border-radius: 8px; }
+.ad-in:invalid, .ad-in.bad { border-color: #E2A595; }
+.ad-field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ad-field > label, .ad-label { font-size: 13.5px; color: var(--muted); }
+.ad-help { font-size: 12.5px; color: var(--muted); }
+.ad-err { font-size: 13px; color: var(--bad); }
+.ad-check { display: inline-flex; align-items: center; gap: 8px; }
+.ad-check input { width: 18px; height: 18px; accent-color: var(--rice); }
+.ad-seg { display: inline-flex; background: #EFE8DC; border-radius: 12px; padding: 3px; flex-wrap: wrap; }
+.ad-seg button { border: 0; background: transparent; border-radius: 9px; padding: 5px 12px; color: var(--muted); }
+.ad-seg button.on { background: #fff; color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+
+/* chips */
+.ad-chip { display: inline-flex; align-items: center; gap: 4px; padding: 1px 10px; border-radius: 999px; font-size: 12.5px; white-space: nowrap; background: #EFE8DC; color: var(--muted); }
+.ad-chip.pub, .ad-chip.approved { background: var(--rice-soft); color: var(--rice-deep); }
+.ad-chip.warn, .ad-chip.pending { background: #FBEBD0; color: var(--amber-ink); }
+.ad-chip.bad, .ad-chip.rejected { background: #F6DED8; color: var(--bad); }
+.ad-chip.today { background: var(--sea); color: #2E5566; }
+
+/* submissions */
+.ad-subs { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.ad-sub { display: flex; flex-direction: column; overflow: hidden; padding: 0; }
+.ad-sub .ph { display: block; width: 100%; aspect-ratio: 4 / 3; background: #EDE5D7; border: 0; padding: 0; cursor: zoom-in; position: relative; }
+.ad-sub .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ad-sub .ph .ad-chip { position: absolute; left: 10px; top: 10px; }
+.ad-sub .bd { padding: 12px 14px 0; display: flex; flex-direction: column; gap: 6px; }
+.ad-sub h3 { font-size: 18px; }
+.ad-kv { font-size: 13.5px; color: var(--muted); }
+.ad-kv b { color: var(--ink); font-weight: 500; }
+.ad-desc { font-size: 14.5px; white-space: pre-wrap; }
+.ad-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding: 12px 14px 14px; }
+.ad-empty { text-align: center; color: var(--muted); padding: 40px 16px; }
+.ad-noimg { display: grid; place-items: center; height: 100%; color: var(--muted); font-size: 14px; }
+
+/* tables */
+.ad-scroll { overflow-x: auto; }
+.ad-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.ad-table th { text-align: left; font-weight: 500; color: var(--muted); font-size: 13px; padding: 8px; border-bottom: 1.5px solid var(--line); white-space: nowrap; }
+.ad-table td { padding: 9px 8px; border-bottom: 1px solid #F0E9DD; vertical-align: middle; }
+.ad-table tr:last-child td { border-bottom: 0; }
+.ad-table tr.click { cursor: pointer; }
+.ad-table tr.click:hover td { background: #FAF7F1; }
+.ad-table tr.dirty td { background: #FFF8EA; }
+.ad-table code { font-size: 13px; color: var(--muted); }
+.ad-prov td, .ad-prov th { padding-left: 5px; padding-right: 5px; }
+.ad-prov select.ad-in { min-width: 92px; }
+.ad-prov td.t { min-width: 176px; }
+.ad-prov td.o2 { min-width: 190px; }
+.ad-prov td.nm { min-width: 118px; }
+.ad-prov td.nm .ad-btn { margin-top: 4px; }
+.ad-prov td.o1 select.ad-in { min-width: 116px; }
+
+/* coverage */
+.ad-cov { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.ad-cov .ad-card { padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.ad-cov.one { grid-template-columns: minmax(0, 560px); }
+.ad-cov b { font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.ad-meter { position: relative; height: 8px; border-radius: 4px; background: #EFE8DC; overflow: hidden; }
+.ad-meter i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--rice); border-radius: 4px; }
+.ad-meter s { position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; }
+details.ad-card > summary { cursor: pointer; font-family: var(--font-display); font-weight: 500; }
+.ad-days { margin-top: 10px; }
+.ad-days td:first-child { white-space: nowrap; color: var(--muted); }
+
+/* editor */
+.ad-ed { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 16px; align-items: start; }
+.ad-ed-main { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ad-aside { position: sticky; top: 76px; display: flex; flex-direction: column; gap: 12px; }
+.ad-sec { display: flex; flex-direction: column; gap: 12px; }
+.ad-sec > header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.ad-img { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 14px; }
+.ad-frame { aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; background: #EDE5D7; border: 0; padding: 0; width: 100%; }
+.ad-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ad-row { display: grid; gap: 8px; align-items: start; }
+.ad-row.hint { grid-template-columns: minmax(0, 1fr) 170px; }
+.ad-row.sim { grid-template-columns: 200px 110px minmax(0, 1fr) auto; }
+.ad-row.fact { grid-template-columns: 210px minmax(0, 1fr) auto; }
+.ad-row.src { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
+.ad-x { width: 32px; height: 32px; border-radius: 9px; border: 1.5px solid var(--line); background: #fff; color: var(--muted); display: grid; place-items: center; }
+.ad-x:hover { color: var(--bad); border-color: #EBC9BF; }
+.ad-profile { font-size: 13.5px; background: #F5F1E8; border-radius: 10px; padding: 8px 10px; color: #4E473D; }
+.ad-ref { font-size: 14px; background: var(--sea); border-radius: 10px; padding: 10px 12px; color: #2E4954; white-space: pre-wrap; }
+.ad-checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.ad-checks li { display: flex; gap: 8px; align-items: baseline; }
+.ad-checks li::before { content: '✕'; color: var(--bad); font-weight: 700; width: 14px; flex: none; }
+.ad-checks li.ok::before { content: '✓'; color: var(--rice); }
+.ad-status { display: flex; flex-direction: column; gap: 6px; }
+.ad-status label { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; cursor: pointer; }
+.ad-status label.dis { opacity: .55; cursor: not-allowed; }
+.ad-status input { accent-color: var(--rice); }
+.ad-verify { display: flex; flex-direction: column; gap: 8px; }
+.ad-verify.done { background: var(--rice-soft); border-radius: 12px; padding: 10px 12px; color: var(--rice-deep); }
+.ad-tog { border: 1.5px solid var(--line); border-radius: 999px; padding: 1px 9px; font-size: 13px; background: #fff; color: var(--muted); }
+.ad-tog.on { background: var(--rice-soft); border-color: #B7D2BC; color: var(--rice-deep); }
+.ad-togs { display: flex; flex-wrap: wrap; gap: 4px; }
+.ad-picks { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.ad-picks button { border: 1.5px solid var(--line); border-radius: 12px; background: #fff; padding: 0; overflow: hidden; text-align: left; }
+.ad-picks img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.ad-picks span { display: block; padding: 6px 8px; font-size: 13px; }
+
+/* dialog + toast */
+.ad-dialog-bg { position: fixed; inset: 0; background: rgba(33,30,26,.45); display: none; align-items: center; justify-content: center; z-index: 60; padding: 20px; }
+.ad-dialog-bg.on { display: flex; }
+.ad-dialog { background: var(--paper); border-radius: 18px; padding: 20px; width: min(600px, 100%); max-height: 90vh; overflow: auto; display: flex; flex-direction: column; gap: 12px; }
+.ad-dialog.wide { width: min(920px, 100%); }
+.ad-dialog .btns { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+.ad-dialog .big { width: 100%; max-height: 72vh; object-fit: contain; border-radius: 12px; background: #1E1B17; }
+.ad-toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 9px 16px; border-radius: 999px; font-size: 14.5px; z-index: 70; opacity: 0; pointer-events: none; transition: opacity .2s; max-width: 90vw; }
+.ad-toast.on { opacity: .95; }
+.ad-login { max-width: 420px; margin: 40px auto; display: flex; flex-direction: column; gap: 12px; }
+
+@media (max-width: 980px) {
+  .ad-ed { grid-template-columns: 1fr; }
+  .ad-aside { position: static; }
+}
+@media (max-width: 760px) {
+  .ad-grid2, .ad-grid3 { grid-template-columns: 1fr; }
+  .ad-cov { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ad-img { grid-template-columns: 1fr; }
+  .ad-row.hint, .ad-row.fact, .ad-row.src { grid-template-columns: 1fr; }
+  .ad-row.sim { grid-template-columns: 1fr 100px; }
+  .ad-user { margin-left: 0; }
+  .ad-top { position: static; }
+  .ad-aside { top: 0; }
+  .ad-main { padding: 14px 12px 80px; }
+}
+@media (prefers-reduced-motion: reduce) { #admin-app *, .ad-toast { transition: none !important; } }
+
+</style>
+</head>
+<body>
+<div id="admin-app" hidden>
+  <header class="ad-top">
+    <div class="ad-top-in">
+      <div class="ad-brand">
+        <span class="ad-logo" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><g fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"><path d="M12 21s-6.5-6.2-6.5-11.2A6.5 6.5 0 0 1 12 3.3a6.5 6.5 0 0 1 6.5 6.5C18.5 14.8 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.5"/></g></svg></span>
+        <b>ออลไทย</b><span>เว็บใส่ข้อมูล</span>
+      </div>
+      <span class="ad-mode" id="ad-mode"></span>
+      <nav class="ad-tabs" id="ad-tabs" aria-label="ส่วนของเว็บใส่ข้อมูล" hidden>
+        <button type="button" data-view="subs">ภาพจากผู้เล่น <span class="ad-count" id="ad-sub-count" hidden></span></button>
+        <button type="button" data-view="questions">คำถาม</button>
+        <button type="button" data-view="system">ระบบ</button>
+      </nav>
+      <div class="ad-user">
+        <span id="ad-email"></span>
+        <button type="button" class="ad-link" id="ad-signout" hidden>ออกจากระบบ</button>
+        <a class="ad-btn sm" id="ad-play" href="#">เปิดเว็บเล่นเกม</a>
+      </div>
+    </div>
+  </header>
+  <main class="ad-main" id="ad-main"><p class="ad-muted">กำลังโหลด…</p></main>
+  <div class="ad-dialog-bg" id="ad-dialog-bg"><div class="ad-dialog" id="ad-dialog" role="dialog" aria-modal="true" aria-labelledby="ad-dialog-title"></div></div>
+  <div class="ad-toast" id="ad-toast" role="status" aria-live="polite"></div>
+</div>
+
+<script src="config.js"></script>
+<script>
+// scoring.js — pure functions shared by the pages and the Node tests. V2: one category, answers are districts.
+//
+// score = round(base × h)
+//   base = 1000 when the guessed district is the answer, otherwise 1000 × e^(−km / 150) (capped at 999)
+//          km = great-circle distance between the two districts' anchor points (inside each district)
+//   h    = 1.0 / 0.8 / 0.6 / 0.4 for 1 / 2 / 3 / 4 cards opened · timeout = 0
+
+const MULTIPLIERS = [1.0, 0.8, 0.6, 0.4];      // cards opened: 1 (free), 2, 3, 4
+const CORRECT_BASE = 1000;
+const DISTANCE_SCALE_KM = 150;                  // 25 km ≈ 846 · 100 km ≈ 513 · 300 km ≈ 135
+const DAILY_COUNT = 5;
+const DAY0_UTC = Date.UTC(2026, 10, 5);         // day 0 of the daily rotation (Asia/Bangkok)
+
+function multiplierFor(cardsOpened) {
+  const n = Math.max(1, Math.min(MULTIPLIERS.length, cardsOpened | 0));
+  return MULTIPLIERS[n - 1];
+}
+
+// Great-circle distance in km between [lat, lon] points.
+function haversineKm(a, b) {
+  const R = 6371.0088, rad = Math.PI / 180;
+  const dLat = (b[0] - a[0]) * rad, dLon = (b[1] - a[1]) * rad;
+  const s = Math.sin(dLat / 2) ** 2 + Math.cos(a[0] * rad) * Math.cos(b[0] * rad) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.min(1, Math.sqrt(s)));
+}
+
+function distanceBase(km) {
+  if (km <= 0) return CORRECT_BASE;
+  return Math.min(CORRECT_BASE - 1, Math.round(CORRECT_BASE * Math.exp(-km / DISTANCE_SCALE_KM)));
+}
+
+// One answered question → score breakdown. districts: { [id]: { ll: [lat, lon], … } }
+function scoreAnswer({ question, guessId, cardsOpened, timedOut, districts }) {
+  const h = multiplierFor(cardsOpened);
+  if (timedOut || !guessId) return { correct: false, timeout: true, h, base: 0, score: 0, km: null };
+  if (guessId === question.answer) return { correct: true, timeout: false, h, base: CORRECT_BASE, score: Math.round(CORRECT_BASE * h), km: 0 };
+  const g = districts[guessId], a = districts[question.answer];
+  if (!g || !a) return { correct: false, timeout: false, h, base: 0, score: 0, km: null };
+  const km = haversineKm(g.ll, a.ll);
+  const base = distanceBase(km);
+  return { correct: false, timeout: false, h, base, score: Math.round(base * h), km };
+}
+
+const fmtKm = km => km == null ? '–' : km < 10 ? km.toFixed(1) : Math.round(km).toLocaleString('en-US');
+
+// Calendar day in Thailand, as YYYY-MM-DD (daily set changes at midnight Asia/Bangkok).
+function bangkokDate(d) {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d || new Date());
+}
+function dayIndex(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return Math.round((Date.UTC(y, m - 1, d) - DAY0_UTC) / 86400000);
+}
+function bangkokDayStartMs(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return Date.UTC(y, m - 1, d) - 7 * 3600000;
+}
+// Same questions for everybody on a date. Questions pinned to the date come first, then the pool is walked in
+// blocks of `count`, so nothing repeats until every question has been used. A question published during day D
+// joins from D+1, so publishing in the team site never changes a day that has started. (No published_at = always.)
+function dailySet(questions, dateStr, count) {
+  count = count || DAILY_COUNT;
+  const dayStart = bangkokDayStartMs(dateStr);
+  const all = questions.slice().sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+  const ready = all.filter(q => !q.published_at || Date.parse(q.published_at) < dayStart);
+  const pool = ready.length ? ready : all;
+  const out = pool.filter(q => q.schedule_date === dateStr).slice(0, count);
+  const free = pool.filter(q => !q.schedule_date);
+  const n = free.length;
+  if (n) {
+    const start = (((dayIndex(dateStr) * count) % n) + n) % n;
+    for (let i = 0; out.length < count && i < n; i++) out.push(free[(start + i) % n]);
+  }
+  return out;
+}
+
+// 🎯 right district · 🟩 ≤ 25 km · 🟨 ≤ 100 km · 🟧 ≤ 300 km · 🟥 farther · ⬜ timeout
+function distanceMark(r) {
+  if (r.timeout) return '⬜';
+  if (r.correct) return '🎯';
+  return r.km <= 25 ? '🟩' : r.km <= 100 ? '🟨' : r.km <= 300 ? '🟧' : '🟥';
+}
+function shareText({ dateLabel, total, max, results, url }) {
+  return 'ออลไทย ' + dateLabel + ' — ' + total.toLocaleString('en-US') + ' / ' + max.toLocaleString('en-US') + '\n' +
+    results.map(distanceMark).join('') + (url ? '\n' + url : '');
+}
+
+// Daily: total score, then less time on the answer screens wins.
+function rankDaily(entries) {
+  return entries.slice().sort((a, b) => (b.score - a.score) || ((a.timeMs || 0) - (b.timeMs || 0)));
+}
+// Unlimited: average per question (min 10 questions), then more rounds wins.
+function rankUnlimited(entries, minRounds) {
+  const min = minRounds == null ? 10 : minRounds;
+  return entries.filter(e => (e.rounds || 0) >= min)
+    .map(e => Object.assign({}, e, { avg: e.total / e.rounds }))
+    .sort((a, b) => (b.avg - a.avg) || (b.rounds - a.rounds));
+}
+
+const BLOCKED_NAME_PARTS = ['ควย', 'เหี้ย', 'สัส', 'เย็ด', 'แตด', 'อีดอก', 'ระยำ', 'ชาติหมา', 'fuck', 'shit', 'bitch', 'cunt', 'dick', 'pussy', 'nigg'];
+// Basic nickname filter. Returns the cleaned name, '' for empty, or null when blocked.
+function cleanNickname(raw) {
+  const s = String(raw || '').replace(/[<>"'`]/g, '').replace(/\s+/g, ' ').trim().slice(0, 20);
+  if (!s) return '';
+  const flat = s.toLowerCase().replace(/[\s._\-]/g, '');
+  return BLOCKED_NAME_PARTS.some(w => flat.includes(w)) ? null : s;
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = { MULTIPLIERS, DAILY_COUNT, DISTANCE_SCALE_KM, multiplierFor, haversineKm, distanceBase, scoreAnswer, fmtKm, bangkokDate, dayIndex,
+    dailySet, distanceMark, shareText, rankDaily, rankUnlimited, cleanNickname };
+}
+
+</script>
+<script>
+/* backend.js — one data layer shared by เว็บเล่นเกม (play) and เว็บใส่ข้อมูล (admin).
+ *
+ * mode "supabase": the real shared database + photo storage. Set in config.js:
+ *     window.ALLTHAI_CONFIG = { supabaseUrl: "https://xxxx.supabase.co", supabaseKey: "sb_publishable_..." }
+ *     (the publishable key, or the legacy anon key; never a secret / service_role key)
+ * mode "demo": no server. Rows live in this browser's localStorage, photos in IndexedDB.
+ *     Both sites see the same demo data only when they are opened from the same origin
+ *     (the preview page, or /play and /admin on one local server).
+ */
+const AllThaiBackend = (() => {
+  'use strict';
+  const CFG = Object.assign({ supabaseUrl: '', supabaseKey: '', supabaseJs: 'vendor/supabase.js', dataBase: 'data/', shareUrl: '', playUrl: '' }, window.ALLTHAI_CONFIG || {});
+  const KEY = CFG.supabaseKey || CFG.supabaseAnonKey || '';
+  const jwtRole = k => { try { return JSON.parse(atob(k.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).role || ''; } catch (e) { return ''; } };
+  const SECRET_KEY = /^sb_secret_/.test(KEY) || jwtRole(KEY) === 'service_role';
+  const MODE = CFG.supabaseUrl && KEY ? 'supabase' : 'demo';
+  const BUCKET_SUB = 'submissions';        // private: photos waiting for review
+  const BUCKET_IMG = 'question-images';    // public: photos used by questions
+  const DEMO_KEY = 'allthai.demo.v1';
+  const LICENSE_ID = 'allthai-nonexclusive-v1';
+  const LICENSE_TEXT = 'ผู้ส่งอนุญาตให้ออลไทยใช้แบบไม่ผูกขาด รวมเชิงพาณิชย์ ครอปและปรับขนาดได้';
+
+  // build.py stamps a hash of the data files here, so a new deploy never mixes old cached JSON with new code
+  const DATA_VERSION = 'ad4d9c005f';
+  const dataUrl = name => CFG.dataBase + name + '?v=' + DATA_VERSION;
+  const getJSON = p => fetch(p).then(r => { if (!r.ok) throw new Error(p + ' ' + r.status); return r.json(); });
+  // v4 UUID (the database checks that a photo's file name matches its row id)
+  const uuid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+    : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & 15) >> c / 4).toString(16));
+  const nowIso = () => new Date().toISOString();
+  const byId = (a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+  const clone = o => JSON.parse(JSON.stringify(o));
+
+  const CATEGORIES = ['สถานที่ท่องเที่ยว'];   // V2: travel only, answers are districts
+  // Bundled starting data. The game on Supabase only needs the province file (the draft questions stay out of it).
+  let provP = null, qP = null;
+  function seedProvinces() {
+    return provP || (provP = getJSON(dataUrl('provinces.json')).then(p => ({
+      provinces: p.provinces,
+      provinceMeta: { region_adjacency: p.region_adjacency || {}, rules: p.rules || {}, sources_to_check: p.sources_to_check || [] }
+    })));
+  }
+  function seedQuestions() {
+    return qP || (qP = getJSON(dataUrl('questions.json')).then(q => ({
+      questions: q.questions.map(x => Object.assign({ status: 'published' }, x)),
+      backlog: q.backlog || []
+    })));
+  }
+  async function seed() {
+    const [p, q] = await Promise.all([seedProvinces(), seedQuestions()]);
+    return { categories: CATEGORIES, questions: q.questions, backlog: q.backlog, provinces: p.provinces, provinceMeta: p.provinceMeta };
+  }
+
+  /* ---------------- demo store ---------------- */
+  function demoRead() { try { return JSON.parse(localStorage.getItem(DEMO_KEY)) || null; } catch (e) { return null; } }
+  function demoWrite(s) {
+    try { localStorage.setItem(DEMO_KEY, JSON.stringify(s)); }
+    catch (e) { throw new Error('บันทึกในเบราว์เซอร์ไม่ได้ (พื้นที่เต็มหรือถูกปิด)'); }
+  }
+  async function demoState() {
+    let s = demoRead();
+    if (!s) {
+      const sd = await seed();
+      s = { questions: {}, provinces: {}, submissions: [] };
+      sd.questions.forEach(q => { s.questions[q.id] = q; });
+      sd.provinces.forEach(p => { s.provinces[p.id] = p; });
+      demoWrite(s);
+    }
+    return s;
+  }
+  // photos: IndexedDB when available, otherwise kept in memory for this visit
+  const mem = new Map();
+  let idbP = null;
+  function idb() {
+    if (!('indexedDB' in window)) return Promise.resolve(null);
+    return idbP || (idbP = new Promise(res => {
+      try {
+        const r = indexedDB.open('allthai-demo', 1);
+        r.onupgradeneeded = () => r.result.createObjectStore('blobs');
+        r.onsuccess = () => res(r.result);
+        r.onerror = () => res(null);
+      } catch (e) { res(null); }
+    }));
+  }
+  async function blobOp(mode, key, val) {
+    const db = await idb();
+    if (!db) { if (mode === 'put') mem.set(key, val); if (mode === 'del') mem.delete(key); return mem.get(key); }
+    return new Promise((res, rej) => {
+      const tx = db.transaction('blobs', mode === 'get' ? 'readonly' : 'readwrite');
+      const st = tx.objectStore('blobs');
+      const rq = mode === 'put' ? st.put(val, key) : mode === 'del' ? st.delete(key) : st.get(key);
+      rq.onsuccess = () => res(rq.result);
+      rq.onerror = () => rej(rq.error);
+    });
+  }
+  const urlCache = new Map();
+  async function demoUrl(key) {
+    if (urlCache.has(key)) return urlCache.get(key);
+    const b = await blobOp('get', key);
+    if (!b) return '';
+    const u = URL.createObjectURL(b);
+    urlCache.set(key, u);
+    return u;
+  }
+
+  /* ---------------- supabase ---------------- */
+  let sbP = null;
+  function loadScript(src) {
+    return new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = src; s.onload = res; s.onerror = () => rej(new Error('โหลด ' + src + ' ไม่สำเร็จ'));
+      document.head.appendChild(s);
+    });
+  }
+  function sb() {
+    return sbP || (sbP = (async () => {
+      if (SECRET_KEY) throw new Error('config.js ใส่ secret key ไว้ ซึ่งห้ามอยู่ในเว็บ: เปลี่ยนเป็น publishable key แล้วสร้าง secret key ใหม่ใน Supabase');
+      if (!window.supabase) await loadScript(CFG.supabaseJs);
+      return window.supabase.createClient(CFG.supabaseUrl, KEY, {
+        auth: { persistSession: true, autoRefreshToken: true, storageKey: 'allthai-auth' }
+      });
+    })());
+  }
+  function must(res) {
+    if (res && res.error) throw new Error(res.error.message || String(res.error));
+    return res ? res.data : null;
+  }
+
+  /* ---------------- public: game ---------------- */
+  // Published questions + province profiles for the game.
+  // Questions come only from the database (never the bundled file), so unpublishing in the admin site really hides them.
+  // Province profiles: database rows override the bundled draft by id (the map needs all 77).
+  async function loadContent() {
+    if (MODE === 'demo') {
+      const s = await demoState();
+      return { categories: CATEGORIES, source: 'demo',
+        questions: Object.values(s.questions).filter(q => q.status === 'published').sort(byId),
+        provinces: Object.values(s.provinces).sort(byId) };
+    }
+    const c = await sb();
+    const [qs, ps] = await Promise.all([
+      c.from('questions').select('data').eq('status', 'published'),
+      c.from('provinces').select('data')
+    ]);
+    const questions = must(qs).map(r => r.data).sort(byId);
+    const merged = {};
+    try { (await seedProvinces()).provinces.forEach(p => { merged[p.id] = p; }); } catch (e) { /* database rows only */ }
+    if (!ps.error) ps.data.forEach(r => { if (r.data && r.data.id) merged[r.data.id] = r.data; });
+    return { categories: CATEGORIES, source: 'supabase', questions, provinces: Object.values(merged).sort(byId) };
+  }
+
+  // A player's photo → private queue, status "pending". Nothing is shown in the game until an admin approves it.
+  async function submitPhoto(blob, meta) {
+    const row = {
+      id: uuid(), status: 'pending',
+      province_id: meta.province_id, category: meta.category || null,
+      district_id: /^TH\d{4}$/.test(meta.district_id || '') ? meta.district_id : null,
+      title: String(meta.title || '').slice(0, 120), description: String(meta.description || '').slice(0, 600) || null,
+      taken_at: String(meta.taken_at || '').slice(0, 60) || null,
+      credit_name: String(meta.credit_name || '').slice(0, 60) || null,
+      contact: String(meta.contact || '').slice(0, 120) || null,
+      consent_owner: !!meta.consent_owner, consent_license: !!meta.consent_license, consent_people: !!meta.consent_people,
+      license: LICENSE_ID
+    };
+    if (!row.consent_owner || !row.consent_license || !row.consent_people) throw new Error('ต้องยืนยันครบ 3 ข้อ');
+    if (MODE === 'demo') {
+      const key = 'sub:' + row.id;
+      await blobOp('put', key, blob);
+      const s = await demoState();
+      s.submissions.unshift(Object.assign(row, { image_path: key, created_at: nowIso() }));
+      demoWrite(s);
+      return { id: row.id };
+    }
+    const c = await sb();
+    row.image_path = 'pending/' + row.id + '.jpg';
+    must(await c.storage.from(BUCKET_SUB).upload(row.image_path, blob, { contentType: 'image/jpeg', upsert: false }));
+    must(await c.from('submissions').insert(row));
+    return { id: row.id };
+  }
+  // Demo only: let the sender see the review status. (On Supabase, players cannot read the queue.)
+  async function mySubmissionStatus(ids) {
+    if (MODE !== 'demo') return {};
+    const s = await demoState();
+    const out = {};
+    s.submissions.forEach(r => { if (ids.includes(r.id)) out[r.id] = r.status; });
+    return out;
+  }
+
+  /* ---------------- admin ---------------- */
+  async function session() {
+    if (MODE === 'demo') return { email: 'โหมดสาธิต', admin: true, demo: true };
+    const c = await sb();
+    const { data } = await c.auth.getSession();
+    const s = data && data.session;
+    if (!s) return null;
+    const r = await c.rpc('is_admin');
+    return { email: s.user.email, admin: !r.error && r.data === true };
+  }
+  async function signIn(email, password) {
+    const c = await sb();
+    must(await c.auth.signInWithPassword({ email, password }));
+    return session();
+  }
+  async function signOut() { if (MODE === 'supabase') { const c = await sb(); await c.auth.signOut(); } }
+
+  async function listQuestions() {
+    if (MODE === 'demo') { const s = await demoState(); return Object.values(s.questions).sort(byId); }
+    const c = await sb();
+    return must(await c.from('questions').select('id, category, status, data, verified_by, verified_at, updated_at').order('id'))
+      .map(r => Object.assign({}, r.data, { id: r.id, category: r.category, status: r.status, verified_by: r.verified_by, verified_at: r.verified_at, updated_at: r.updated_at }));
+  }
+  async function saveQuestion(q) {
+    q = clone(q);
+    q.updated_at = nowIso();
+    // published_at drives the daily rotation (a question joins the day after it is published)
+    if (q.status !== 'published') q.published_at = null;
+    else if (!q.published_at) q.published_at = q.updated_at;
+    if (MODE === 'demo') { const s = await demoState(); s.questions[q.id] = q; demoWrite(s); return q; }
+    const c = await sb();
+    must(await c.from('questions').upsert({ id: q.id, category: q.category, status: q.status, data: q, verified_by: q.verified_by || null, verified_at: q.verified_at || null, updated_at: q.updated_at }));
+    return q;
+  }
+  async function deleteQuestion(id) {
+    if (MODE === 'demo') { const s = await demoState(); delete s.questions[id]; demoWrite(s); return; }
+    const c = await sb();
+    must(await c.from('questions').delete().eq('id', id));
+  }
+  async function listProvinces() {
+    if (MODE === 'demo') { const s = await demoState(); return Object.values(s.provinces).sort(byId); }
+    const c = await sb();
+    const rows = must(await c.from('provinces').select('data').order('id')).map(r => r.data);
+    return rows.length ? rows : (await seedProvinces()).provinces;
+  }
+  async function saveProvince(p) {
+    p = clone(p);
+    if (MODE === 'demo') { const s = await demoState(); s.provinces[p.id] = p; demoWrite(s); return p; }
+    const c = await sb();
+    must(await c.from('provinces').upsert({ id: p.id, data: p, verified: !!p.verified, updated_at: nowIso() }));
+    return p;
+  }
+  async function listSubmissions() {
+    if (MODE === 'demo') {
+      const s = await demoState();
+      const rows = clone(s.submissions);
+      for (const r of rows) r.imageUrl = await demoUrl(r.image_path);
+      return rows;
+    }
+    const c = await sb();
+    const rows = must(await c.from('submissions').select('*').order('created_at', { ascending: false }));
+    if (rows.length) {
+      const signed = must(await c.storage.from(BUCKET_SUB).createSignedUrls(rows.map(r => r.image_path), 3600)) || [];
+      const map = {};
+      signed.forEach(x => { if (x && x.path) map[x.path] = x.signedUrl; });
+      rows.forEach(r => { r.imageUrl = map[r.image_path] || r.public_url || ''; });
+    }
+    return rows;
+  }
+  // status: "approved" copies the photo into the public bucket so questions can use it.
+  async function reviewSubmission(id, status, note, reviewer) {
+    const patch = { status, review_note: note || null, reviewed_at: nowIso(), reviewed_by: reviewer || null };
+    if (MODE === 'demo') {
+      const s = await demoState();
+      const r = s.submissions.find(x => x.id === id);
+      if (!r) throw new Error('ไม่พบรายการ');
+      if (status === 'approved' && !r.public_url) {
+        const key = 'img:player-' + id;
+        await blobOp('put', key, await blobOp('get', r.image_path));
+        patch.public_url = 'idb:' + key;
+      }
+      Object.assign(r, patch);
+      demoWrite(s);
+      return r;
+    }
+    const c = await sb();
+    if (status === 'approved') {
+      const cur = must(await c.from('submissions').select('image_path, public_url').eq('id', id).single());
+      if (!cur.public_url) {
+        const blob = must(await c.storage.from(BUCKET_SUB).download(cur.image_path));
+        const path = 'player/' + id + '.jpg';
+        must(await c.storage.from(BUCKET_IMG).upload(path, blob, { contentType: 'image/jpeg', upsert: true }));
+        patch.public_url = c.storage.from(BUCKET_IMG).getPublicUrl(path).data.publicUrl;
+      }
+    }
+    must(await c.from('submissions').update(patch).eq('id', id));
+    return patch;
+  }
+  async function deleteSubmission(row) {
+    if (MODE === 'demo') {
+      const s = await demoState();
+      s.submissions = s.submissions.filter(x => x.id !== row.id);
+      demoWrite(s);
+      await blobOp('del', row.image_path);
+      return;
+    }
+    const c = await sb();
+    must(await c.storage.from(BUCKET_SUB).remove([row.image_path]));
+    must(await c.from('submissions').delete().eq('id', row.id));
+  }
+  // Admin's own upload for a question card. Returns the value to store in card.src.
+  async function uploadQuestionImage(blob) {
+    if (MODE === 'demo') { const key = 'img:admin-' + uuid(); await blobOp('put', key, blob); return 'idb:' + key; }
+    const c = await sb();
+    const path = 'admin/' + uuid() + '.jpg';
+    must(await c.storage.from(BUCKET_IMG).upload(path, blob, { contentType: 'image/jpeg', upsert: false }));
+    return c.storage.from(BUCKET_IMG).getPublicUrl(path).data.publicUrl;
+  }
+  // card.src → displayable URL ("idb:" keys are demo photos)
+  function imageUrl(src) {
+    if (!src) return Promise.resolve('');
+    if (src.indexOf('idb:') === 0) return demoUrl(src.slice(4));
+    return Promise.resolve(src);
+  }
+  // Copy the bundled 12 questions + 77 provinces into the database without overwriting existing rows.
+  // On Supabase the questions arrive as drafts: they go live only after someone checks them and presses publish.
+  async function importSeed() {
+    const sd = await seed();
+    if (MODE === 'demo') { await resetDemo(); await demoState(); return { questions: sd.questions.length, provinces: sd.provinces.length }; }
+    const c = await sb();
+    must(await c.from('provinces').upsert(sd.provinces.map(p => ({ id: p.id, data: p, verified: !!p.verified })), { onConflict: 'id', ignoreDuplicates: true }));
+    must(await c.from('questions').upsert(sd.questions.map(q => {
+      const d = Object.assign({}, q, { status: 'draft', published_at: null });
+      return { id: d.id, category: d.category, status: 'draft', data: d };
+    }), { onConflict: 'id', ignoreDuplicates: true }));
+    return { questions: sd.questions.length, provinces: sd.provinces.length };
+  }
+  // Demo only: forget every demo row and photo in this browser.
+  async function resetDemo() {
+    try { localStorage.removeItem(DEMO_KEY); } catch (e) { /* ignore */ }
+    mem.clear();
+    urlCache.forEach(u => URL.revokeObjectURL(u)); urlCache.clear();
+    const db = await idb();
+    if (db) await new Promise(res => { const tx = db.transaction('blobs', 'readwrite'); tx.objectStore('blobs').clear(); tx.oncomplete = res; tx.onerror = res; });
+  }
+
+  // Resize + re-encode in the browser: max 1600 px, JPEG. Re-encoding also drops EXIF (GPS, device).
+  async function compressImage(file, maxSide, quality) {
+    maxSide = maxSide || 1600; quality = quality || 0.85;
+    let src;
+    try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+    catch (e) {
+      src = await new Promise((res, rej) => {
+        const img = new Image();
+        img.onload = () => res(img);
+        img.onerror = () => rej(new Error('เปิดไฟล์ภาพนี้ไม่ได้ ลองเลือกไฟล์ .jpg หรือ .png'));
+        img.src = URL.createObjectURL(file);
+      });
+    }
+    const w0 = src.width, h0 = src.height;
+    if (Math.min(w0, h0) < 400) throw new Error('ภาพเล็กเกินไป (ด้านสั้นต้องอย่างน้อย 400 พิกเซล)');
+    const k = Math.min(1, maxSide / Math.max(w0, h0));
+    const w = Math.round(w0 * k), h = Math.round(h0 * k);
+    const cv = document.createElement('canvas');
+    cv.width = w; cv.height = h;
+    cv.getContext('2d').drawImage(src, 0, 0, w, h);
+    const blob = await new Promise(res => cv.toBlob(res, 'image/jpeg', quality));
+    if (!blob) throw new Error('แปลงภาพไม่สำเร็จ');
+    return { blob, width: w, height: h };
+  }
+
+  return {
+    MODE, CFG, LICENSE_ID, LICENSE_TEXT, CATEGORIES, dataUrl,
+    seed, seedProvinces, loadContent, submitPhoto, mySubmissionStatus,
+    session, signIn, signOut,
+    listQuestions, saveQuestion, deleteQuestion, listProvinces, saveProvince,
+    listSubmissions, reviewSubmission, deleteSubmission, uploadQuestionImage,
+    imageUrl, importSeed, resetDemo, compressImage
+  };
+})();
+
+window.AllThaiBackend = AllThaiBackend;
+
+</script>
+<script>
+/* เว็บใส่ข้อมูล — review player photos, write and publish questions, edit province profiles.
+ * Talks only to AllThaiBackend (Supabase, or this browser in demo mode). Every value from the database is
+ * written with textContent, never as HTML. */
+const AllThaiAdmin = (() => {
+'use strict';
+const BE = window.AllThaiBackend;
+const CFG = window.ALLTHAI_CONFIG || {};
+const CATS = ['สถานที่ท่องเที่ยว'];   // V2: one category, answers are districts
+const CAT_KEY = { 'อาหาร': 'food', 'กีฬา': 'sport', 'เทศกาลและวัฒนธรรม': 'culture', 'สถานที่ท่องเที่ยว': 'travel' };
+const FACT_KEYS = {
+  'อาหาร': ['ชื่อ', 'จังหวัดและพื้นที่ต้นกำเนิด', 'วัตถุดิบหลัก', 'เกร็ดน่ารู้'],
+  'กีฬา': ['ชื่อ', 'สถานที่จัด', 'ช่วงเวลาที่จัด', 'กติกาโดยย่อ', 'ความเป็นมา'],
+  'เทศกาลและวัฒนธรรม': ['ชื่อ', 'สถานที่จัด', 'ช่วงเวลาที่จัด', 'ความเป็นมาและความเชื่อ'],
+  'สถานที่ท่องเที่ยว': ['ชื่อ', 'ที่ตั้ง', 'จุดเด่น', 'ช่วงที่เหมาะไป', 'ความเป็นมา']
+};
+const TAGS = [['', 'ไม่ระบุ'], ['region', 'ภาค'], ['terrain', 'ภูมิประเทศ'], ['district', 'อำเภอ'], ['dialect', 'ภาษาถิ่น'], ['religion_culture', 'ศาสนา/วัฒนธรรม'], ['main_occupation', 'อาชีพหลัก']];
+const LICENSE_URL = {
+  'CC0': 'https://creativecommons.org/publicdomain/zero/1.0/', 'Public domain': '',
+  'CC BY 4.0': 'https://creativecommons.org/licenses/by/4.0/', 'CC BY-SA 4.0': 'https://creativecommons.org/licenses/by-sa/4.0/',
+  'CC BY 3.0': 'https://creativecommons.org/licenses/by/3.0/', 'CC BY-SA 3.0': 'https://creativecommons.org/licenses/by-sa/3.0/',
+  'CC BY 2.5': 'https://creativecommons.org/licenses/by/2.5/', 'CC BY-SA 2.5': 'https://creativecommons.org/licenses/by-sa/2.5/',
+  'CC BY 2.0': 'https://creativecommons.org/licenses/by/2.0/',
+  'CC BY-SA 2.0': 'https://creativecommons.org/licenses/by-sa/2.0/'
+};
+const LICENSE_TH = { [BE.LICENSE_ID]: 'ผู้เล่นอนุญาตให้ออลไทยใช้ (ไม่ผูกขาด)' };
+const SOURCES = [['commons', 'Wikimedia Commons'], ['player', 'ภาพจากผู้เล่น'], ['other', 'แหล่งอื่น / ทีมถ่ายเอง']];
+const STATUS_TH = { draft: 'ร่าง', published: 'เผยแพร่', archived: 'เก็บเข้าคลัง' };
+const SUB_TH = { pending: 'รอตรวจ', approved: 'ผ่าน', rejected: 'ไม่ผ่าน' };
+const DAILY_N = DAILY_COUNT;                       // from scoring.js
+const TARGET_WEEK = DAILY_N * 7, TARGET_MONTH = DAILY_N * 30;
+
+/* ---------------- tiny DOM helpers ---------------- */
+const $ = id => document.getElementById(id);
+const PROPS = { value: 1, checked: 1, disabled: 1, selected: 1, hidden: 1, required: 1, htmlFor: 1, min: 1, max: 1, step: 1 };
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  if (props) for (const k in props) {
+    const v = props[k];
+    if (v == null || v === false) continue;
+    if (k === 'class') e.className = v;
+    else if (k === 'text') e.textContent = v;
+    else if (k === 'style') e.style.cssText = v;
+    else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), v);
+    else if (PROPS[k]) e[k] = v;
+    else e.setAttribute(k, v === true ? '' : v);
+  }
+  kids.flat(9).forEach(c => { if (c != null && c !== false) e.append(c.nodeType ? c : String(c)); });
+  return e;
+}
+function sel(opts, value, onchange, cls) {
+  const s = h('select', { class: 'ad-in' + (cls ? ' ' + cls : ''), onchange: e => onchange(e.target.value, e) });
+  opts.forEach(o => { const [v, t] = Array.isArray(o) ? o : [o, o]; s.add(new Option(t, v)); });
+  const val = value == null ? '' : String(value);
+  if (val && ![...s.options].some(o => o.value === val)) s.add(new Option(val, val));
+  s.value = val;
+  return s;
+}
+const inp = (value, oninput, attrs) => h('input', Object.assign({ class: 'ad-in', type: 'text', value: value == null ? '' : value, oninput: e => oninput(e.target.value, e) }, attrs || {}));
+const area = (value, oninput, attrs) => h('textarea', Object.assign({ class: 'ad-in', value: value == null ? '' : value, oninput: e => oninput(e.target.value, e) }, attrs || {}));
+let fieldSeq = 0;
+function field(label, control, help) {
+  const target = control && (/^(INPUT|SELECT|TEXTAREA)$/.test(control.tagName) ? control : control.querySelector && control.querySelector('input, select, textarea'));
+  const lab = h('label', { text: label });
+  if (target) { if (!target.id) target.id = 'ad-f' + (++fieldSeq); lab.htmlFor = target.id; }
+  return h('div', { class: 'ad-field' }, lab, control, help ? h('span', { class: 'ad-help', text: help }) : null);
+}
+const btn = (label, onclick, cls, attrs) => h('button', Object.assign({ type: 'button', class: 'ad-btn' + (cls ? ' ' + cls : ''), onclick }, attrs || {}), label);
+const chip = (text, cls) => h('span', { class: 'ad-chip' + (cls ? ' ' + cls : ''), text });
+const clone = o => JSON.parse(JSON.stringify(o));
+const thTime = iso => iso ? new Date(iso).toLocaleString('th-TH', { timeZone: 'Asia/Bangkok', day: 'numeric', month: 'short', year: '2-digit', hour: '2-digit', minute: '2-digit' }) : '–';
+const thDay = ds => { const [y, m, d] = ds.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d, 5)).toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok', weekday: 'short', day: 'numeric', month: 'short' }); };
+function addDays(ds, n) { const [y, m, d] = ds.split('-').map(Number); const t = new Date(Date.UTC(y, m - 1, d + n)); return t.toISOString().slice(0, 10); }
+function setImg(img, src) {
+  if (src && src.indexOf('idb:') === 0) BE.imageUrl(src).then(u => { if (u) img.src = u; });
+  else if (src) img.src = src;
+}
+const licLabel = l => LICENSE_TH[l] || (l === 'Public domain' ? 'สาธารณสมบัติ' : l || '–');
+function licenseProblem(lic) {
+  if (!lic || !String(lic).trim()) return 'ยังไม่ใส่สัญญาอนุญาต';
+  if (/\b(NC|ND)\b|non-?commercial|no-?deriv/i.test(lic)) return 'ใช้ไม่ได้: ห้ามภาพเงื่อนไข NC หรือ ND';
+  return '';
+}
+const licenseKnown = lic => lic === BE.LICENSE_ID || Object.prototype.hasOwnProperty.call(LICENSE_URL, lic);
+
+let toastT;
+function toast(msg) { const t = $('ad-toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2600); }
+function dialog(title, body, buttons, wide) {
+  return new Promise(resolve => {
+    const d = $('ad-dialog'), bg = $('ad-dialog-bg');
+    d.className = 'ad-dialog' + (wide ? ' wide' : '');
+    d.innerHTML = '';
+    const close = v => { bg.classList.remove('on'); document.removeEventListener('keydown', onKey); resolve(v); };
+    const onKey = e => { if (e.key === 'Escape') close(undefined); };
+    d.append(h('h3', { id: 'ad-dialog-title', text: title }));
+    [].concat(body || []).forEach(n => n && d.append(n.nodeType ? n : h('p', { text: n })));
+    const row = h('div', { class: 'btns' });
+    (buttons || [{ label: 'ปิด', value: undefined }]).forEach(b => row.append(btn(b.label, () => close(typeof b.value === 'function' ? b.value() : b.value), b.cls)));
+    d.append(row);
+    d._close = close;
+    bg.classList.add('on');
+    document.addEventListener('keydown', onKey);
+    const first = d.querySelector('textarea, input, select') || row.lastChild;
+    if (first) first.focus();
+  });
+}
+const confirmBox = (title, text, okLabel, cls) => dialog(title, [text], [{ label: 'ยกเลิก', value: false }, { label: okLabel || 'ตกลง', value: true, cls: cls || 'primary' }]);
+async function guard(fn, okMsg) {
+  try { const r = await fn(); if (okMsg) toast(okMsg); return r; }
+  catch (e) { console.error(e); dialog('ทำไม่สำเร็จ', [String(e && e.message || e)]); return undefined; }
+}
+
+/* ---------------- state ---------------- */
+const A = { mounted: false, session: null, view: 'subs', subs: [], subFilter: 'pending', questions: [], provinces: [], prov: {}, meta: null,
+  qf: { text: '', cat: '', status: '', unverified: false }, E: null, dirty: false, districts: [], dist: {} };
+const provName = id => (A.prov[id] || {}).name_th || id || '–';
+const distName = d => (d.p === 'bangkok' ? 'เขต' : 'อ.') + d.n;
+const placeName = id => { const d = A.dist[id]; return d ? distName(d) + ' ' + (d.p === 'bangkok' ? 'กรุงเทพฯ' : 'จ.' + provName(d.p)) : (id ? id + ' (ไม่พบในแผนที่)' : '–'); };
+const distOptions = p => [['', p ? 'เลือกอำเภอ/เขต' : 'เลือกจังหวัดก่อน']].concat(A.districts.filter(d => d.p === p).sort((a, b) => a.n.localeCompare(b.n, 'th')).map(d => [d.id, distName(d)]));
+const provOptions = () => [['', 'เลือกจังหวัด']].concat(A.provinces.slice().sort((a, b) => a.name_th.localeCompare(b.name_th, 'th')).map(p => [p.id, p.name_th]));
+const reviewerName = () => A.session && !A.session.demo ? A.session.email : 'ทีมงาน (โหมดสาธิต)';
+
+let distP = null;
+const loadDistricts = () => distP || (distP = fetch(BE.dataUrl('districts.json')).then(r => { if (!r.ok) throw new Error('districts.json ' + r.status); return r.json(); }));
+async function loadAll() {
+  const [subs, qs, ps, sd, ds] = await Promise.all([BE.listSubmissions(), BE.listQuestions(), BE.listProvinces(), BE.seedProvinces(), loadDistricts()]);
+  A.subs = subs; A.questions = qs; A.provinces = ps; A.meta = sd.provinceMeta;
+  A.prov = {}; ps.forEach(p => { A.prov[p.id] = p; });
+  A.districts = ds.districts; A.dist = {}; ds.districts.forEach(d => { A.dist[d.id] = d; });
+  updateCount();
+}
+function updateCount() {
+  const n = A.subs.filter(s => s.status === 'pending').length;
+  const c = $('ad-sub-count'); c.hidden = !n; c.textContent = n;
+}
+
+/* ---------------- shell ---------------- */
+function setView(v) {
+  if (A.view === 'editor' && A.dirty && v !== 'editor') {
+    return confirmBox('ทิ้งการแก้ไข?', 'คำถามนี้ยังไม่ได้บันทึก', 'ทิ้งการแก้ไข', 'danger').then(ok => { if (ok) { A.dirty = false; setView(v); } });
+  }
+  A.view = v;
+  document.querySelectorAll('#ad-tabs button').forEach(b => b.classList.toggle('on', b.dataset.view === v || (v === 'editor' && b.dataset.view === 'questions')));
+  const main = $('ad-main'); main.innerHTML = '';
+  ({ subs: viewSubs, questions: viewQuestions, editor: viewEditor, system: viewSystem })[v](main);
+  $('admin-app').scrollTop = 0;
+}
+function shell() {
+  const live = BE.MODE === 'supabase';
+  const m = $('ad-mode'); m.textContent = live ? 'เชื่อมฐานข้อมูลจริง (Supabase)' : 'โหมดสาธิต · ข้อมูลอยู่ในเบราว์เซอร์นี้'; m.classList.toggle('live', live);
+  $('ad-play').href = CFG.playUrl || '../play/';
+  document.querySelectorAll('#ad-tabs button').forEach(b => { b.onclick = () => setView(b.dataset.view); });
+  $('ad-signout').onclick = async () => { if (A.dirty && !await confirmBox('ทิ้งการแก้ไข?', 'คำถามที่เปิดอยู่ยังไม่ได้บันทึก', 'ทิ้งและออก', 'danger')) return; A.dirty = false; await BE.signOut(); A.session = null; $('ad-tabs').hidden = true; $('ad-signout').hidden = true; $('ad-email').textContent = ''; viewLogin(); };
+  window.addEventListener('beforeunload', e => { if (A.dirty) { e.preventDefault(); e.returnValue = ''; } });
+}
+function viewLogin(msg) {
+  const main = $('ad-main'); main.innerHTML = '';
+  const email = inp('', () => {}, { type: 'email', autocomplete: 'username', required: true });
+  const pass = inp('', () => {}, { type: 'password', autocomplete: 'current-password', required: true });
+  const err = h('p', { class: 'ad-err', text: msg || '' });
+  const form = h('form', { class: 'ad-card ad-login', onsubmit: async e => {
+    e.preventDefault(); err.textContent = '';
+    try { A.session = await BE.signIn(email.value.trim(), pass.value); await afterSession(); }
+    catch (x) { err.textContent = 'เข้าสู่ระบบไม่สำเร็จ: ' + (x.message || x); }
+  } }, h('h2', { text: 'เข้าสู่ระบบทีมงาน' }), h('p', { class: 'ad-muted', text: 'ใช้บัญชีที่สร้างใน Supabase และมีอีเมลอยู่ในตาราง admins' }),
+    field('อีเมล', email), field('รหัสผ่าน', pass), err, h('button', { type: 'submit', class: 'ad-btn primary' }, 'เข้าสู่ระบบ'));
+  main.append(form);
+}
+async function afterSession() {
+  const s = A.session;
+  if (!s) return viewLogin();
+  $('ad-email').textContent = s.demo ? '' : s.email;
+  $('ad-signout').hidden = !!s.demo;
+  if (!s.admin) {
+    const main = $('ad-main'); main.innerHTML = '';
+    main.append(h('div', { class: 'ad-card ad-login' }, h('h2', { text: 'บัญชีนี้ยังไม่มีสิทธิ์ทีมงาน' }),
+      h('p', { text: 'เพิ่มอีเมล ' + s.email + ' ในตาราง admins ของ Supabase (ดู README ขั้นที่ 3) แล้วเข้าสู่ระบบใหม่' })));
+    return;
+  }
+  $('ad-tabs').hidden = false;
+  await loadAll();
+  setView(A.view === 'editor' ? 'questions' : A.view);
+}
+
+/* ---------------- 1. ภาพจากผู้เล่น ---------------- */
+function viewSubs(main) {
+  const counts = { pending: 0, approved: 0, rejected: 0 };
+  A.subs.forEach(s => { counts[s.status] = (counts[s.status] || 0) + 1; });
+  const seg = h('div', { class: 'ad-seg', role: 'tablist' });
+  [['pending', 'รอตรวจ'], ['approved', 'ผ่าน'], ['rejected', 'ไม่ผ่าน'], ['all', 'ทั้งหมด']].forEach(([k, t]) => {
+    seg.append(h('button', { type: 'button', role: 'tab', class: A.subFilter === k ? 'on' : '', onclick: () => { A.subFilter = k; setView('subs'); } },
+      t + ' ' + (k === 'all' ? A.subs.length : counts[k] || 0)));
+  });
+  main.append(h('div', { class: 'ad-head' },
+    h('div', {}, h('h2', { text: 'ภาพจากผู้เล่น' }), h('p', { text: 'ภาพที่ส่งจากเว็บเล่นเกมจะรออยู่ที่นี่ ไม่มีภาพไหนขึ้นในเกมจนกว่าจะกดผ่านแล้วนำไปใช้ในคำถามที่เผยแพร่' })),
+    h('div', { class: 'ad-bar' }, seg, btn('โหลดใหม่', () => guard(async () => { await loadAll(); setView('subs'); }), 'sm'))));
+  main.append(h('div', { class: 'ad-note' }, h('b', { text: 'เช็กก่อนกดผ่าน' }), h('ol', {},
+    h('li', { text: 'ภาพตรงกับจังหวัดและสิ่งที่ผู้ส่งบอก' }),
+    h('li', { text: 'ดูเหมือนถ่ายเอง ไม่ใช่ภาพจากเว็บ โฆษณา หรือภาพที่สร้างด้วย AI (ลองค้นภาพย้อนกลับ)' }),
+    h('li', { text: 'ไม่มีใบหน้าคนที่จำได้ชัด ป้ายทะเบียนรถ บ้านเลขที่ หรือข้อมูลส่วนตัวอื่น' }),
+    h('li', { text: 'คมชัดพอใช้เป็นการ์ดคำถาม และไม่มีข้อความที่เฉลยคำตอบในภาพ' }))));
+  const list = A.subs.filter(s => A.subFilter === 'all' || s.status === A.subFilter);
+  if (!list.length) { main.append(h('div', { class: 'ad-card ad-empty', text: A.subFilter === 'pending' ? 'ไม่มีภาพรอตรวจ' : 'ไม่มีรายการ' })); return; }
+  const grid = h('div', { class: 'ad-subs' });
+  list.forEach(s => grid.append(subCard(s)));
+  main.append(grid);
+}
+function usedIn(sub) {
+  return A.questions.filter(q => [q.cards && q.cards[0], q.reveal && q.reveal.image].some(im => im && (im.submission_id === sub.id || (sub.public_url && im.src === sub.public_url))));
+}
+function subCard(s) {
+  const img = h('img', { alt: s.title || 'ภาพจากผู้เล่น', loading: 'lazy' });
+  if (s.imageUrl) img.src = s.imageUrl;
+  const ph = h('button', { type: 'button', class: 'ph', 'aria-label': 'ขยายภาพ', onclick: () => dialog(s.title || 'ภาพ', [h('img', { class: 'big', src: s.imageUrl || '', alt: '' })], null, true) },
+    s.imageUrl ? img : h('span', { class: 'ad-noimg', text: 'ไม่พบไฟล์ภาพ' }), chip(SUB_TH[s.status] || s.status, s.status));
+  const kv = (k, v) => v ? h('div', { class: 'ad-kv' }, k + ': ', h('b', { text: v })) : null;
+  const used = usedIn(s);
+  const bd = h('div', { class: 'bd' },
+    h('h3', { text: s.title || '(ไม่มีชื่อ)' }),
+    h('div', { class: 'ad-kv' }, h('b', { text: s.district_id && A.dist[s.district_id] ? placeName(s.district_id) : 'จ.' + provName(s.province_id) + ' · ไม่ระบุอำเภอ' })),
+    s.description ? h('p', { class: 'ad-desc', text: s.description }) : null,
+    kv('ถ่ายเมื่อ', s.taken_at), kv('เครดิต', s.credit_name), kv('ติดต่อ', s.contact),
+    kv('ส่งเมื่อ', thTime(s.created_at)),
+    h('div', { class: 'ad-kv' }, 'ยืนยัน: ' + [s.consent_owner && 'ถ่ายเอง', s.consent_license && 'อนุญาตใช้', s.consent_people && 'เรื่องคนในภาพ'].filter(Boolean).join(' · ')),
+    s.review_note ? kv('หมายเหตุการตรวจ', s.review_note) : null,
+    s.reviewed_at ? kv('ตรวจเมื่อ', thTime(s.reviewed_at) + (s.reviewed_by ? ' โดย ' + s.reviewed_by : '')) : null,
+    used.length ? kv('ใช้ในคำถาม', used.map(q => q.id).join(', ')) : null);
+  const acts = h('div', { class: 'ad-actions' });
+  if (s.status !== 'approved') acts.append(btn('ผ่าน', () => review(s, 'approved'), 'ok sm'));
+  if (s.status !== 'rejected') acts.append(btn('ไม่ผ่าน', () => review(s, 'rejected'), 'sm'));
+  if (s.status === 'approved') acts.append(btn('สร้างคำถามจากภาพนี้', () => newFromSubmission(s), 'primary sm'));
+  if (BE.MODE === 'supabase' && s.imageUrl) acts.append(h('a', { class: 'ad-btn sm', href: 'https://lens.google.com/uploadbyurl?url=' + encodeURIComponent(s.imageUrl), target: '_blank', rel: 'noopener noreferrer' }, 'ค้นภาพย้อนกลับ'));
+  acts.append(btn('ลบ', () => removeSub(s, used), 'danger sm'));
+  return h('article', { class: 'ad-card ad-sub' }, ph, bd, acts);
+}
+async function review(s, status) {
+  const note = area(s.review_note || '', () => {}, { rows: 3, placeholder: status === 'approved' ? 'ไม่บังคับ' : 'เหตุผล เช่น ภาพไม่ตรงอำเภอ / มีใบหน้าคน' });
+  const text = status === 'approved'
+    ? 'ภาพจะถูกคัดลอกไปที่คลังภาพที่ใช้ทำคำถามได้ แต่ยังไม่ขึ้นในเกมจนกว่าจะใช้ในคำถามที่เผยแพร่'
+    : 'ภาพจะไม่ถูกใช้ ผู้ดูแลเปลี่ยนใจภายหลังได้';
+  const ok = await dialog(status === 'approved' ? 'ผ่านการตรวจ: ' + (s.title || '') : 'ไม่ผ่าน: ' + (s.title || ''), [text, field('หมายเหตุการตรวจ', note)],
+    [{ label: 'ยกเลิก', value: false }, { label: status === 'approved' ? 'ยืนยันว่าผ่าน' : 'ยืนยันว่าไม่ผ่าน', value: true, cls: status === 'approved' ? 'primary' : 'danger' }]);
+  if (!ok) return;
+  await guard(async () => { await BE.reviewSubmission(s.id, status, note.value.trim(), reviewerName()); await loadAll(); setView('subs'); }, status === 'approved' ? 'ผ่านแล้ว' : 'บันทึกว่าไม่ผ่านแล้ว');
+}
+async function removeSub(s, used) {
+  const warn = used.length ? 'ภาพนี้ใช้อยู่ในคำถาม ' + used.map(q => q.id).join(', ') + ' (ไฟล์ในคลังภาพคำถามยังอยู่ แต่ข้อมูลผู้ส่งจะหายไป) ' : '';
+  if (!await confirmBox('ลบภาพนี้ถาวร?', warn + 'ลบทั้งไฟล์ภาพที่ส่งมาและข้อมูลผู้ส่ง ย้อนกลับไม่ได้', 'ลบถาวร', 'danger')) return;
+  await guard(async () => { await BE.deleteSubmission(s); await loadAll(); setView('subs'); }, 'ลบแล้ว');
+}
+
+/* ---------------- 2. คำถาม ---------------- */
+function publishedQs() { return A.questions.filter(q => q.status === 'published'); }
+function viewQuestions(main) {
+  const pub = publishedQs();
+  const today = bangkokDate();
+  const todays = new Set(pub.length ? dailySet(pub, today, DAILY_N).map(q => q.id) : []);
+  main.append(h('div', { class: 'ad-head' },
+    h('div', {}, h('h2', { text: 'คำถาม' }), h('p', { text: 'เกมใช้เฉพาะคำถามสถานะ “เผยแพร่” ซึ่งต้องผ่านการตรวจก่อน ข้อที่เผยแพร่วันนี้จะเริ่มเข้ารอบรายวันพรุ่งนี้' })),
+    h('div', { class: 'ad-bar' }, btn('+ คำถามใหม่', () => openEditor(newQuestion(CATS[0]), true), 'primary sm'))));
+  // coverage: one category, DAILY_N questions a day
+  const all = A.questions.filter(q => q.category === CATS[0]);
+  const p = all.filter(q => q.status === 'published').length, v = all.filter(q => q.verified_by).length;
+  const meter = h('div', { class: 'ad-meter', title: 'เป้า ' + TARGET_WEEK + ' ข้อ (1 สัปดาห์) และ ' + TARGET_MONTH + ' ข้อ (1 เดือน)' },
+    h('i', { style: 'width:' + Math.min(100, p / TARGET_MONTH * 100).toFixed(1) + '%' }), h('s', { style: 'left:' + (TARGET_WEEK / TARGET_MONTH * 100).toFixed(1) + '%' }));
+  const days = Math.floor(p / DAILY_N);
+  main.append(h('div', { class: 'ad-cov one' }, h('div', { class: 'ad-card' },
+    h('span', { class: 'ad-muted ad-small', text: CATS[0] + ' · รายวันวันละ ' + DAILY_N + ' ข้อ' }), h('b', { text: String(p) }),
+    h('span', { class: 'ad-small ad-muted', text: 'เผยแพร่ · ทั้งหมด ' + all.length + ' · ตรวจแล้ว ' + v }), meter,
+    h('span', { class: 'ad-help', text: (p < DAILY_N ? 'ยังไม่ถึง ' + DAILY_N + ' ข้อ โหมดรายวันจะมี ' + p + ' ข้อ' : 'วนรายวันได้ ' + days + ' วันก่อนเริ่มซ้ำ') +
+      ' · เป้า ' + TARGET_WEEK + ' ข้อ = 1 สัปดาห์ · ' + TARGET_MONTH + ' ข้อ = 1 เดือน' }))));
+  // next 7 days
+  if (pub.length) {
+    const t = h('table', { class: 'ad-table ad-days' }, h('tr', {}, h('th', { text: 'วัน' }), h('th', { text: 'ชุดรายวัน' })));
+    for (let i = 0; i < 7; i++) {
+      const ds = addDays(today, i);
+      const set = dailySet(pub, ds, DAILY_N);
+      t.append(h('tr', {}, h('td', { text: (i === 0 ? 'วันนี้ · ' : '') + thDay(ds) }), h('td', { text: set.map(q => q.topic + (q.schedule_date === ds ? ' 📌' : '')).join(' · ') || '–' })));
+    }
+    main.append(h('details', { class: 'ad-card' }, h('summary', { text: 'ชุดรายวัน 7 วันข้างหน้า (จากคำถามที่เผยแพร่ตอนนี้)' }), h('div', { class: 'ad-scroll' }, t),
+      h('p', { class: 'ad-help', text: '📌 = ล็อกวันที่ไว้ในช่อง “วันที่กำหนด” · ข้อที่เพิ่งเผยแพร่วันนี้จะเริ่มโผล่ตั้งแต่พรุ่งนี้' })));
+  }
+  // filters + table
+  const f = A.qf;
+  const table = h('table', { class: 'ad-table' });
+  const draw = () => {
+    table.innerHTML = '';
+    table.append(h('tr', {}, ...['รหัส', 'หมวด', 'หัวข้อ', 'คำตอบ', 'สถานะ', 'ตรวจ', 'แก้ล่าสุด'].map(x => h('th', { text: x }))));
+    const txt = f.text.trim().toLowerCase();
+    const rows = A.questions.filter(q => (!f.cat || q.category === f.cat) && (!f.status || q.status === f.status) && (!f.unverified || !q.verified_by)
+      && (!txt || [q.id, q.topic, placeName(q.answer)].join(' ').toLowerCase().includes(txt)));
+    rows.forEach(q => {
+      const st = q.status === 'published' && !q.verified_by ? chip('เผยแพร่ · ยังไม่ตรวจ', 'warn') : chip(STATUS_TH[q.status] || q.status, q.status === 'published' ? 'pub' : '');
+      table.append(h('tr', { class: 'click', tabindex: 0, onclick: () => openEditor(clone(q), false), onkeydown: e => { if (e.key === 'Enter') openEditor(clone(q), false); } },
+        h('td', {}, h('code', { text: q.id })), h('td', { text: q.category }), h('td', {}, q.topic || '(ยังไม่ตั้งหัวข้อ)', todays.has(q.id) ? [' ', chip('วันนี้', 'today')] : null),
+        h('td', { text: placeName(q.answer) }), h('td', {}, st), h('td', { text: q.verified_by ? '✓' : '–', title: q.verified_by ? q.verified_by + ' · ' + thTime(q.verified_at) : '' }),
+        h('td', { class: 'ad-small ad-muted', text: thTime(q.updated_at) })));
+    });
+    if (!rows.length) table.append(h('tr', {}, h('td', { colspan: 7, class: 'ad-empty', text: 'ไม่มีคำถามตามตัวกรองนี้' })));
+  };
+  main.append(h('div', { class: 'ad-card ad-stack' },
+    h('div', { class: 'ad-bar' },
+      h('div', { class: 'grow' }, inp(f.text, v => { f.text = v; draw(); }, { placeholder: 'ค้นหา รหัส หัวข้อ อำเภอ หรือจังหวัด', 'aria-label': 'ค้นหาคำถาม' })),
+      sel([['', 'ทุกสถานะ'], ['draft', 'ร่าง'], ['published', 'เผยแพร่'], ['archived', 'เก็บเข้าคลัง']], f.status, v => { f.status = v; draw(); }),
+      h('label', { class: 'ad-check' }, h('input', { type: 'checkbox', checked: f.unverified, onchange: e => { f.unverified = e.target.checked; draw(); } }), 'เฉพาะที่ยังไม่ตรวจ')),
+    h('div', { class: 'ad-scroll' }, table)));
+  draw();
+}
+function nextId(cat) {
+  const key = CAT_KEY[cat] || 'misc';
+  const re = new RegExp('^q-' + key + '-(\\d+)$');
+  const max = A.questions.reduce((m, q) => { const x = re.exec(q.id); return x ? Math.max(m, +x[1]) : m; }, 0);
+  return 'q-' + key + '-' + String(max + 1).padStart(4, '0');
+}
+const blankImage = () => ({ src: '', source: 'commons', credit: '', license: '', license_url: '', source_url: '', focus: '50% 50%' });
+function newQuestion(cat) {
+  return {
+    id: nextId(cat), category: cat, topic: '', answer: '',
+    cards: [Object.assign({ type: 'image', role: 'main', tag_hint: null }, blankImage()),
+      { type: 'text', role: 'hint', text: '', tag_hint: 'region' }, { type: 'text', role: 'hint', text: '', tag_hint: 'terrain' }, { type: 'text', role: 'hint', text: '', tag_hint: 'district' }],
+    reveal: { image: Object.assign(blankImage(), { file: '', modified: '', note: '' }), facts: Object.fromEntries((FACT_KEYS[cat] || ['ชื่อ']).map(k => [k, ''])), reasoning: '', sources: [] },
+    schedule_date: null, verified_by: null, verified_at: null, note: '', status: 'draft', published_at: null
+  };
+}
+function playerImage(s) {
+  return { src: s.public_url, source: 'player', credit: s.credit_name || 'ผู้เล่นออลไทย', license: BE.LICENSE_ID, license_url: '', source_url: '', submission_id: s.id, focus: '50% 50%' };
+}
+function newFromSubmission(s) {
+  if (!s.public_url) { toast('ภาพนี้ยังไม่ได้คัดลอกไปคลังภาพ ลองกดผ่านอีกครั้ง'); return; }
+  const q = newQuestion(CATS[0]);
+  q.topic = s.title || ''; q.answer = s.district_id && A.dist[s.district_id] ? s.district_id : '';
+  q._prov = s.province_id || '';
+  Object.assign(q.cards[0], playerImage(s));
+  Object.assign(q.reveal.image, playerImage(s), { modified: 'ย่อขนาดอัตโนมัติตอนส่ง' });
+  if (q.reveal.facts['ชื่อ'] !== undefined) q.reveal.facts['ชื่อ'] = s.title || '';
+  openEditor(q, true);
+}
+
+/* ---------------- editor ---------------- */
+function openEditor(q, isNew) {
+  q.cards = q.cards || [];
+  while (q.cards.length < 4) q.cards.push(q.cards.length ? { type: 'text', role: 'hint', text: '', tag_hint: null } : Object.assign({ type: 'image', role: 'main', tag_hint: null }, blankImage()));
+  q.reveal = q.reveal || { image: blankImage(), facts: {}, reasoning: '', sources: [] };
+  q.reveal.image = q.reveal.image || blankImage();
+  A.E = {
+    q, isNew,
+    sameImage: !q.reveal.image.src || q.reveal.image.src === q.cards[0].src,
+    prov: (A.dist[q.answer] || {}).p || q._prov || '',
+    facts: Object.entries(q.reveal.facts || {}),
+    sources: (q.reveal.sources || []).map(s => Object.assign({}, s)),
+    stale: false
+  };
+  A.dirty = !!isNew;
+  setView('editor');
+}
+// Any change to what players see (or to the facts) cancels an earlier "checked" mark: verification is for the current content.
+function touch(content) {
+  A.dirty = true;
+  const q = A.E.q;
+  if (content && q.verified_by) { q.verified_by = null; q.verified_at = null; A.E.stale = true; }
+  renderAside();
+}
+function buildQuestion() {
+  const E = A.E, q = clone(E.q);
+  delete q.similar; delete q.similar_reasons; delete q._prov;
+  q.reveal.facts = {};
+  E.facts.forEach(([k, v]) => { if (String(k).trim()) q.reveal.facts[String(k).trim()] = String(v || '').trim(); });
+  q.reveal.sources = E.sources.filter(s => (s.url || '').trim() || (s.title || '').trim()).map(s => ({ title: (s.title || '').trim() || s.url.trim(), url: (s.url || '').trim() }));
+  if (E.sameImage) {
+    const keep = { file: q.reveal.image.file || '', modified: q.reveal.image.modified || '', note: q.reveal.image.note || '' };
+    q.reveal.image = Object.assign({}, q.cards[0], keep);
+    delete q.reveal.image.type; delete q.reveal.image.role; delete q.reveal.image.tag_hint;
+  }
+  q.cards.forEach((c, i) => { if (i > 0) { c.text = String(c.text || '').trim(); c.tag_hint = c.tag_hint || null; } else c.tag_hint = null; });
+  q.topic = String(q.topic || '').trim();
+  q.schedule_date = q.schedule_date || null;
+  delete q.updated_at;
+  return q;
+}
+function requirements(q) {
+  const c0 = q.cards[0] || {}, ri = q.reveal.image || {};
+  const imgOk = im => !!(im.src && String(im.credit || '').trim() && !licenseProblem(im.license));
+  return [
+    ['ตั้งหัวข้อ', !!q.topic],
+    ['เลือกอำเภอ/เขตคำตอบ', !!A.dist[q.answer]],
+    ['ภาพหลักมีเครดิตและสัญญาอนุญาตที่ใช้ได้', imgOk(c0)],
+    ['ภาพเฉลยมีเครดิตและสัญญาอนุญาตที่ใช้ได้', imgOk(ri)],
+    ['เบาะแสข้อความครบ 3 การ์ด', q.cards.slice(1, 4).every(c => c.text)],
+    ['ข้อมูลเฉลยอย่างน้อย 1 หัวข้อ', Object.values(q.reveal.facts).some(v => v)],
+    ['วิธีคิด', !!String(q.reveal.reasoning || '').trim()],
+    ['แหล่งที่มาที่มีลิงก์อย่างน้อย 1', q.reveal.sources.some(s => /^https?:\/\//.test(s.url))],
+    ['ผ่านการตรวจแล้ว', !!q.verified_by]
+  ];
+}
+function viewEditor(main) {
+  const E = A.E, q = E.q;
+  const head = h('div', { class: 'ad-head' },
+    h('div', {}, h('button', { type: 'button', class: 'ad-link', onclick: () => setView('questions') }, '← รายการคำถาม'),
+      h('h2', { text: (E.isNew ? 'คำถามใหม่ ' : 'แก้ไข ') + q.id })),
+    h('div', { class: 'ad-bar' }, btn('คัดลอก JSON', () => copyJSON(buildQuestion()), 'sm'),
+      E.isNew ? null : btn('ลบคำถาม', () => removeQuestion(q), 'danger sm')));
+  const col = h('div', { class: 'ad-ed-main' });
+  col.append(secBasics(), secMainImage(), secHints(), secReveal());
+  const aside = h('aside', { class: 'ad-aside', id: 'ad-aside' });
+  main.append(head, h('div', { class: 'ad-ed' }, col, aside));
+  renderAside();
+}
+function secBasics() {
+  const q = A.E.q, E = A.E;
+  const prof = h('div', { class: 'ad-profile' });
+  const drawProf = () => {
+    const d = A.dist[q.answer];
+    prof.textContent = d ? 'คำตอบ: ' + placeName(q.answer) + ' · จุดวัดระยะ ' + d.ll[0].toFixed(3) + ', ' + d.ll[1].toFixed(3) + ' (ผู้เล่นได้คะแนนตามระยะจากอำเภอที่ตอบถึงจุดนี้)' : 'เลือกจังหวัดแล้วเลือกอำเภอ/เขตที่สถานที่ตั้งอยู่';
+  };
+  drawProf();
+  const pickDist = v => { q.answer = v; drawProf(); touch(true); };
+  let distSel = sel(distOptions(E.prov), q.answer, pickDist);
+  const provSel = sel(provOptions(), E.prov, v => {
+    E.prov = v; q.answer = '';
+    const fresh = sel(distOptions(v), '', pickDist);
+    distSel.replaceWith(fresh); distSel = fresh; drawProf(); touch(true);
+  });
+  const ref = q.cards[0].submission_id ? A.subs.find(s => s.id === q.cards[0].submission_id) : null;
+  return h('section', { class: 'ad-card ad-sec' }, h('header', {}, h('h3', { text: 'ข้อมูลหลัก' })),
+    h('div', { class: 'ad-grid3' },
+      field('หัวข้อ (ชื่อสถานที่)', inp(q.topic, v => { q.topic = v; touch(true); }, { maxlength: 80, placeholder: 'เช่น ภูทับเบิก' })),
+      field('คำตอบ: จังหวัด', provSel),
+      h('div', { class: 'ad-field' }, h('label', { text: 'คำตอบ: อำเภอ/เขต' }), distSel)),
+    prof,
+    ref ? h('div', { class: 'ad-ref' }, 'จากภาพผู้เล่น “' + (ref.title || '') + '”' + (ref.description ? '\nผู้ส่งเล่าว่า: ' + ref.description : '') + (ref.taken_at ? '\nถ่ายเมื่อ: ' + ref.taken_at : '') + '\nใช้เป็นข้อมูลตั้งต้นเท่านั้น ข้อเท็จจริงในเฉลยต้องมีแหล่งที่มาที่ตรวจได้') : null);
+}
+function secMainImage() {
+  return h('section', { class: 'ad-card ad-sec' }, h('header', {}, h('h3', { text: 'การ์ด 1 · ภาพหลัก' }), h('span', { class: 'ad-help', text: 'เปิดให้ผู้เล่นฟรี ควรเดาได้ยากถ้าไม่มีเบาะแส' })),
+    imageEditor(A.E.q.cards[0], false));
+}
+// Image block shared by card 1 and the reveal photo. reveal=true adds file / modified / note fields.
+function imageEditor(im, reveal) {
+  const box = h('div', { class: 'ad-img' });
+  const draw = () => {
+    box.innerHTML = '';
+    const pic = h('img', { alt: '' });
+    pic.style.objectPosition = im.focus || '50% 50%';
+    setImg(pic, im.src);
+    const frame = h('button', { type: 'button', class: 'ad-frame', 'aria-label': 'ขยายภาพ', onclick: () => { if (!im.src) return; const b = h('img', { class: 'big', alt: '' }); setImg(b, im.src); dialog('ภาพ', [b], null, true); } },
+      im.src ? pic : h('span', { class: 'ad-noimg', text: 'ยังไม่มีภาพ' }));
+    const [fx, fy] = String(im.focus || '50% 50%').split(' ').map(v => parseFloat(v) || 50);
+    const focus = (x, y) => { im.focus = Math.round(x) + '% ' + Math.round(y) + '%'; pic.style.objectPosition = im.focus; A.dirty = true; };
+    let cx = fx, cy = fy;
+    const file = h('input', { type: 'file', accept: 'image/*', hidden: true, onchange: async e => {
+      const f = e.target.files[0]; if (!f) return;
+      await guard(async () => {
+        const out = await BE.compressImage(f, 1600, 0.85);
+        im.src = await BE.uploadQuestionImage(out.blob);
+        if (!im.credit) { im.source = 'other'; }
+        touch(true); draw();
+      }, 'อัปโหลดภาพแล้ว');
+    } });
+    const left = h('div', { class: 'ad-stack' }, frame,
+      h('div', { class: 'ad-grid2' },
+        field('จุดโฟกัสแนวนอน', h('input', { type: 'range', min: 0, max: 100, value: fx, oninput: e => { cx = +e.target.value; focus(cx, cy); } })),
+        field('จุดโฟกัสแนวตั้ง', h('input', { type: 'range', min: 0, max: 100, value: fy, oninput: e => { cy = +e.target.value; focus(cx, cy); } }))),
+      h('div', { class: 'ad-bar' }, file, btn('อัปโหลดภาพ', () => file.click(), 'sm'), btn('ใช้ภาพจากผู้เล่น', () => pickPlayerImage(im, draw), 'sm')));
+    const lic = sel([['', 'เลือกสัญญาอนุญาต']].concat(Object.keys(LICENSE_URL).map(k => [k, licLabel(k)]), [[BE.LICENSE_ID, licLabel(BE.LICENSE_ID)]]), im.license, v => {
+      im.license = v; if (LICENSE_URL[v] !== undefined && !im.license_url) im.license_url = LICENSE_URL[v]; touch(true); draw();
+    });
+    const prob = licenseProblem(im.license);
+    const right = h('div', { class: 'ad-stack' },
+      h('div', { class: 'ad-grid2' },
+        field('แหล่งภาพ', sel(SOURCES, im.source || 'commons', v => { im.source = v; touch(true); draw(); })),
+        field('เครดิต (ชื่อเจ้าของภาพ)', inp(im.credit, v => { im.credit = v; touch(true); }, { maxlength: 80 }))),
+      h('div', { class: 'ad-grid2' },
+        field('สัญญาอนุญาต', lic, prob ? null : (licenseKnown(im.license) ? null : 'ไม่อยู่ในรายการ ตรวจเงื่อนไขเองก่อนเผยแพร่')),
+        field('ลิงก์สัญญาอนุญาต', inp(im.license_url, v => { im.license_url = v; A.dirty = true; }, { type: 'url', placeholder: 'https://creativecommons.org/…' }))),
+      prob && im.src ? h('p', { class: 'ad-err', text: prob }) : null,
+      field('ลิงก์ไฟล์ต้นฉบับ', inp(im.source_url, v => { im.source_url = v; touch(true); }, { type: 'url', placeholder: im.source === 'player' ? 'ไม่ต้องใส่สำหรับภาพผู้เล่น' : 'https://commons.wikimedia.org/wiki/File:…' })),
+      field('ที่อยู่ไฟล์ภาพ (src)', inp(im.src, v => { im.src = v.trim(); touch(true); }, { placeholder: 'img/… หรือ https://…' }), 'ได้มาเองเมื่ออัปโหลดหรือเลือกภาพผู้เล่น'),
+      reveal ? h('div', { class: 'ad-grid2' },
+        field('ชื่อไฟล์ต้นฉบับ', inp(im.file, v => { im.file = v; A.dirty = true; })),
+        field('การแก้ไขภาพ', inp(im.modified, v => { im.modified = v; A.dirty = true; }, { placeholder: 'เช่น ครอปและย่อขนาด' }))) : null,
+      reveal ? field('หมายเหตุภาพ', inp(im.note, v => { im.note = v; A.dirty = true; }, { placeholder: 'เช่น เบลอป้ายชื่อสถานที่ในภาพเพื่อไม่ให้เฉลย' })) : null);
+    box.append(left, right);
+  };
+  draw();
+  return box;
+}
+async function pickPlayerImage(im, redraw) {
+  const ok = A.subs.filter(s => s.status === 'approved' && s.public_url);
+  if (!ok.length) { toast('ยังไม่มีภาพผู้เล่นที่ผ่านการตรวจ'); return; }
+  const grid = h('div', { class: 'ad-picks' });
+  const d = dialog('เลือกภาพจากผู้เล่น (ผ่านการตรวจแล้ว)', [grid], [{ label: 'ยกเลิก', value: null }], true);
+  ok.forEach(s => {
+    const img = h('img', { alt: '' }); setImg(img, s.public_url);
+    grid.append(h('button', { type: 'button', onclick: () => { Object.assign(im, playerImage(s), { focus: im.focus || '50% 50%' }); touch(true); redraw(); $('ad-dialog')._close(s); } },
+      img, h('span', { text: (s.title || '') + ' · ' + provName(s.province_id) })));
+  });
+  await d;
+}
+function secHints() {
+  const q = A.E.q;
+  const rows = q.cards.slice(1, 4).map((c, i) => h('div', { class: 'ad-field' },
+    h('label', { text: 'การ์ด ' + (i + 2) + (i === 0 ? ' · กว้างที่สุด' : i === 2 ? ' · ชัดที่สุด' : '') }),
+    h('div', { class: 'ad-row hint' },
+      area(c.text, v => { c.text = v; touch(true); }, { rows: 2, maxlength: 240 }),
+      sel(TAGS, c.tag_hint || '', v => { c.tag_hint = v || null; touch(true); }, 'sm'))));
+  return h('section', { class: 'ad-card ad-sec' }, h('header', {}, h('h3', { text: 'การ์ด 2–4 · เบาะแสข้อความ' }), h('span', { class: 'ad-help', text: 'เปิดทีละใบ ตัวคูณลดเหลือ 0.8 / 0.6 / 0.4 · ป้ายบอกว่าเบาะแสนี้ช่วยเรื่องไหน' })), rows);
+}
+function secReveal() {
+  const E = A.E, q = E.q;
+  const imgBox = h('div', {});
+  const drawImg = () => {
+    imgBox.innerHTML = '';
+    if (E.sameImage) {
+      const ri = q.reveal.image;
+      imgBox.append(h('div', { class: 'ad-grid2' },
+        field('ชื่อไฟล์ต้นฉบับ', inp(ri.file, v => { ri.file = v; A.dirty = true; })),
+        field('การแก้ไขภาพ', inp(ri.modified, v => { ri.modified = v; A.dirty = true; }, { placeholder: 'เช่น ครอปและย่อขนาด' }))),
+      field('หมายเหตุภาพ', inp(ri.note, v => { ri.note = v; A.dirty = true; })));
+    } else imgBox.append(imageEditor(q.reveal.image, true));
+  };
+  drawImg();
+  const facts = h('div', { class: 'ad-stack' });
+  const drawFacts = () => {
+    facts.innerHTML = '';
+    E.facts.forEach((f, i) => facts.append(h('div', { class: 'ad-row fact' },
+      inp(f[0], v => { f[0] = v; touch(true); }, { class: 'ad-in sm', placeholder: 'หัวข้อ' }),
+      area(f[1], v => { f[1] = v; touch(true); }, { rows: 2 }),
+      h('button', { type: 'button', class: 'ad-x', 'aria-label': 'ลบหัวข้อ', onclick: () => { E.facts.splice(i, 1); touch(true); drawFacts(); } }, '×'))));
+  };
+  drawFacts();
+  const srcs = h('div', { class: 'ad-stack' });
+  const drawSrcs = () => {
+    srcs.innerHTML = '';
+    E.sources.forEach((s, i) => srcs.append(h('div', { class: 'ad-row src' },
+      inp(s.title, v => { s.title = v; touch(true); }, { class: 'ad-in sm', placeholder: 'ชื่อแหล่ง เช่น เว็บไซต์จังหวัด' }),
+      inp(s.url, v => { s.url = v; touch(true); }, { class: 'ad-in sm', type: 'url', placeholder: 'https://…' }),
+      h('button', { type: 'button', class: 'ad-x', 'aria-label': 'ลบแหล่ง', onclick: () => { E.sources.splice(i, 1); touch(true); drawSrcs(); } }, '×'))));
+    if (!E.sources.length) srcs.append(h('p', { class: 'ad-help', text: 'ต้องมีอย่างน้อย 1 ลิงก์ก่อนเผยแพร่' }));
+  };
+  drawSrcs();
+  return h('section', { class: 'ad-card ad-sec' }, h('header', {}, h('h3', { text: 'หน้าเฉลย' })),
+    h('label', { class: 'ad-check' }, h('input', { type: 'checkbox', checked: E.sameImage, onchange: e => {
+      E.sameImage = e.target.checked;
+      if (!E.sameImage && !q.reveal.image.src) Object.assign(q.reveal.image, clone(q.cards[0]));
+      touch(true); drawImg();
+    } }), 'ใช้ภาพเดียวกับการ์ด 1'),
+    imgBox,
+    h('header', {}, h('h4', { text: 'ข้อมูลจริง' }), btn('+ เพิ่มหัวข้อ', () => { E.facts.push(['', '']); touch(true); drawFacts(); }, 'sm')), facts,
+    field('วิธีคิด (โชว์ใต้ข้อมูล)', area(q.reveal.reasoning, v => { q.reveal.reasoning = v; touch(true); }, { rows: 2, placeholder: 'เช่น ทะเลหมอก + ไร่ผักขั้นบันได → ภูเขาสูง · ภาคกลางตอนบนสุด → เพชรบูรณ์ · ยอดเขาของชาวม้ง → อ.หล่มเก่า' })),
+    h('header', {}, h('h4', { text: 'แหล่งที่มา' }), btn('+ เพิ่มแหล่ง', () => { E.sources.push({ title: '', url: '' }); touch(true); drawSrcs(); }, 'sm')), srcs);
+}
+function renderAside() {
+  const aside = $('ad-aside');
+  if (!aside || !A.E) return;
+  const E = A.E, q = E.q;
+  const built = buildQuestion();
+  const req = requirements(built);
+  const ready = req.every(r => r[1]);
+  const needOk = req.filter(r => r[0] !== 'ผ่านการตรวจแล้ว').every(r => r[1]);
+  const blocked = q.status === 'published' && !ready;
+  aside.innerHTML = '';
+  const status = h('div', { class: 'ad-status', role: 'radiogroup', 'aria-label': 'สถานะ' });
+  [['draft', 'ร่าง — ยังไม่ขึ้นในเกม'], ['published', 'เผยแพร่ — ขึ้นในเกม'], ['archived', 'เก็บเข้าคลัง — ซ่อนจากเกม']].forEach(([v, t]) => {
+    const dis = v === 'published' && !ready && q.status !== 'published';
+    status.append(h('label', { class: dis ? 'dis' : '' }, h('input', { type: 'radio', name: 'ad-st', value: v, checked: q.status === v, disabled: dis, onchange: () => { q.status = v; A.dirty = true; renderAside(); } }), t));
+  });
+  const verify = q.verified_by
+    ? h('div', { class: 'ad-verify done' }, h('b', { text: 'ตรวจแล้ว' }), h('span', { class: 'ad-small', text: 'โดย ' + q.verified_by + ' · ' + thTime(q.verified_at) }),
+      btn('ยกเลิกการตรวจ', () => { q.verified_by = null; q.verified_at = null; touch(false); }, 'sm'))
+    : h('div', { class: 'ad-verify' },
+      E.stale ? h('p', { class: 'ad-err', text: 'แก้เนื้อหาหลังตรวจแล้ว ต้องยืนยันการตรวจใหม่' }) : null,
+      h('p', { class: 'ad-small ad-muted', text: 'ตรวจข้อเท็จจริงกับแหล่งที่มา ตรวจสัญญาอนุญาตภาพ และอ่านเบาะแสว่าไม่กำกวม' }),
+      btn('ฉันตรวจครบแล้ว', () => { q.verified_by = reviewerName(); q.verified_at = new Date().toISOString(); E.stale = false; A.dirty = true; renderAside(); }, 'ok', { disabled: !needOk, title: needOk ? '' : 'กรอกข้อมูลให้ครบก่อน' }));
+  aside.append(
+    h('div', { class: 'ad-card ad-stack' }, h('h3', { text: 'ก่อนเผยแพร่' }),
+      h('ul', { class: 'ad-checks' }, req.map(([t, ok]) => h('li', { class: ok ? 'ok' : '', text: t }))), verify),
+    h('div', { class: 'ad-card ad-stack' }, h('h3', { text: 'สถานะ' }), status,
+      field('วันที่กำหนด (ไม่บังคับ)', inp(q.schedule_date || '', v => { q.schedule_date = v || null; A.dirty = true; }, { type: 'date' }), 'ล็อกให้ข้อนี้เป็นข้อรายวันของวันนั้น'),
+      field('หมายเหตุภายใน', area(q.note || '', v => { q.note = v; A.dirty = true; }, { rows: 2 }))),
+    h('div', { class: 'ad-card ad-stack' },
+      btn(E.isNew ? 'บันทึกคำถาม' : 'บันทึกการแก้ไข', saveEditor, 'primary', { disabled: blocked }),
+      blocked ? h('p', { class: 'ad-err', text: 'ข้อนี้ตั้งเป็นเผยแพร่: ต้องครบทุกข้อและกด “ฉันตรวจครบแล้ว” ก่อนบันทึก หรือเปลี่ยนเป็นร่างเพื่อเก็บงานไว้ก่อน' })
+        : h('p', { class: 'ad-help', text: q.status === 'published' ? (q.published_at ? 'บันทึกแล้วผู้เล่นเห็นเนื้อหาใหม่ทันที' : 'บันทึกแล้วขึ้นในโหมดไม่จำกัด และเข้ารอบรายวันตั้งแต่พรุ่งนี้') : 'บันทึกเป็น' + STATUS_TH[q.status] + ' ผู้เล่นยังไม่เห็น' })));
+}
+async function saveEditor() {
+  const E = A.E;
+  const q = buildQuestion();
+  if (!q.topic && !q.answer) { toast('ใส่หัวข้อหรือคำตอบก่อนบันทึก'); return; }
+  if (q.status === 'published' && !requirements(q).every(r => r[1])) { toast('ยังไม่ครบเงื่อนไขเผยแพร่'); return; }
+  if (E.isNew && A.questions.some(x => x.id === q.id)) q.id = nextId(q.category);
+  const saved = await guard(() => BE.saveQuestion(q), 'บันทึกแล้ว');
+  if (!saved) return;
+  A.dirty = false;
+  A.questions = await BE.listQuestions();
+  const fresh = A.questions.find(x => x.id === saved.id) || saved;
+  openEditor(clone(fresh), false);
+}
+async function removeQuestion(q) {
+  if (!await confirmBox('ลบคำถาม ' + q.id + '?', q.status === 'published' ? 'ข้อนี้เผยแพร่อยู่ จะหายจากเกมทันที ' + 'ถ้าแค่อยากซ่อน ให้เปลี่ยนสถานะเป็น “เก็บเข้าคลัง” แทน' : 'ลบถาวร ย้อนกลับไม่ได้', 'ลบถาวร', 'danger')) return;
+  await guard(async () => { await BE.deleteQuestion(q.id); A.dirty = false; A.questions = await BE.listQuestions(); setView('questions'); }, 'ลบแล้ว');
+}
+async function copyJSON(obj) {
+  const text = JSON.stringify(obj, null, 1);
+  try { await navigator.clipboard.writeText(text); toast('คัดลอก JSON แล้ว'); }
+  catch (e) { dialog('JSON', [h('textarea', { class: 'ad-in', rows: 16, value: text, readonly: true })]); }
+}
+
+/* ---------------- 4. ระบบ ---------------- */
+function download(name, obj) {
+  const blob = new Blob([JSON.stringify(obj, null, 1)], { type: 'application/json' });
+  const a = h('a', { href: URL.createObjectURL(blob), download: name });
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+function viewSystem(main) {
+  const live = BE.MODE === 'supabase';
+  let host = '';
+  try { host = live ? new URL(BE.CFG.supabaseUrl).host : ''; } catch (e) { host = BE.CFG.supabaseUrl; }
+  const exportQs = () => ({ version: bangkokDate(), exported_at: new Date().toISOString(), categories: CATS, questions: A.questions.map(q => { const c = clone(q); delete c.updated_at; return c; }) });
+  const exportPs = () => ({ exported_at: new Date().toISOString(), region_adjacency: (A.meta || {}).region_adjacency, provinces: A.provinces });
+  main.append(h('div', { class: 'ad-head' }, h('div', {}, h('h2', { text: 'ระบบ' }), h('p', { text: 'การเชื่อมต่อ การนำเข้าข้อมูลตั้งต้น และการสำรองข้อมูล' }))));
+  main.append(h('div', { class: 'ad-card ad-stack' }, h('h3', { text: 'การเชื่อมต่อ' }),
+    live ? h('p', {}, 'เชื่อม Supabase ที่ ', h('b', { text: host }), ' · ภาพผู้เล่นอยู่ใน bucket “submissions” (ส่วนตัว) ภาพคำถามอยู่ใน “question-images” (สาธารณะ)')
+      : h('p', { text: 'โหมดสาธิต: ไม่มีเซิร์ฟเวอร์ ข้อมูลและภาพเก็บใน localStorage/IndexedDB ของเบราว์เซอร์นี้ เว็บเล่นเกมกับเว็บใส่ข้อมูลเห็นข้อมูลเดียวกันเมื่อเปิดจากที่อยู่เดียวกันในเบราว์เซอร์นี้' }),
+    live ? null : h('p', { class: 'ad-help', text: 'ใช้งานจริง: ใส่ supabaseUrl และ supabaseKey (publishable key) ในไฟล์ config.js ของทั้งสองเว็บ (ดู README ขั้นที่ 4)' })));
+  main.append(h('div', { class: 'ad-card ad-stack' }, h('h3', { text: 'ข้อมูลตั้งต้น' }),
+    h('p', { text: live ? 'เพิ่มคำถามตั้งต้นและรายชื่อ 77 จังหวัดจากไฟล์ที่มากับเว็บ เฉพาะรายการที่ยังไม่มีในฐานข้อมูล คำถามเข้ามาเป็น “ร่าง” ต้องตรวจก่อนเผยแพร่' : 'คืนค่าข้อมูลสาธิตทั้งหมดเป็นค่าเริ่มต้น (ลบภาพที่ส่งและคำถามที่สร้างในเบราว์เซอร์นี้)' }),
+    h('div', { class: 'ad-bar' }, live
+      ? btn('นำเข้าข้อมูลตั้งต้น', async () => { if (!await confirmBox('นำเข้าข้อมูลตั้งต้น?', 'ไม่เขียนทับรายการที่มีอยู่แล้ว')) return; await guard(async () => { await BE.importSeed(); await loadAll(); setView('system'); }, 'นำเข้าแล้ว'); }, 'primary')
+      : btn('ล้างข้อมูลสาธิต', async () => { if (!await confirmBox('ล้างข้อมูลสาธิต?', 'ภาพที่ส่งและการแก้ไขทั้งหมดในเบราว์เซอร์นี้จะหายไป', 'ล้างข้อมูล', 'danger')) return; await guard(async () => { await BE.importSeed(); await loadAll(); setView('system'); }, 'ล้างข้อมูลแล้ว'); }, 'danger'))));
+  main.append(h('div', { class: 'ad-card ad-stack' }, h('h3', { text: 'สำรองข้อมูล' }),
+    h('p', { text: 'ไฟล์ JSON รูปแบบเดียวกับ data/questions.json และ data/provinces.json (รวมข้อที่เป็นร่าง)' }),
+    h('div', { class: 'ad-bar' },
+      // inside a claude.ai artifact the frame refuses downloads: offer copy only
+      window.claude ? null : btn('ดาวน์โหลดคำถาม (' + A.questions.length + ')', () => download('allthai-questions-' + bangkokDate() + '.json', exportQs())),
+      window.claude ? null : btn('ดาวน์โหลดจังหวัด (' + A.provinces.length + ')', () => download('allthai-provinces-' + bangkokDate() + '.json', exportPs())),
+      btn('คัดลอกคำถามเป็น JSON', () => copyJSON(exportQs()), 'sm'),
+      btn('คัดลอกจังหวัดเป็น JSON', () => copyJSON(exportPs()), 'sm'))));
+}
+
+/* ---------------- mount ---------------- */
+async function mount() {
+  $('admin-app').hidden = false;
+  if (A.mounted) {
+    if (A.session && A.session.admin && A.view !== 'editor') await guard(async () => { await loadAll(); setView(A.view); });
+    return;
+  }
+  A.mounted = true;
+  shell();
+  try { A.session = await BE.session(); }
+  catch (e) { $('ad-main').innerHTML = ''; $('ad-main').append(h('div', { class: 'ad-card ad-login' }, h('h2', { text: 'เชื่อมต่อไม่สำเร็จ' }), h('p', { text: String(e.message || e) }))); A.mounted = false; return; }
+  await guard(afterSession);
+}
+return { mount };
+})();
+
+window.AllThaiAdmin = AllThaiAdmin;
+
+</script>
+<script>AllThaiAdmin.mount();</script>
+</body>
+</html>
