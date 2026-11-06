@@ -1,0 +1,13 @@
+import fs from 'fs';
+import * as topojson from 'topojson-client';
+const topo = JSON.parse(fs.readFileSync('prov_clean.topojson','utf8'));
+const layer = Object.keys(topo.objects)[0];
+const geoms = topo.objects[layer].geometries;
+const nb = topojson.neighbors(geoms);
+const iso = geoms.map(g => g.properties.shapeISO);
+const out = {};
+geoms.forEach((g,i) => out[iso[i]] = nb[i].map(j => iso[j]).sort());
+fs.writeFileSync('adjacency.json', JSON.stringify(out, null, 0));
+const isolated = Object.entries(out).filter(([k,v]) => v.length===0).map(([k])=>k);
+console.log('isolated', isolated);
+console.log('TH-20 Chonburi', out['TH-20']); console.log('TH-53 Uttaradit', out['TH-53']); console.log('TH-42 Loei', out['TH-42']); console.log('TH-77 Prachuap', out['TH-77']); console.log('TH-83 Phuket', out['TH-83']); console.log('TH-27 SaKaeo', out['TH-27']); console.log('TH-63 Tak', out['TH-63']);

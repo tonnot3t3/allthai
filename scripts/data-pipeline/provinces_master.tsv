@@ -1,0 +1,78 @@
+iso	id	name_th	name_en	region
+TH-10	bangkok	กรุงเทพมหานคร	Bangkok	กลาง
+TH-11	samut-prakan	สมุทรปราการ	Samut Prakan	กลาง
+TH-12	nonthaburi	นนทบุรี	Nonthaburi	กลาง
+TH-13	pathum-thani	ปทุมธานี	Pathum Thani	กลาง
+TH-14	ayutthaya	พระนครศรีอยุธยา	Phra Nakhon Si Ayutthaya	กลาง
+TH-15	ang-thong	อ่างทอง	Ang Thong	กลาง
+TH-16	lopburi	ลพบุรี	Lopburi	กลาง
+TH-17	sing-buri	สิงห์บุรี	Sing Buri	กลาง
+TH-18	chai-nat	ชัยนาท	Chai Nat	กลาง
+TH-19	saraburi	สระบุรี	Saraburi	กลาง
+TH-20	chonburi	ชลบุรี	Chonburi	ตะวันออก
+TH-21	rayong	ระยอง	Rayong	ตะวันออก
+TH-22	chanthaburi	จันทบุรี	Chanthaburi	ตะวันออก
+TH-23	trat	ตราด	Trat	ตะวันออก
+TH-24	chachoengsao	ฉะเชิงเทรา	Chachoengsao	ตะวันออก
+TH-25	prachinburi	ปราจีนบุรี	Prachinburi	ตะวันออก
+TH-26	nakhon-nayok	นครนายก	Nakhon Nayok	กลาง
+TH-27	sa-kaeo	สระแก้ว	Sa Kaeo	ตะวันออก
+TH-30	nakhon-ratchasima	นครราชสีมา	Nakhon Ratchasima	อีสาน
+TH-31	buriram	บุรีรัมย์	Buriram	อีสาน
+TH-32	surin	สุรินทร์	Surin	อีสาน
+TH-33	sisaket	ศรีสะเกษ	Sisaket	อีสาน
+TH-34	ubon-ratchathani	อุบลราชธานี	Ubon Ratchathani	อีสาน
+TH-35	yasothon	ยโสธร	Yasothon	อีสาน
+TH-36	chaiyaphum	ชัยภูมิ	Chaiyaphum	อีสาน
+TH-37	amnat-charoen	อำนาจเจริญ	Amnat Charoen	อีสาน
+TH-38	bueng-kan	บึงกาฬ	Bueng Kan	อีสาน
+TH-39	nong-bua-lamphu	หนองบัวลำภู	Nong Bua Lamphu	อีสาน
+TH-40	khon-kaen	ขอนแก่น	Khon Kaen	อีสาน
+TH-41	udon-thani	อุดรธานี	Udon Thani	อีสาน
+TH-42	loei	เลย	Loei	อีสาน
+TH-43	nong-khai	หนองคาย	Nong Khai	อีสาน
+TH-44	maha-sarakham	มหาสารคาม	Maha Sarakham	อีสาน
+TH-45	roi-et	ร้อยเอ็ด	Roi Et	อีสาน
+TH-46	kalasin	กาฬสินธุ์	Kalasin	อีสาน
+TH-47	sakon-nakhon	สกลนคร	Sakon Nakhon	อีสาน
+TH-48	nakhon-phanom	นครพนม	Nakhon Phanom	อีสาน
+TH-49	mukdahan	มุกดาหาร	Mukdahan	อีสาน
+TH-50	chiang-mai	เชียงใหม่	Chiang Mai	เหนือ
+TH-51	lamphun	ลำพูน	Lamphun	เหนือ
+TH-52	lampang	ลำปาง	Lampang	เหนือ
+TH-53	uttaradit	อุตรดิตถ์	Uttaradit	เหนือ
+TH-54	phrae	แพร่	Phrae	เหนือ
+TH-55	nan	น่าน	Nan	เหนือ
+TH-56	phayao	พะเยา	Phayao	เหนือ
+TH-57	chiang-rai	เชียงราย	Chiang Rai	เหนือ
+TH-58	mae-hong-son	แม่ฮ่องสอน	Mae Hong Son	เหนือ
+TH-60	nakhon-sawan	นครสวรรค์	Nakhon Sawan	กลาง
+TH-61	uthai-thani	อุทัยธานี	Uthai Thani	กลาง
+TH-62	kamphaeng-phet	กำแพงเพชร	Kamphaeng Phet	กลาง
+TH-63	tak	ตาก	Tak	ตะวันตก
+TH-64	sukhothai	สุโขทัย	Sukhothai	กลาง
+TH-65	phitsanulok	พิษณุโลก	Phitsanulok	กลาง
+TH-66	phichit	พิจิตร	Phichit	กลาง
+TH-67	phetchabun	เพชรบูรณ์	Phetchabun	กลาง
+TH-70	ratchaburi	ราชบุรี	Ratchaburi	ตะวันตก
+TH-71	kanchanaburi	กาญจนบุรี	Kanchanaburi	ตะวันตก
+TH-72	suphanburi	สุพรรณบุรี	Suphan Buri	กลาง
+TH-73	nakhon-pathom	นครปฐม	Nakhon Pathom	กลาง
+TH-74	samut-sakhon	สมุทรสาคร	Samut Sakhon	กลาง
+TH-75	samut-songkhram	สมุทรสงคราม	Samut Songkhram	กลาง
+TH-76	phetchaburi	เพชรบุรี	Phetchaburi	ตะวันตก
+TH-77	prachuap-khiri-khan	ประจวบคีรีขันธ์	Prachuap Khiri Khan	ตะวันตก
+TH-80	nakhon-si-thammarat	นครศรีธรรมราช	Nakhon Si Thammarat	ใต้
+TH-81	krabi	กระบี่	Krabi	ใต้
+TH-82	phang-nga	พังงา	Phang Nga	ใต้
+TH-83	phuket	ภูเก็ต	Phuket	ใต้
+TH-84	surat-thani	สุราษฎร์ธานี	Surat Thani	ใต้
+TH-85	ranong	ระนอง	Ranong	ใต้
+TH-86	chumphon	ชุมพร	Chumphon	ใต้
+TH-90	songkhla	สงขลา	Songkhla	ใต้
+TH-91	satun	สตูล	Satun	ใต้
+TH-92	trang	ตรัง	Trang	ใต้
+TH-93	phatthalung	พัทลุง	Phatthalung	ใต้
+TH-94	pattani	ปัตตานี	Pattani	ใต้
+TH-95	yala	ยะลา	Yala	ใต้
+TH-96	narathiwat	นราธิวาส	Narathiwat	ใต้

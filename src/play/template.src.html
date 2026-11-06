@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ออลไทย — เกมทายของดี 77 จังหวัด</title>
+<!--@@HEAD@@-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&amp;family=Mitr:wght@500;600&amp;display=swap">
+<style>
+/*@@STYLE@@*/
+</style>
+</head>
+<body>
+<noscript><p style="max-width:430px;margin:24px auto;padding:0 20px;font-family:sans-serif">ออลไทย เกมทายของดี 77 จังหวัดจากภาพและเบาะแส ทั้งอาหาร กีฬา เทศกาลและวัฒนธรรม และสถานที่ท่องเที่ยว ต้องเปิด JavaScript เพื่อเล่น</p></noscript>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 21s-6.5-6.2-6.5-11.2A6.5 6.5 0 0 1 12 3.3a6.5 6.5 0 0 1 6.5 6.5C18.5 14.8 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.5"/></g></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5.5a2.5 2.5 0 0 0 2.6 4M16 6h2.5a2.5 2.5 0 0 1-2.6 4M12 13v4M8.5 20h7M10 17h4"/></g></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><circle cx="12" cy="13.5" r="3.4"/><path d="M9 7l1.4-2.4h3.2L15 7"/></g></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-fit" viewBox="0 0 24 24"><path d="M4 9V5h4M16 4h4v4M20 15v4h-4M8 20H4v-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div id="app">
+  <!-- 1. หน้าแรก -->
+  <section id="s-home" class="screen on" aria-labelledby="home-title">
+    <div class="home-hero">
+      <svg class="ghost-map" id="ghost-map" viewBox="0 0 600 1080" aria-hidden="true"></svg>
+      <div class="logo-mark"><svg style="color:#fff"><use href="#i-pin"/></svg></div>
+      <h1 class="wordmark" id="home-title">ออลไทย</h1>
+      <p class="tagline">ทายของดี 77 จังหวัดจากเบาะแส</p>
+    </div>
+    <div class="spacer"></div>
+    <button class="mode-daily" id="btn-daily" type="button">
+      <span><h2>เล่นรายวัน</h2><p>4 ข้อ 4 หมวด ชุดเดียวกันทุกคน</p></span>
+      <span class="badge" id="daily-badge">วันนี้</span>
+    </button>
+    <button class="mode-unl" id="btn-unl" type="button">
+      <span><h2>เล่นไม่จำกัด</h2><p>สุ่มคำถามต่อไปเรื่อย ๆ</p></span>
+      <svg class="chev"><use href="#i-next"/></svg>
+    </button>
+    <div class="tiles">
+      <button class="tile" id="btn-board" type="button"><svg style="color:#B07A1C"><use href="#i-trophy"/></svg><h3>จัดอันดับ</h3><p>รายวัน และไม่จำกัด</p></button>
+      <button class="tile" id="btn-submit" type="button"><svg style="color:var(--rice)"><use href="#i-camera"/></svg><h3>แชร์ประสบการณ์</h3><p>ส่งภาพของดีบ้านคุณ ทีมงานตรวจก่อนใช้</p></button>
+    </div>
+    <p class="home-msg" id="home-msg" role="status" hidden></p>
+    <div class="nick-wrap">
+      <label for="nick">ชื่อที่จะขึ้นในอันดับ</label>
+      <input id="nick" type="text" maxlength="20" autocomplete="nickname" placeholder="ใส่ชื่อเล่นของคุณ">
+      <div class="nick-msg" id="nick-msg" aria-live="polite"></div>
+    </div>
+    <div class="foot">
+      <span>By Amarin Sappalikit</span>
+      <button class="linkish" id="btn-credits" type="button">เครดิตภาพ ข้อมูล และหมายเหตุต้นแบบ</button>
+      <p class="proto-note" id="proto-note"></p>
+    </div>
+  </section>
+
+  <!-- 2. คำถาม -->
+  <section id="s-question" class="screen" aria-labelledby="q-title">
+    <div class="topbar">
+      <button class="icon-btn" id="q-back" type="button" aria-label="กลับหน้าแรก"><svg><use href="#i-back"/></svg></button>
+      <span class="pill" id="q-pill">โหมดรายวัน · ข้อ 1/4</span>
+      <div class="score-box"><small>คะแนน</small><b class="num" id="q-score">0</b></div>
+    </div>
+    <div class="metaline"><span id="q-meta">ผู้เล่น · หมวด</span><span class="mult">ตัวคูณ<b class="num" id="q-mult">1.0</b></span></div>
+    <h2 class="q-title" id="q-title">เห็นภาพนี้แล้วจะนึกถึงจังหวัดไหน</h2>
+    <div class="clues" id="q-clues"></div>
+    <div class="spacer"></div>
+    <button class="btn primary block" id="q-go" type="button">ไปตอบบนแผนที่ <svg width="20" height="20"><use href="#i-next"/></svg></button>
+    <p class="note-center">เวลา 15 วินาทีเริ่มนับเมื่อเข้าหน้าตอบ</p>
+  </section>
+
+  <!-- 3. ตอบบนแผนที่ -->
+  <section id="s-answer" class="screen fixed" aria-labelledby="a-title">
+    <div class="ans-head">
+      <div class="who"><div id="a-who">ผู้เล่น</div><div id="a-progress">ข้อ 1/4 · คะแนน 0</div></div>
+      <div class="timer" id="timer" role="timer" aria-live="off">
+        <svg viewBox="0 0 66 66"><circle class="track" cx="33" cy="33" r="28"/><circle class="bar" id="timer-bar" cx="33" cy="33" r="28" stroke-dasharray="175.93" stroke-dashoffset="0"/></svg>
+        <div class="t"><span><b class="num" id="timer-num">15</b><small>วินาที</small></span></div>
+      </div>
+    </div>
+    <h2 id="a-title" style="font-size:24px">แตะจังหวัดเพื่อตอบ</h2>
+    <div class="map-panel" id="map-panel">
+      <div class="map-tools">
+        <button type="button" id="z-in" aria-label="ซูมเข้า"><svg><use href="#i-plus"/></svg></button>
+        <button type="button" id="z-out" aria-label="ซูมออก"><svg><use href="#i-minus"/></svg></button>
+        <button type="button" id="z-fit" aria-label="ดูทั้งประเทศ"><svg><use href="#i-fit"/></svg></button>
+      </div>
+      <div class="map-help">แตะเพื่อเลือก · สองนิ้วเพื่อซูม</div>
+    </div>
+    <div class="card choice"><span class="muted">คำตอบของคุณ</span><b id="a-choice" class="none">ยังไม่ได้เลือก</b></div>
+    <div class="row2">
+      <button class="btn" id="a-cards" type="button">ดูการ์ดอีกครั้ง</button>
+      <button class="btn primary" id="a-confirm" type="button" disabled>ยืนยันคำตอบ</button>
+    </div>
+    <div class="sheet-backdrop" id="sheet-bg">
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="การ์ดเบาะแส">
+        <div class="grip"></div>
+        <div class="metaline"><span>เวลายังเดินต่อ</span><span class="mult">ตัวคูณ<b class="num" id="sheet-mult">1.0</b></span></div>
+        <div class="clues" id="sheet-clues"></div>
+        <button class="btn primary block" id="sheet-close" type="button">กลับไปที่แผนที่</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. เฉลย -->
+  <section id="s-reveal" class="screen" aria-labelledby="rv-name">
+    <div class="rv-head"><span id="rv-who">ผู้เล่น</span><span>คะแนนรวม <b class="num" id="rv-total">0</b></span></div>
+    <div class="rv-answer" id="rv-answer"><p class="muted" id="rv-you">คุณตอบ – · คำตอบคือ</p><h1 id="rv-name">–</h1></div>
+    <div class="score-pair">
+      <div class="card" id="rv-acc"><small>ความถูกต้อง</small><b class="num" id="rv-acc-n">0</b><small id="rv-acc-sub">ตอบถูกได้ 1,000</small></div>
+      <div class="card" id="rv-ana"><small>การวิเคราะห์</small><b class="num" id="rv-ana-n">0</b><small id="rv-ana-sub">ตัวคูณการ์ด × 1.0</small></div>
+    </div>
+    <div class="card breakdown" id="rv-lines"></div>
+    <div class="mini-map" id="rv-map" aria-label="ตำแหน่งคำตอบบนแผนที่"></div>
+    <div class="legend"><span><i style="background:var(--rice)"></i>คำตอบที่ถูก</span><span><i style="background:var(--amber)"></i>จังหวัดที่คุณตอบ</span></div>
+    <article class="card facts-card" id="rv-facts"></article>
+    <div class="row2">
+      <button class="btn" id="rv-stop" type="button">เล่นแค่นี้</button>
+      <button class="btn primary" id="rv-next" type="button">เล่นต่อ</button>
+    </div>
+  </section>
+
+  <!-- 5. สรุปรายวัน + แชร์ -->
+  <section id="s-summary" class="screen" aria-labelledby="sum-title">
+    <div class="sum-top">
+      <span class="pill" id="sum-pill">โหมดรายวัน</span>
+      <h2 id="sum-title">จบรอบวันนี้แล้ว</h2>
+      <div class="big-score num" id="sum-score">0</div>
+      <p class="muted" id="sum-sub">จาก 4,000 คะแนน</p>
+    </div>
+    <div class="card cat-list" id="sum-cats"></div>
+    <div class="share-box" id="share-text"></div>
+    <a class="btn line block" id="share-line" href="#" target="_blank" rel="noopener">แชร์ทาง LINE</a>
+    <div class="row2">
+      <a class="btn" id="share-fb" href="#" target="_blank" rel="noopener">Facebook</a>
+      <button class="btn" id="share-copy" type="button">คัดลอกผล</button>
+    </div>
+    <div class="spacer"></div>
+    <div class="row2">
+      <button class="btn" id="sum-board" type="button">ดูอันดับ</button>
+      <button class="btn primary" id="sum-home" type="button">กลับหน้าแรก</button>
+    </div>
+  </section>
+
+  <!-- 6. จัดอันดับ -->
+  <section id="s-board" class="screen" aria-labelledby="board-title">
+    <div class="topbar">
+      <button class="icon-btn" id="b-back" type="button" aria-label="กลับ"><svg><use href="#i-back"/></svg></button>
+      <h1 id="board-title" style="font-size:30px">จัดอันดับ</h1>
+    </div>
+    <div class="seg" role="tablist">
+      <button type="button" role="tab" id="tab-daily" class="on" aria-selected="true">รายวัน</button>
+      <button type="button" role="tab" id="tab-unl" aria-selected="false">ไม่จำกัด</button>
+    </div>
+    <p class="muted small" id="b-rule"></p>
+    <div class="me-card" id="b-me"></div>
+    <div class="card" style="padding:12px 14px"><table class="board" id="b-table"></table></div>
+    <div class="board-src" id="b-src"><i></i><span></span></div>
+    <div class="spacer"></div>
+    <button class="btn block" id="b-cta" type="button">กลับมาเล่นพรุ่งนี้ หรือเล่นไม่จำกัด</button>
+  </section>
+
+  <!-- เครดิต -->
+  <section id="s-credits" class="screen" aria-labelledby="cr-title">
+    <div class="topbar">
+      <button class="icon-btn" id="cr-back" type="button" aria-label="กลับ"><svg><use href="#i-back"/></svg></button>
+      <h1 id="cr-title" style="font-size:26px">เครดิตและหมายเหตุ</h1>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:8px;font-size:15px">
+      <h3 style="font-size:19px">สถานะต้นแบบ</h3>
+      <p id="cr-status"></p>
+      <p>โปรไฟล์ 77 จังหวัด (ภาค ภาษาถิ่น ศาสนา ภูมิประเทศ อาชีพ) เป็นค่าร่าง ใช้คิดคะแนนส่วน A ระหว่างทดสอบ</p>
+      <p>คะแนนคิดในเครื่องผู้เล่น ยังไม่มีระบบกันโกง (ต้องย้ายไปคิดที่เซิร์ฟเวอร์ก่อนเปิดอันดับจริง)</p>
+    </div>
+    <div class="card"><h3 style="font-size:19px;margin-bottom:10px">ภาพ</h3><div class="credits-list" id="cr-images"></div></div>
+    <div class="card" style="font-size:14.5px;display:flex;flex-direction:column;gap:6px">
+      <h3 style="font-size:19px">แผนที่</h3>
+      <p id="cr-map"></p>
+      <p>ฟอนต์ IBM Plex Sans Thai และ Mitr (SIL Open Font License) ผ่าน Google Fonts</p>
+    </div>
+  </section>
+
+  <!-- 7. แชร์ประสบการณ์: ส่งภาพให้ทีมตรวจ -->
+  <section id="s-submit" class="screen" aria-labelledby="sub-title-h">
+    <div class="topbar">
+      <button class="icon-btn" id="sub-back" type="button" aria-label="กลับหน้าแรก"><svg><use href="#i-back"/></svg></button>
+      <h1 id="sub-title-h" style="font-size:28px">แชร์ประสบการณ์</h1>
+    </div>
+    <p class="sub-intro">ส่งภาพของดีจากจังหวัดที่คุณไปมา ทีมงานจะตรวจทุกภาพก่อนนำไปทำคำถาม ภาพจะยังไม่ขึ้นในเกมจนกว่าจะผ่านการตรวจ</p>
+    <p class="demo-note" id="sub-demo" hidden>โหมดสาธิต: ภาพเก็บในเบราว์เซอร์นี้เท่านั้น เปิดเว็บใส่ข้อมูลในเบราว์เซอร์เดียวกันเพื่อลองตรวจ</p>
+    <form id="sub-form" class="sub-form" novalidate>
+      <label class="photo-pick" for="sub-file">
+        <input id="sub-file" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif">
+        <span class="ph-empty" id="sub-empty"><svg><use href="#i-camera"/></svg><b>เลือกภาพหรือถ่ายภาพ</b><small>ภาพแนวนอนดีที่สุด · ด้านสั้นอย่างน้อย 400 พิกเซล</small></span>
+        <img id="sub-preview" alt="ภาพที่เลือก" hidden>
+        <span class="ph-change" id="sub-change" hidden>แตะเพื่อเปลี่ยนภาพ</span>
+      </label>
+      <p class="field-msg" id="sub-file-msg" aria-live="polite"></p>
+      <div class="field"><label for="sub-prov">จังหวัดในภาพ</label><select id="sub-prov" required><option value="">เลือกจังหวัด</option></select></div>
+      <div class="field"><label for="sub-cat">หมวด</label>
+        <select id="sub-cat"><option value="">ไม่แน่ใจ</option><option>อาหาร</option><option>กีฬา</option><option>เทศกาลและวัฒนธรรม</option><option>สถานที่ท่องเที่ยว</option></select></div>
+      <div class="field"><label for="sub-title">ในภาพคืออะไร</label><input id="sub-title" type="text" maxlength="80" placeholder="เช่น ขนมหม้อแกงร้านในตัวเมือง" required></div>
+      <div class="field"><label for="sub-desc">เล่าสั้น ๆ <small>ไม่บังคับ</small></label><textarea id="sub-desc" maxlength="500" rows="3" placeholder="ถ่ายที่ไหน มีอะไรน่าสนใจ"></textarea></div>
+      <div class="field"><label for="sub-when">ถ่ายเมื่อ <small>ไม่บังคับ</small></label><input id="sub-when" type="text" maxlength="40" placeholder="เช่น เมษายน 2568"></div>
+      <div class="field"><label for="sub-credit">ชื่อที่จะใส่ในเครดิตภาพ</label><input id="sub-credit" type="text" maxlength="60" autocomplete="nickname" required></div>
+      <div class="field"><label for="sub-contact">ช่องทางติดต่อ <small>ไม่บังคับ</small></label><input id="sub-contact" type="text" maxlength="120" placeholder="อีเมล หรือ LINE ID">
+        <small class="muted">ใช้ติดต่อเรื่องภาพนี้เท่านั้น ไม่แสดงในเกม</small></div>
+      <fieldset class="consents">
+        <legend>ยืนยันก่อนส่ง</legend>
+        <label><input type="checkbox" id="c-owner"><span>ฉันเป็นคนถ่ายภาพนี้เอง</span></label>
+        <label><input type="checkbox" id="c-license"><span>อนุญาตให้ออลไทยใช้ภาพนี้แบบไม่ผูกขาด รวมถึงเชิงพาณิชย์ ครอปและปรับขนาดได้ โดยใส่ชื่อเครดิตของฉัน</span></label>
+        <label><input type="checkbox" id="c-people"><span>ในภาพไม่มีใบหน้าคนที่จำได้ชัด หรือคนในภาพอนุญาตแล้ว</span></label>
+      </fieldset>
+      <p class="muted small">ระบบย่อภาพและลบข้อมูลตำแหน่ง (GPS) กับข้อมูลกล้องออกก่อนส่ง</p>
+      <button class="btn primary block" id="sub-send" type="submit" disabled>ส่งให้ทีมตรวจ</button>
+      <p class="field-msg bad" id="sub-missing" aria-live="polite"></p>
+    </form>
+    <div class="card my-subs" id="my-subs" hidden><h3>ภาพที่คุณส่ง</h3><div id="my-subs-list"></div></div>
+  </section>
+
+  <div class="modal-backdrop" id="modal-bg"><div class="modal" role="dialog" aria-modal="true" id="modal"></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script src="config.js"></script>
+<script>
+/*@@SCORING@@*/
+</script>
+<script>
+/*@@BACKEND@@*/
+</script>
+<script>
+/*@@APP@@*/
+</script>
+</body>
+</html>
